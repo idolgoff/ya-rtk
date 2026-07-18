@@ -8,6 +8,7 @@ Filters for Arcadia meta-tools. Design: **envelope + inner-runner** (see [`ya-ro
 |--------|---------|-------|
 | `ya_cmd.rs` | `ya` | 1–3 — classify + test-mode filter / else passthrough |
 | `envelope.rs` | — | 2–3 — framing + dispatch by `detect` |
+| `framing.rs` | — | shared suite/chunk/totals keep rules |
 | `detect.rs` | — | 3 — fingerprint inner runner from output |
 | `adapters/generic_fail.rs` | — | 2 — S0-T5 per-`[fail]` compact |
 | `adapters/py3test.rs` | — | 3 — convert ya fails → reuse `filter_pytest_output` |

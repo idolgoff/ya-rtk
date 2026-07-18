@@ -7,7 +7,7 @@ use crate::cmds::python::pytest_cmd::filter_pytest_output;
 use crate::cmds::yandex::adapters::generic_fail::{
     split_fail_sections, MAX_FAIL_BLOCKS,
 };
-use crate::cmds::yandex::envelope::keep_framing_line;
+use crate::cmds::yandex::framing::keep_framing_line;
 
 /// Filter py3test-shaped `ya` output. Returns `None` when there are no `[fail]`
 /// blocks so the caller can use the generic no-fail envelope path.
@@ -35,12 +35,15 @@ pub fn filter_py3test(raw: &str) -> Option<(String, bool)> {
         out.push(pytest_out);
     }
 
-    // Always keep Logsdir / Log paths from fail blocks (pytest path drops them)
+    // Keep Log: (per fail) and Logsdir: (deduped) — pytest path drops them
     let mut seen_logsdir = std::collections::HashSet::new();
     for block in blocks.iter().take(take_n) {
         for line in block.iter() {
             let t = line.trim_start();
-            if t.starts_with("Logsdir:") && seen_logsdir.insert(t.to_string()) {
+            let keep_log = t.starts_with("Log:");
+            let keep_logsdir =
+                t.starts_with("Logsdir:") && seen_logsdir.insert(t.to_string());
+            if keep_log || keep_logsdir {
                 out.push(line.trim_end().to_string());
             }
         }
@@ -144,6 +147,7 @@ mod tests {
             "node id must survive pytest compression\n{out}"
         );
         assert!(out.contains("Logsdir:"), "Logsdir must remain\n{out}");
+        assert!(out.contains("Log:"), "Log: path must remain\n{out}");
         assert!(
             out.contains("[FAIL]") || out.contains("failed"),
             "failure signal expected\n{out}"

@@ -8,6 +8,7 @@ use crate::cmds::yandex::adapters::generic_fail::{
 };
 use crate::cmds::yandex::adapters::py3test::filter_py3test;
 use crate::cmds::yandex::detect::{detect_inner_runner, InnerRunner};
+use crate::cmds::yandex::framing::keep_framing_line;
 use crate::core::tee::force_tee_hint;
 use crate::core::utils::strip_ansi;
 use lazy_static::lazy_static;
@@ -248,37 +249,6 @@ fn shorten_import_error(t: &str) -> String {
     format!("{file}: could not import …/{pkg}")
 }
 
-/// Whether a line is Arcadia envelope framing worth keeping.
-pub(crate) fn keep_framing_line(line: &str, _has_fails: bool) -> bool {
-    let t = line.trim_start();
-    if t.is_empty() {
-        return false;
-    }
-    // Suite identity headers (must run before the generic `------` chunk rule —
-    // `------- [TM]` also starts with `------`).
-    if t.contains("[TM]") || t.starts_with("------- [GO]") || t.starts_with("------- [PB]") {
-        return true;
-    }
-    if t.starts_with("------") {
-        return t.contains("chunk ran") || t.contains("FAIL") || t.contains("sole chunk");
-    }
-    if t.starts_with("Total ") {
-        return true;
-    }
-    if t.contains("<py3test>") || t.contains("<go_test>") || t.contains("<gtest>") {
-        return true;
-    }
-    if t.chars().next().is_some_and(|c| c.is_ascii_digit()) && t.contains(" - FAIL") {
-        return true;
-    }
-    if line.starts_with("        ")
-        && (t.contains("FAIL") || t.contains("GOOD") || t.contains("SKIP"))
-    {
-        return true;
-    }
-    false
-}
-
 fn keep_failure_signal(t: &str) -> bool {
     t.starts_with("Error[")
         || t.starts_with("Failed")
@@ -388,7 +358,10 @@ mod tests {
         let raw =
             include_str!("../../../tests/fixtures/ya/make_t_py_fail_large_logsdir_chunk_slice_raw.txt");
         let out = filter_ya_envelope(raw);
-        assert!(out.contains("[fail]") || out.contains("[TM]"));
+        assert!(
+            out.contains("[FAIL]") || out.contains("failed"),
+            "expected failure signal\n{out}"
+        );
         assert_min_savings(raw, &out, 60.0);
     }
 
@@ -445,7 +418,6 @@ mod tests {
         let raw = include_str!("../../../tests/fixtures/ya/make_t_py_pass_or_mixed_raw.txt");
         assert_eq!(detect_inner_runner(raw), InnerRunner::Py3test);
         let out = filter_ya_envelope(raw);
-        eprintln!("G4 OUT:\n{out}");
         assert!(
             out.contains("[TM]") || out.contains("py3test") || out.contains("Total "),
             "expected framing\n{out}"
