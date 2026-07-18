@@ -1,0 +1,37 @@
+
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/storage.entities.test_checkout_order.py.test_base_order_conversion.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+[timeout] storage.gateways.test_orders_report.py::test_find_by_merchant_id [default-darwin-arm64-debug] (4.82s) Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/storage.gateways.test_orders_report.py.test_find_by_merchant_id.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+------ [9/10] chunk ran 722 tests (total:468.84s - recipes:30.25s test:436.36s recipes:2.16s)
+[fail] storage.mappers.test_checkout_order_mapper.py::test_get_cart_version_release [default-darwin-arm64-debug] (0.08s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:127: in test_get_cart_version_release
+    result = StorageCart.from_jsonb(pre_version_cart)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/entity.py:44: in from_jsonb
+    params_parsed = cls.schema_load(constructor_params=constructor_params)
+pay/lib/schemas/pydantic_base.py:61: in schema_load
+    return super().schema_load(constructor_params=constructor_params)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/entity.py:64: in schema_load
+    return cls.schema_instance().load(constructor_params)
+contrib/python/marshmallow/py3/marshmallow/schema.py:792: in load
+    return self._do_load(
+contrib/python/marshmallow/py3/marshmallow/schema.py:999: in _do_load
+    raise exc
+E   marshmallow.exceptions.ValidationError: {'country': ['Field may not be null.']}
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_get_cart_version_release.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_get_cart_version_release__semivalid [default-darwin-arm64-debug] (0.09s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:151: in test_get_cart_version_release__semivalid
+    result = StorageCart.from_jsonb(versioned_cart)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/entity.py:44: in from_jsonb
+    params_parsed = cls.schema_load(constructor_params=constructor_params)
+pay/lib/schemas/pydantic_base.py:61: in schema_load
+    return super().schema_load(constructor_params=constructor_params)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/entity.py:64: in schema_load
+    return cls.schema_instance().load(constructor_params)
+contrib/python/marshmallow/py3/marshmallow/schema.py:792: in load
+    return self._do_load(
+contrib/python/marshmallow/py3/marshmallow/schema.py:999: in _do_load

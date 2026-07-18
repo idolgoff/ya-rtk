@@ -1,0 +1,164 @@
+
+Warn[-WUserWarn]: in $S/pay/lib/go/eventsio/v2/postgres/gotest/ya.make: BUILD_ONLY_IF: $S/pay/lib/go/eventsio/v2/postgres/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/lib/go/eventsio/v1/postgres/gotest/ya.make: BUILD_ONLY_IF: $S/pay/lib/go/eventsio/v1/postgres/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+------- [TS] {default-darwin-arm64, release} pay/lib/go/interactions/cleanweb/impl/gotest/gotest
+Test command err:
+Traceback (most recent call last):
+  File "contrib/tools/python3/Lib/runpy.py", line 203, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+                     "__main__", mod_spec)
+  File "contrib/tools/python3/Lib/runpy.py", line 88, in _run_code
+    exec(code, run_globals)
+    ~~~~^^^^^^^^^^^^^^^^^^^
+  File "devtools/ya/test/programs/test_tool/bin/__main__.py", line 5, in <module>
+    exit(executor())
+         ~~~~~~~~^^
+  File "contrib/python/contextlib2/py3/contextlib2/__init__.py", line 183, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "devtools/ya/test/programs/test_tool/main_entry_point/__init__.py", line 38, in configure_params
+    yield CtxParams(args)
+  File "devtools/ya/test/programs/test_tool/main_entry_point/__init__.py", line 57, in helper
+    return run()
+  File "devtools/ya/test/programs/test_tool/lib/__init__.py", line 51, in run
+    rc = module.main()
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 806, in main
+    run_tests(args)
+    ~~~~~~~~~^^^^^^
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 597, in run_tests
+    tests, deselected = get_tests(opts, opts.wine_path)
+                        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 133, in get_tests
+    res = process.execute(cmd, stderr=stderr, env=os.environ)
+  File "devtools/ya/test/system/process/__init__.py", line 48, in execute
+    return yatest.common.execute(**_locals)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 656, in execute
+    res.wait(check_exit_code, timeout, on_timeout)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 410, in wait
+    self._finalise(check_exit_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 421, in _finalise
+    raise ExecutionError(self)
+yatest.common.process.ExecutionError: Command '/Users/user/.ya/build/build_root/6dns/000850/pay/lib/go/interactions/cleanweb/impl/gotest/gotest -test.list .' has failed with code 2.
+Errors:
+panic: listen tcp 127.0.0.1:8079: bind: address already in use
+
+goroutine 54 [running]:
+a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.(*mockServer).start(0x105abdbc0)
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:59 +0x138
+created by a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.TestMain in goroutine 1
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:27 +0x70
+------- [TM] {default-darwin-arm64, release} pay/lib/tests/unit/py3test >> interactions.test_split.py::TestInitUserCon
+Test command err:
+contrib/python/ydb/py3/ydb/__init__.py:61: UserWarning: Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior
+contrib/python/ydb/py3/ydb/global_settings.py:22: UserWarning: Global allow split transaction is deprecated behaviour.
+contrib/python/ydb/py3/ydb/global_settings.py:12: UserWarning: Global allow truncated response is deprecated behaviour.
+Number of suites skipped for reason 'Временно не рабочий тест из сломанного рецепта': 1, skipped by name: 352, by filter *TestInitUserConfirmation*
+
+pay/lib/go/interactions/cleanweb/impl/gotest <go_test>
+------ sole chunk ran 0 tests (total:4.82s - setup:0.02s test:4.78s)
+Test failed with 255 exit code. See logs for more info
+Run failed with exit code 255
+2026-07-17 13:31:13,585: DEBUG: Executing '['/Users/user/arcadia/pay/lib/go/interactions/cleanweb/impl/gotest/gotest', '-test.list', '.']' in 'None' (waiting)
+2026-07-17 13:31:13,589: DEBUG: Command pid: 41435
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) rc: 2
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) elapsed time (sec): 4.492811918258667
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) idrss: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) inblock: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) isrss: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) ixrss: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) majflt: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) maxrss: 43057152
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) minflt: 3554
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) msgrcv: 9
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) msgsnd: 9
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) nivcsw: 312
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) nsignals: 11
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) nswap: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) nvcsw: 6
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) oublock: 0
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) stime: 0.016692
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) utime: 0.010244999999999999
+2026-07-17 13:31:18,082: DEBUG: Command (pid 41435) wtime: 4.497
+2026-07-17 13:31:18,083: DEBUG: Command (pid 41435) output:
+
+2026-07-17 13:31:18,083: DEBUG: Command (pid 41435) errors:
+panic: listen tcp 127.0.0.1:8079: bind: address already in use
+
+goroutine 54 [running]:
+a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.(*mockServer).start(0x105abdbc0)
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:59 +0x138
+created by a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.TestMain in goroutine 1
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:27 +0x70
+
+2026-07-17 13:31:18,083: ERROR: Execution failed with exit code: 2
+	,std_out:
+	std_err:panic: listen tcp 127.0.0.1:8079: bind: address already in use
+
+goroutine 54 [running]:
+a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.(*mockServer).start(0x105abdbc0)
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:59 +0x138
+created by a.yandex-team.ru/pay/lib/go/interactions/cleanweb/imp
+..[snippet truncated]..
+s(args)
+  File "devtools/ya/test/programs/test_tool/main_entry_point/__init__.py", line 57, in helper
+    return run()
+  File "devtools/ya/test/programs/test_tool/lib/__init__.py", line 51, in run
+    rc = module.main()
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 806, in main
+    run_tests(args)
+    ~~~~~~~~~^^^^^^
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 597, in run_tests
+    tests, deselected = get_tests(opts, opts.wine_path)
+                        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "devtools/ya/test/programs/test_tool/run_go_test/run_go_test.py", line 133, in get_tests
+    res = process.execute(cmd, stderr=stderr, env=os.environ)
+  File "devtools/ya/test/system/process/__init__.py", line 48, in execute
+    return yatest.common.execute(**_locals)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 656, in execute
+    res.wait(check_exit_code, timeout, on_timeout)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 410, in wait
+    self._finalise(check_exit_code)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "library/python/testing/yatest_common/yatest/common/process.py", line 421, in _finalise
+    raise ExecutionError(self)
+yatest.common.process.ExecutionError: Command '/Users/user/arcadia/pay/lib/go/interactions/cleanweb/impl/gotest/gotest -test.list .' has failed with code 2.
+Errors:
+panic: listen tcp 127.0.0.1:8079: bind: address already in use
+
+goroutine 54 [running]:
+a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.(*mockServer).start(0x105abdbc0)
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:59 +0x138
+created by a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.TestMain in goroutine 1
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:27 +0x70
+Test wrapper's stderr tail:
+50/pay/lib/go/interactions/cleanweb/impl/gotest/gotest -test.list .' has failed with code 2.
+Errors:
+panic: listen tcp 127.0.0.1:8079: bind: address already in use
+
+goroutine 54 [running]:
+a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.(*mockServer).start(0x105abdbc0)
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:59 +0x138
+created by a.yandex-team.ru/pay/lib/go/interactions/cleanweb/impl.TestMain in goroutine 1
+	/-S/pay/lib/go/interactions/cleanweb/impl/impl_test.go:27 +0x70
+Log: /Users/user/arcadia/pay/lib/go/interactions/cleanweb/impl/gotest/test-results/gotest/run_test.log
+Logsdir: /Users/user/arcadia/pay/lib/go/interactions/cleanweb/impl/gotest/test-results/gotest/testing_out_stuff
+Stderr: /Users/user/arcadia/pay/lib/go/interactions/cleanweb/impl/gotest/test-results/gotest/testing_out_stuff/stderr
+------ FAIL pay/lib/go/interactions/cleanweb/impl/gotest
+
+Total 3 suites:
+	2 - GOOD
+	1 - FAIL
+Total 5 tests:
+	5 - GOOD
+Failed
+
+---
+exit_code: 10
+elapsed_ms: 274180
+ended_at: 2026-07-17T10:32:09.806Z
+---

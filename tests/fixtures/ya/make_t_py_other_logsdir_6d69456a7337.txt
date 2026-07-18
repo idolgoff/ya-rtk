@@ -1,0 +1,15 @@
+
+    from billing.yandex_pay_plus.yandex_pay_plus.schemas.storage_cart import StorageCartSchema
+  File "billing/yandex_pay_plus/yandex_pay_plus/schemas/storage_cart.py", line 11, in <module>
+    from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.checkout_order import StorageCart
+ImportError: cannot import name 'StorageCart' from partially initialized module 'billing.yandex_pay_plus.yandex_pay_plus.storage.entities.checkout_order' (most likely due to a circular import) (billing/yandex_pay_plus/yandex_pay_plus/storage/entities/checkout_order.py)
+Test wrapper's stderr tail:
+rage_cart import StorageCartSchema
+  File "billing/yandex_pay_plus/yandex_pay_plus/schemas/storage_cart.py", line 11, in <module>
+    from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.checkout_order import StorageCart
+ImportError: cannot import name 'StorageCart' from partially initialized module 'billing.yandex_pay_plus.yandex_pay_plus.storage.entities.checkout_order' (most likely due to a circular import) (billing/yandex_pay_plus/yandex_pay_plus/storage/entities/checkout_order.py)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/stderr
+------ FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit
+

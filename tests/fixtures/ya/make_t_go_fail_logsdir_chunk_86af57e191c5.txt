@@ -1,0 +1,54 @@
+
+pay/receiptron/pkg/core/actions/fes/gotest <go_test> [size:medium]
+------ sole chunk ran 15 tests (total:3.75s - setup:0.03s test:3.71s)
+[fail] gotest::TestSendFESJobBatchAction_UZB_DispatchesToUZB [default-darwin-arm64-debug] (0.00s)
+send_fes_job_batch_test.go:326: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:326
+                Error:          Should be true
+                Test:           TestSendFESJobBatchAction_UZB_DispatchesToUZB
+                Messages:       expected CreateReceiptUZB to be called
+    send_fes_job_batch_test.go:327: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:327
+                Error:          Not equal: 
+                                expected: "income"
+                                actual  : ""
+                            
+                                Diff:
+                                --- Expected
+                                +++ Actual
+                                @@ -1,2 +1,2 @@
+                                -(uz.ReceiptType) (len=6) "income"
+                                +(uz.ReceiptType) ""
+                                 
+                Test:           TestSendFESJobBatchAction_UZB_DispatchesToUZB
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestSendFESJobBatchAction_UZB_DispatchesToUZB.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestSendFESJobBatchAction_UZB_Refund_RecordsFlowRefund [default-darwin-arm64-debug] (0.00s)
+send_fes_job_batch_test.go:377: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:377
+                Error:          Should be true
+                Test:           TestSendFESJobBatchAction_UZB_Refund_RecordsFlowRefund
+    send_fes_job_batch_test.go:378: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:378
+                Error:          Not equal: 
+                                expected: "return_income"
+                                actual  : ""
+                            
+                                Diff:
+                                --- Expected
+                                +++ Actual
+                                @@ -1,2 +1,2 @@
+                                -(uz.ReceiptType) (len=13) "return_income"
+                                +(uz.ReceiptType) ""
+                                 
+                Test:           TestSendFESJobBatchAction_UZB_Refund_RecordsFlowRefund
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestSendFESJobBatchAction_UZB_Refund_RecordsFlowRefund.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+------ FAIL: 13 - GOOD, 2 - FAIL pay/receiptron/pkg/core/actions/fes/gotest
+
+Total 86 suites:
+        85 - GOOD
+        1 - FAIL
+Total 370 tests:
+        368 - GOOD
+        2 - FAIL

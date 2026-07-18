@@ -1,0 +1,143 @@
+
+------ [2/10] chunk ran 680 tests (total:565.56s - setup:0.06s recipes:34.50s test:528.76s recipes:2.17s)
+[fail] core.actions.eventbus.test_report_order_operation_status_changed_task.py::test_proto_message_for_uz_refund_operation [default-darwin-arm64-debug] (0.09s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/eventbus/test_report_order_operation_status_changed_task.py:447: in test_proto_message_for_uz_refund_operation
+    assert_that(
+E   AssertionError: 
+E   Expected: a dictionary containing {'operation_type': 'OPERATION_TYPE_REFUND', 'uz_refund_data': a dictionary containing {'items': a sequence containing [a dictionary containing {'marking_codes': <['123456789012345678901']>, 'measure': ANYTHING, 'price': '50.00', 'qty': '2', 'spic_code': '12345678901234567', 'tax_type': 'UZ_TAX_TYPE_VAT_12', 'text': 'Uz title', 'tin_or_pinfl': '123456789'}]}}
+E        but: value for 'uz_refund_data' value for 'items' item 0: no 'measure' key in <{'price': '50.00', 'qty': '2', 'tax_type': 'UZ_TAX_TYPE_VAT_12', 'text': 'Uz title', 'spic_code': '12345678901234567', 'tin_or_pinfl': '123456789', 'marking_codes': ['123456789012345678901']}>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk2/testing_out_stuff/core.actions.eventbus.test_report_order_operation_status_changed_task.py.test_proto_message_for_uz_refund_operation.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk2/testing_out_stuff
+------ [4/10] chunk ran 777 tests (total:572.84s - setup:0.06s recipes:35.20s test:535.19s recipes:2.30s)
+[fail] core.actions.merchant_sku.test_refund_line_items_calculator_registry.py::test_registry_returns_none_for_mixed_receipt_types [default-darwin-arm64-debug] (0.08s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_sku/test_refund_line_items_calculator_registry.py:85: in test_registry_returns_none_for_mixed_receipt_types
+    assert_that(calculator, is_(none()))
+E   AssertionError: 
+E   Expected: None
+E        but: was <billing.yandex_pay_plus.yandex_pay_plus.core.actions.merchant_sku.calculate_refund_line_items.StandardRefundLineItemsCalculator object at 0x13ab4f150>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk4/testing_out_stuff/core.actions.merchant_sku.test_refund_line_items_calculator_registry.py.test_registry_returns_none_for_mixed_receipt_types.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk4/testing_out_stuff
+------ [5/10] chunk ran 1484 tests (total:641.03s - setup:0.01s recipes:35.40s test:600.02s recipes:1.90s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+core.actions.psp.ops.test_wait.py::TestWaitAction::test_wait_result_schedules_self (timeout) duration: 3.74s
+core.actions.personal_offers.test_internal_offers.py::test_raises_offer_not_found_error (good) duration: 1.88s
+core.actions.merchant_sku.test_validate_and_fix_updated_sku_cart.py::test_rewrite_changed_modifier[added_modifier_value] (good) duration: 1.20s
+core.actions.operation.test_assign_status.py::test_assign_order_operation_status_action_assigns_status (good) duration: 0.92s
+core.actions.psp.ops.test_psp_base.py::TestProcessDelivery::test_calls_create_claim[True-yd_shipping_method] (good) duration: 0.83s
+core.actions.psp.ops.prepayment.test_wait_card_challenge_start.py::TestWaitCardChallengeStartAction::test_success_result_schedules_user_prescore_challenge (good) duration: 0.75s
+core.actions.psp.ops.test_hold.py::TestHoldAction::test_calls_processing_double_stage_with_payment_amount (good) duration: 0.72s
+core.actions.psp.ops.test_clear.py::TestClearActions::test_success_without_going_to_processing_with_metadata (good) duration: 0.71s
+core.actions.psp.ops.test_psp_base.py::TestProcessSubscription::test_calls_rollback_when_card_authorizing (good) duration: 0.65s
+core.actions.psp.ops.prepayment.test_wait_card_challenge_result.py::TestWaitCardChallengeStartAction::test_success_result_schedules_user_prescore_challenge (good) duration: 0.65s
+1064 more tests with 252.84s total duration are not listed.
+410 tests were not launched inside chunk.
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff/stderr
+[timeout] core.actions.psp.ops.test_wait.py::TestWaitAction::test_wait_result_schedules_self [default-darwin-arm64-debug] (3.74s) Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff/core.actions.psp.ops.test_wait.py.TestWaitAction.test_wait_result_schedules_self.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ [7/10] chunk ran 1441 tests (total:640.59s - setup:0.06s recipes:33.45s test:600.04s recipes:1.87s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+core.actions.test_button_bootstrap.py::test_lootbox_merchants_whitelist[True-merchants_whitelist2-False] (good) duration: 1.44s
+core.actions.transaction.test_change_payment_status_action.py::TestNotifyNSPKFinalPaymentStatuses::test_report_to_nspk_scheduled_payoffline[statuses0-PaymentStatus.CAPTURED-OperationStatus.SUCCESS] (good) duration: 1.10s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[100-CorePaymentMethodType.UNIQR_REUSABLE-True] (good) duration: 1.08s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[100-CorePaymentMethodType.UNIQR_REUSABLE-False] (good) duration: 1.01s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[100-CorePaymentMethodType.UNIQR_ONETIME-True] (good) duration: 1.01s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[0-CorePaymentMethodType.UNIQR_REUSABLE-False] (good) duration: 1.01s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_when_switch_to_sbp[0-CorePaymentMethodType.UNIQR_REUSABLE-True] (good) duration: 1.01s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[0-CorePaymentMethodType.UNIQR_ONETIME-True] (good) duration: 0.98s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[100-CorePaymentMethodType.UNIQR_ONETIME-False] (good) duration: 0.98s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_when_switch_to_sbp_anon[0-CorePaymentMethodType.UNIQR_REUSABLE-True] (good) duration: 0.94s
+720 more tests with 253.84s total duration are not listed.
+711 tests were not launched inside chunk.
+Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/stderr
+[fail] core.actions.transaction.test_create.py::test_not_fail_when_merchant_use_payment_whitelist_feature_disabled[0] [default-darwin-arm64-debug] (0.31s)
+mail/python/sendr_qtools/src/sendr_core/action.py:113: in _wrap_exception
+    yield
+mail/python/sendr_qtools/src/sendr_core/action.py:106: in _run
+    result = await self.handle()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/create/v1.py:326: in handle
+    await self.storage.checkout_order.save(checkout_order)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base_tracing.py:56: in async_wrapper
+    return await func(self, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/checkout_order.py:102: in save
+    return await super().save(entity, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base_tracing.py:48: in async_wrapper
+    return await func(self, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base.py:51: in save
+    return await super().save(entity, ignore_fields=('created', *self._builder.id_fields, *ignore_fields))
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:218: in save
+    return mapper(await self._query_one(query))
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:140: in _query_one
+    return await super()._query_one(query, params=params, raise_=raise_)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:64: in _query_one
+    db_result = await self.conn.execute(query, params)
+contrib/python/aiopg/aiopg/sa/connection.py:121: in _execute
+    compiled = query.compile(
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/elements.py:503: in compile
+    return self._compiler(dialect, **kw)
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/elements.py:567: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/compiler.py:809: in __init__
+    Compiled.__init__(self, dialect, statement, 
+..[snippet truncated]..
+python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/elements.py:1644: in _with_binary_element_type
+    def _with_binary_element_type(self, type_):
+library/python/pytest/plugins/ya.py:350: in _graceful_shutdown
+    _graceful_shutdown_on_log(not capman.is_globally_capturing())
+library/python/pytest/plugins/ya.py:322: in _graceful_shutdown_on_log
+    pytest.exit("Graceful shutdown requested")
+E   _pytest.outcomes.Exit: Graceful shutdown requested
+
+The above exception was the direct cause of the following exception:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_create.py:4208: in test_not_fail_when_merchant_use_payment_whitelist_feature_disabled
+    await CreateTransactionAction(**params).run()
+mail/python/sendr_qtools/src/sendr_core/action.py:86: in run
+    return await task
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/base.py:211: in _run
+    return await super()._run()
+mail/python/sendr_qtools/src/sendr_core/action.py:106: in _run
+    result = await self.handle()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/create/proxy.py:23: in handle
+    result = await CreateTransactionActionOld(**self.data).run()
+mail/python/sendr_qtools/src/sendr_core/action.py:86: in run
+    return await task
+mail/python/sendr_qtools/src/sendr_aiopg/action.py:81: in _run
+    return await super()._run()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/base.py:211: in _run
+    return await super()._run()
+mail/python/sendr_qtools/src/sendr_core/action.py:102: in _run
+    self._wrap_exception(),
+contrib/tools/python3/Lib/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+mail/python/sendr_qtools/src/sendr_core/action.py:120: in _wrap_exception
+    raise CoreFailError from exc
+E   mail.python.sendr_qtools.src.sendr_core.exceptions.CoreFailError
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/core.actions.transaction.test_create.py.test_not_fail_when_merchant_use_payment_whitelist_feature_disabled.0.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+------ [8/10] chunk ran 1345 tests (total:638.93s - setup:0.06s recipes:32.69s test:600.10s recipes:1.88s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+storage.entities.test_storage_risk_info.py::test_sets_merchant_data_when_merchant_provided (timeout) duration: 4.08s
+core.processings.yandex_psp.test_card.py::TestRefund::test_success_composite_payment (good) duration: 1.54s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client_composite_payment (good) duration: 1.50s
+core.processings.yandex_psp.test_card.py::TestRefund::test_failure_on_second_payment (good) duration: 1.49s
+core.processings.yandex_psp.test_card.py::TestRefund::test_success (good) duration: 1.49s
+core.eventbus.publishers.test_send_delayed_order_cancelled_events.py::TestSendDelayedOrderCancelledNotificationsAction::test_does_not_publish_event_when_flag_disabled[flag_disabled] (good) duration: 1.44s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart0-output_cart0] (good) duration: 1.42s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart3-output_cart3] (good) duration: 1.41s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart4-output_cart4] (good) duration: 1.39s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart1-output_cart1] (good) duration: 1.38s
+1306 more tests with 262.65s total duration are not listed.
+29 tests were not launched inside chunk.
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/stderr
+[timeout] storage.entities.test_storage_risk_info.py::test_sets_merchant_data_when_merchant_provided [default-darwin-arm64-debug] (4.08s) Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/storage.entities.test_storage_risk_info.py.test_sets_merchant_data_when_merchant_provided.log

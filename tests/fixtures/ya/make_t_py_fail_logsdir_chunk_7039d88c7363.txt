@@ -1,0 +1,76 @@
+
+make: Nothing to be done for `yandex_pay_plus/tests/unit/api/handlers/internal/test_merchant_orders.py'.
+➜  yandex_pay_plus arc:(feat/YANDEXPAY-25378-uz-order-create-api-3) ✗ ya make -t                                                                            
+Number of suites skipped by size: 4
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit <black> nchunks:20
+------ [12/20] chunk ran 39 tests (total:6.61s - setup:0.06s test:6.52s)
+[fail] api/schemas/internal/test_create_order_request_internal_receipt_uzb.py::black [default-darwin-arm64-debug] (0.58s)
+Run ya style billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/schemas/internal/test_create_order_request_internal_receipt_uzb.py to fix format
+@@ -4,11 +4,13 @@
+ from pay.lib.entities.receipt import TaxType as RusTaxType
+ from pay.lib.entities.receipt_uzb import ItemReceiptUZ
+ from pay.lib.entities.receipt_uzb import TaxType as UzbTaxType
+ 
+ from billing.yandex_pay_plus.yandex_pay_plus.api.schemas.merchant.order import CreateOrderRequestSchemaInternal
+-from billing.yandex_pay_plus.yandex_pay_plus.core.entities.merchant_order import CreatePSPLikeMerchantOrderInternalRequest
++from billing.yandex_pay_plus.yandex_pay_plus.core.entities.merchant_order import (
++    CreatePSPLikeMerchantOrderInternalRequest,
++)
+ 
+ 
+ def _loaded_internal_request(body):
+     loaded = CreateOrderRequestSchemaInternal().load(body)
+     if isinstance(loaded, CreatePSPLikeMerchantOrderInternalRequest):
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/black/chunk12/testing_out_stuff
+------ [3/20] chunk ran 39 tests (total:7.34s - setup:0.06s test:7.24s)
+[fail] api/handlers/internal/test_merchant_order.py::black [default-darwin-arm64-debug] (1.53s)
+Run ya style billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/internal/test_merchant_order.py to fix format
+@@ -265,13 +265,11 @@
+             data['data'],
+             equal_to(expected),
+         )
+ 
+     @pytest.mark.asyncio
+-    async def test_success_serializes_uzb_item_receipt(
+-        self, app, url, merchant_id, order, mock_action, entity_cart
+-    ):
++    async def test_success_serializes_uzb_item_receipt(self, app, url, merchant_id, order, mock_action, entity_cart):
+         uz_receipt = ItemReceiptUZ(
+             tax=UzbTaxType.VAT_0,
+             spic_code='1234567890123',
+             tin_or_pinfl='123456789',
+             title='Uzb title',
+@@ -301,6 +299,5 @@
+         assert_that(receipt['tax'], equal_to(UzbTaxType.VAT_0.value))
+         assert_that(receipt['spic_code'], equal_to('1234567890123'))
+         assert_that(receipt['tin_or_pinfl'], equal_to('123456789'))
+         assert_that(receipt['title'], equal_to('Uzb title'))
+..[truncated].. see full diff in the stdout file in the logsdir
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/black/chunk3/testing_out_stuff
+------ [8/20] chunk ran 39 tests (total:8.64s - setup:0.07s test:8.54s)
+[fail] api/handlers/internal/test_merchant_orders.py::black [default-darwin-arm64-debug] (2.11s)
+Run ya style billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/internal/test_merchant_orders.py to fix format
+@@ -397,13 +397,11 @@
+             data['data']['orders'],
+             equal_to([expected_order]),
+         )
+ 
+     @pytest.mark.asyncio
+-    async def test_success_serializes_uzb_item_receipt(
+-        self, app, url, merchant_id, order, mock_action, entity_cart
+-    ):
++    async def test_success_serializes_uzb_item_receipt(self, app, url, merchant_id, order, mock_action, entity_cart):
+         uz_receipt = ItemReceiptUZ(
+             tax=UzbTaxType.VAT_0,
+             spic_code='1234567890123',
+             tin_or_pinfl='123456789',
+             title='Uzb title',
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/black/chunk8/testing_out_stuff
+------ FAIL: 774 - GOOD, 3 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit <flake8> nchunks:20
+------ [3/20] chunk ran 39 tests (total:30.00s - setup:0.32s test:29.65s)
+[fail] api/handlers/internal/test_merchant_order.py::flake8 [default-darwin-arm64-debug] (0.00s) billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/internal/test_merchant_order.py:306: [W391] blank line at end of file
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/flake8/chunk3/testing_out_stuff
+------ FAIL: 776 - GOOD, 1 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit

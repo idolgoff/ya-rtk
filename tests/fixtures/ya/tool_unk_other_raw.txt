@@ -1,0 +1,45 @@
+COMMENTS---'; startrek-cli issues comments FININT-160 --json 2>&1 | head -c 80000; echo; echo '---LINKS---'; startrek-cli issues links FININT-160 --json 2>&1 | head -c 20000; echo; echo '---REMOTE---'; startrek-cli issues remotelinks FININT-160 --json 2>&1 | head -c 10000"
+started_at: 2026-07-16T17:27:12.427Z
+running_for_ms: 30016    
+---
+TOKEN_EMPTY
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading https://proxy.sandbox.yandex-team.ru/12807532633 ERROR: Failed to connect to https://proxy.sandbox.yandex-team.ru/12807532633: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Error: token required. Set STARTREK_TOKEN env var or ensure 'ya tool fetch-token' works (uses SSH/skotty). To disable auto-fetch, set DISABLE_AUTO_FETCH_TOKEN=true.
+
+---COMMENTS---
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading https://proxy.sandbox.yandex-team.ru/12807532633 ERROR: Failed to connect to https://proxy.sandbox.yandex-team.ru/12807532633: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Error: token required. Set STARTREK_TOKEN env var or ensure 'ya tool fetch-token' works (uses SSH/skotty). To disable auto-fetch, set DISABLE_AUTO_FETCH_TOKEN=true.
+
+---LINKS---
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading https://proxy.sandbox.yandex-team.ru/12807532633 ERROR: Failed to connect to https://proxy.sandbox.yandex-team.ru/12807532633: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Error: token required. Set STARTREK_TOKEN env var or ensure 'ya tool fetch-token' works (uses SSH/skotty). To disable auto-fetch, set DISABLE_AUTO_FETCH_TOKEN=true.
+
+---REMOTE---
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading https://proxy.sandbox.yandex-team.ru/12807532633 ERROR: Failed to connect to https://proxy.sandbox.yandex-team.ru/12807532633: <urlopen error Tunnel connection failed: 403 Forbidden>
+Downloading http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz ERROR: Failed to connect to http://s3.mds.yandex.net/sandbox-1039/12807532633/ya-bin.tgz: HTTP Error 403: Forbidden
+Downloading https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+ERROR: Failed to connect to https://storage.yandex-team.ru/get-devtools/1916746/564aa07b1c69c121e90e554d592eb4f1/ya-bin.tgz: <urlopen error Tunnel connection failed: 403 Forbidden>
+Error: token required. Set STARTREK_TOKEN env var or ensure 'ya tool fetch-token' works (uses SSH/skotty). To disable auto-fetch, set DISABLE_AUTO_FETCH_TOKEN=true.
+
+---
+exit_code: 0
+elapsed_ms: 31555
+ended_at: 2026-07-16T17:27:43.982Z
+---

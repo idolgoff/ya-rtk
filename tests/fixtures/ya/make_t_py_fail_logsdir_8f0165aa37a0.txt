@@ -1,0 +1,11 @@
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/merchant/test_order.py:581: in cart
+    return ensure_all_fields(Cart)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk0/testing_out_stuff/api.handlers.merchant.test_order.py.test_initial_payment_options_with_new_fields_excluded.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk0/testing_out_stuff
+[fail] api.handlers.merchant.test_order.py::test_returned [default-darwin-arm64-debug] (0.11s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/merchant/test_order.py:581: in cart

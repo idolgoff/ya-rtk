@@ -1,0 +1,19 @@
+
+
+mail/python/sendr_qtools/src/sendr_aiohttp/tests <py3test>
+------ sole chunk ran 5 tests (total:3.85s - test:3.84s)
+[fail] test_apispec.py::test_conditional_request_schema_spec_without_context [default-darwin-arm64-debug] (0.01s)
+mail/python/sendr_qtools/src/sendr_aiohttp/tests/test_apispec.py:307: in test_conditional_request_schema_spec_without_context
+    assert 'UZBJsonSchema' in schema_ref['$ref'] or 'RUSJsonSchema' in schema_ref['$ref']
+E   AssertionError: assert ('UZBJsonSchema' in '#/components/schemas/UZBJson' or 'RUSJsonSchema' in '#/components/schemas/UZBJson')
+Log: /Users/user/arcadia/mail/python/sendr_qtools/src/sendr_aiohttp/tests/test-results/py3test/testing_out_stuff/test_apispec.py.test_conditional_request_schema_spec_without_context.log
+Logsdir: /Users/user/arcadia/mail/python/sendr_qtools/src/sendr_aiohttp/tests/test-results/py3test/testing_out_stuff
+[fail] test_apispec.py::test_conditional_request_schema_spec_with_context [default-darwin-arm64-debug] (0.01s)
+mail/python/sendr_qtools/src/sendr_aiohttp/tests/test_apispec.py:349: in test_conditional_request_schema_spec_with_context
+    assert 'UZBJsonSchema' in ref_uzb.get('$ref', '')
+E   AssertionError: assert 'UZBJsonSchema' in '#/components/schemas/UZBJson'
+E    +  where '#/components/schemas/UZBJson' = <built-in method get of dict object at 0x10e1d1fd0>('$ref', '')
+E    +    where <built-in method get of dict object at 0x10e1d1fd0> = {'$ref': '#/components/schemas/UZBJson'}.get
+Log: /Users/user/arcadia/mail/python/sendr_qtools/src/sendr_aiohttp/tests/test-results/py3test/testing_out_stuff/test_apispec.py.test_conditional_request_schema_spec_with_context.log
+Logsdir: /Users/user/arcadia/mail/python/sendr_qtools/src/sendr_aiohttp/tests/test-results/py3test/testing_out_stuff
+------ FAIL: 3 - GOOD, 2 - FAIL mail/python/sendr_qtools/src/sendr_aiohttp/tests

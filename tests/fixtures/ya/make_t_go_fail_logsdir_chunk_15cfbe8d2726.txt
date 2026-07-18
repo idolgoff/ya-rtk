@@ -1,0 +1,33 @@
+
+------ sole chunk ran 13 tests (total:1.37s - setup:0.01s test:1.35s)
+[fail] gotest::TestSendFESJobBatchAction_V12_DispatchesToV12AndRecordsFunnel [default-darwin-arm64-debug] (0.00s)
+send_fes_job_batch_test.go:151: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:151
+                Error:          Received unexpected error:
+                                job job-1: unknown country "", no sender registered
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes.sendSingleFESJob
+                                        /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch.go:69
+                Test:           TestSendFESJobBatchAction_V12_DispatchesToV12AndRecordsFunnel
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestSendFESJobBatchAction_V12_DispatchesToV12AndRecordsFunnel.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestSendFESJobBatchAction_V105_DispatchesToV105 [default-darwin-arm64-debug] (0.00s)
+send_fes_job_batch_test.go:186: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:186
+                Error:          Received unexpected error:
+                                job job-2: unknown country "", no sender registered
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes.sendSingleFESJob
+                                        /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch.go:69
+                Test:           TestSendFESJobBatchAction_V105_DispatchesToV105
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestSendFESJobBatchAction_V105_DispatchesToV105.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestSendFESJobBatchAction_Legacy_DispatchesToLegacy [default-darwin-arm64-debug] (0.00s)
+send_fes_job_batch_test.go:234: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch_test.go:234
+                Error:          Received unexpected error:
+                                job job-3: unknown country "", no sender registered
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes.sendSingleFESJob
+                                        /-S/pay/receiptron/pkg/core/actions/fes/send_fes_job_batch.go:69
+                Test:           TestSendFESJobBatchAction_Legacy_DispatchesToLegacy
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestSendFESJobBatchAction_Legacy_DispatchesToLegacy.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+------ FAIL: 10 - GOOD, 3 - FAIL pay/receiptron/pkg/core/actions/fes/gotest

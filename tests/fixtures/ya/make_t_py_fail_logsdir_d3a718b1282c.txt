@@ -1,0 +1,19 @@
+
+[fail] handlers.merchant.test_create.py::test_create_order_with_full_risk_antifraud_info [default-darwin-arm64-debug] (1.24s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/functional/handlers/merchant/test_create.py:249: in test_create_order_with_full_risk_antifraud_info
+    r = await public_app.post(
+contrib/python/aiohttp/aiohttp/test_utils.py:319: in _request
+    resp = await self._session.request(method, self.make_url(path), **kwargs)
+<string>:3: in _request
+    ???
+contrib/tools/python3/Lib/unittest/mock.py:2332: in _execute_mock_call
+    result = await effect(*args, **kwargs)
+contrib/python/aioresponses/aioresponses/core.py:505: in _request_mock
+    return (await self.patcher.temp_original(
+contrib/python/aiohttp/aiohttp/client.py:789: in _request
+    resp.raise_for_status()
+contrib/python/aiohttp/aiohttp/client_reqrep.py:1118: in raise_for_status
+    raise ClientResponseError(
+E   aiohttp.client_exceptions.ClientResponseError: 400, message='Bad Request', url='http://127.0.0.1:53565/api/merchant/v1/orders'
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk4/testing_out_stuff/handlers.merchant.test_create.py.test_create_order_with_full_risk_antifraud_info.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk4/testing_out_stuff

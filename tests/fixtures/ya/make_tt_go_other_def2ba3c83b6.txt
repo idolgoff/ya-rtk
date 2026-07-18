@@ -1,0 +1,9 @@
+
+➜  receiptron arc:(test/YANDEXPAY-26977-e2e-ru) ✗ ya make -tt
+Warn[-WUserWarn]: in $S/pay/receiptron/tests/runserver/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/tests/runserver SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/tests/component/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/tests/component SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/pkg/storage/gotest/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/pkg/storage/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/pkg/core/actions/gotest/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/pkg/core/actions/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Error[-WBadDir]: in $B/pay/receiptron/pkg/core/actions/fes/gotest/gotest: PEERDIR to directory without ya.make: $S/pay/lib/go/interactions/fes/schemas/uz
+[2 ymakes processing] [2661/2661 modules configured] [673/675 modules rendered]
+

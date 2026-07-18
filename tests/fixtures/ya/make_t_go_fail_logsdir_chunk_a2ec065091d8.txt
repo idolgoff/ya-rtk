@@ -1,0 +1,34 @@
+
+
+pay/receiptron/pkg/core/actions/fes/gotest <go_test> [size:medium]
+------ sole chunk ran 2 tests (total:1.06s - test:1.05s)
+[fail] gotest::TestCreateFESJobAction_Branching_Success [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:163: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:163
+                Error:          Received unexpected error:
+                                build UZB receipt content:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.BuildReceiptPayload
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:98
+                                map order items:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.BuildUZBReceiptContentAction
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:61
+                                invalid tin_or_pinfl length for product_id=p1
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.mapOrderItemsToUZRows
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:138
+                Test:           TestCreateFESJobAction_Branching_Success
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_Branching_Success.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestCreateFESJobAction_MarshalErrors [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:229: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:229
+                Error:          "build UZB receipt content: map order items: invalid tin_or_pinfl length for product_id=p1" does not contain "marshal UZB receipt error"
+                Test:           TestCreateFESJobAction_MarshalErrors
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_MarshalErrors.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+------ FAIL: 2 - FAIL pay/receiptron/pkg/core/actions/fes/gotest
+
+Total 1 suite:
+        1 - FAIL
+Total 2 tests:
+        2 - FAIL
+Failed

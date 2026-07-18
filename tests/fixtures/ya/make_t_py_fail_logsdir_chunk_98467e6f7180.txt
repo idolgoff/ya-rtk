@@ -1,0 +1,16 @@
+
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit <py3test> [size:medium] nchunks:10
+------ [5/10] chunk ran 11 tests (total:256.86s - setup:0.02s recipes:77.81s test:175.58s recipes:3.43s)
+[fail] taskq.test_porg_events_worker.py::TestDoAcceptInvite::test_accept_invite_keeps_flow_when_phone_check_failed [default-darwin-arm64-debug] (0.21s)
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit/taskq/test_porg_events_worker.py:896: in test_accept_invite_keeps_flow_when_phone_check_failed
+    await worker.handle_accept_invite(porg_event_accept_invite_with_phone)
+billing/yandex_pay_admin/yandex_pay_admin/taskq/porg_events_consumer.py:285: in handle_accept_invite
+    return await self.do_accept_invite(event.uid, event.invite_id_hash, event.invite_id)
+billing/yandex_pay_admin/yandex_pay_admin/taskq/porg_events_consumer.py:315: in do_accept_invite
+    raise RuntimeError(
+E   RuntimeError: Phone validation unavailable for invite T6h0W8X9Q2bezj3Zcct5oRST_not_accepted_with_phone, uid 1235678. Will retry.
+Log: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff/taskq.test_porg_events_worker.py.TestDoAcceptInvite.test_accept_invite_keeps_flow_when_phone_check_failed.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ FAIL: 184 - GOOD, 1 - FAIL billing/yandex_pay_admin/yandex_pay_admin/tests/unit
+
+Total 5 suites:

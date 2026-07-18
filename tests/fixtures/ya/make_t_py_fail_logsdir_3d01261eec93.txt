@@ -1,0 +1,20 @@
+
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff/api.handlers.merchant.test_order_create.py.test_calls_action_with_bom.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff
+[fail] api.handlers.merchant.test_order_create.py::test_calls_action_with_extensions [default-darwin-arm64-debug] (0.06s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/merchant/test_order_create.py:917: in createpsplikemerchantorderrequest
+    cart=ensure_all_fields(RenderedCart)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff/api.handlers.merchant.test_order_create.py.test_calls_action_with_extensions.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff
+[fail] api.handlers.merchant.test_order_create.py::test_calls_action_with_extensions_without_payment_data [default-darwin-arm64-debug] (0.06s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/handlers/merchant/test_order_create.py:917: in createpsplikemerchantorderrequest
+    cart=ensure_all_fields(RenderedCart)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"

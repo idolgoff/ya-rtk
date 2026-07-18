@@ -1,0 +1,2282 @@
+ya make python -r
+Ok
+Y_PYTHON_SOURCE_ROOT=/Users/user/arcadia Y_PYTHON_ENTRY_POINT=":main" ./python/python -m pytest -p no:warnings --disable-warnings -sv yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py
+/Users/user/arcadia/contrib/python/ydb/py3/ydb/__init__.py:61: UserWarning: Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior
+  warnings.warn("Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior")
+/Users/user/arcadia/contrib/python/ydb/py3/ydb/global_settings.py:22: UserWarning: Global allow split transaction is deprecated behaviour.
+  warnings.warn("Global allow split transaction is deprecated behaviour.")
+/Users/user/arcadia/contrib/python/ydb/py3/ydb/global_settings.py:12: UserWarning: Global allow truncated response is deprecated behaviour.
+  warnings.warn("Global allow truncated response is deprecated behaviour.")
+Unexpected getting uninitialized hot settings: PAY_TARIFFICATOR_POINTS_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_WRITE_TABLE_TIMEOUT_SECONDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BACKEND_DEGRADATION_MODE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_DRY_RUN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_PAYMENT_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_REFUND_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_TARIFFICATOR_PAYMENT_MAX_RETRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_CLEAR_PROCESSING_MAX_TRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_SEND_EMAIL_NOTIFICATIONS_FOR_INSTANT_PAYOUT_FLOW, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_WINDOW_DAYS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_INSTANT_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: OPTIONAL_AUTH_FLOW_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: GLOBAL_DISCOUNT_COMPENSATION_CAP, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DECIMAL_PLACE_DIGIT_MULTIPLIER, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MIN_DISCOUNT_ORDER_AMOUNT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_DESCRIPTION_TEMPLATE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_METADATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_PRODUCT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_UNCONDITIONAL_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_AND_TITLE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_ENABLED_IF_REGION_UNKNOWN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BY_SDK_DISABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_AVAILABILITY_CHECK_BYPASS_UIDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_HEALTHCHECK_PERCENT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_USER_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECK_DISCOUNT_AVAILABILITY_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_ADS_DISCOUNT_DATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: FALLBACK_SPLIT_GMV_PREDICTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_USE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLED_ANONYMOUS_PAYMENT_FOR_SHOPITON, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ORDER_TEMPLATES_LIMITS_CREATING_PER_MERCHANT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_DISCOUNT_AUTO_FILL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_MIGRATED_DISCOUNT_SLUGS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BATCH_CASHBACK_CARDS_LIMIT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_ENABLE_GLOBAL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: NEWBIE_CART_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_UPLOAD_MAX_BATCH_SIZE_BYTES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MERCHANT_FILE_UPLOAD_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_USE_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PASSPORT_TFA_CHALLENGE_DEFAULT_OTP_CHANNEL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ARCHIVE_FAILED_TASKS_ENABLED, source: Source.POSTGRESQL
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0 -- /Users/user/arcadia/billing/yandex_pay_plus/python/python
+cachedir: .pytest_cache
+rootdir: /Users/user/arcadia/billing/yandex_pay_plus
+plugins: aiohttp-1.0.5, asyncio-0.21.1, mock-3.15.1, typeguard-4.5.2
+asyncio: mode=Mode.AUTO
+collecting ... /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/conftest.py:27: PytestUnknownMarkWarning: Unknown pytest.mark.timeout - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+  item.add_marker(pytest.mark.timeout(10))
+collected 26 items
+
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestStartPassportTFAChallengeAction::test_uses_default_otp_channel_from_hot_setting[by_sms] ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestStartPassportTFAChallengeAction::test_uses_default_otp_channel_from_hot_setting[by_telegram] ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_runs_action ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_bad_transaction_status ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_calls_trust_gateway ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAsyncableAction::test_runs_action ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_calls_passport ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_resets_track_id_when_channel_changes ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_keeps_track_id_when_channel_is_same ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_decrease_retry_budget ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_calls_create_event_action_mock ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_error ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[track_id] ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[number] ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[deny_resend_until] ERROR
+yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_bad_transaction_status ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_returns_operation_id ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_split_retry_init_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_retry_init_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_retry_init_challenge_with_confirm_method ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_split_submit_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_submit_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_identification_submit_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_survey_submit_challenge ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_rejects_command_with_wrong_transaction_status[identification-wrong-status] ERROR
+yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_rejects_command_with_wrong_transaction_status[survey-wrong-status] ERROR
+
+==================================== ERRORS ====================================
+_ ERROR at setup of TestStartPassportTFAChallengeAction.test_uses_default_otp_channel_from_hot_setting[by_sms] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+------------------------------ Captured log setup ------------------------------
+ERROR    mail.python.sendr_qtools.src.sendr_settings:__init__.py:91 Unexpected getting uninitialized hot settings: ENABLE_RETRIES_AND_UVPOOL_ERROR_CATCH, source: Source.POSTGRESQL
+ERROR    mail.python.sendr_qtools.src.sendr_settings:__init__.py:91 Unexpected getting uninitialized hot settings: ENABLE_RETRIES_AND_UVPOOL_ERROR_CATCH, source: Source.POSTGRESQL
+_ ERROR at setup of TestStartPassportTFAChallengeAction.test_uses_default_otp_channel_from_hot_setting[by_telegram] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+___ ERROR at setup of TestInitCardChallengeAsyncableAction.test_runs_action ____
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestInitCardChallengeAsyncableAction.test_bad_transaction_status _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestInitCardChallengeAsyncableAction.test_calls_trust_gateway _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAsyncableAction.test_runs_action _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+__ ERROR at setup of TestResendPassportTFAChallengeAction.test_calls_passport __
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_resets_track_id_when_channel_changes _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_keeps_track_id_when_channel_is_same _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_decrease_retry_budget _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_calls_create_event_action_mock _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_raises_error_when_passport_returns_error _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_raises_error_when_passport_returns_incomplete_data[track_id] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_raises_error_when_passport_returns_incomplete_data[number] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_raises_error_when_passport_returns_incomplete_data[deny_resend_until] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of TestResendPassportTFAChallengeAction.test_bad_transaction_status _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_________________ ERROR at setup of test_returns_operation_id __________________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+______________ ERROR at setup of test_split_retry_init_challenge _______________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_____________ ERROR at setup of test_passport_retry_init_challenge _____________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+___ ERROR at setup of test_passport_retry_init_challenge_with_confirm_method ___
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+________________ ERROR at setup of test_split_submit_challenge _________________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_______________ ERROR at setup of test_passport_submit_challenge _______________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+____________ ERROR at setup of test_identification_submit_challenge ____________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+________________ ERROR at setup of test_survey_submit_challenge ________________
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of test_rejects_command_with_wrong_transaction_status[identification-wrong-status] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+_ ERROR at setup of test_rejects_command_with_wrong_transaction_status[survey-wrong-status] _
+
+configure_db = None
+fixturekit_db_param_create_configured_engine = <function create_configured_engine at 0x112a02340>
+fixturekit_db_param_database_setting = <mail.python.sendr_qtools.src.sendr_base.lib.objattr_proxy.ObjAttrRWProxy object at 0x119a78ec0>
+fixturekit_db_param_schema_names = ['yandex_pay_plus']
+
+    @pytest.fixture(autouse=True, scope='session')
+    def clear_db_contaminated_by_func_tests(
+        configure_db,
+        fixturekit_db_param_create_configured_engine,
+        fixturekit_db_param_database_setting,
+        fixturekit_db_param_schema_names,
+    ):
+        async def _ensure_contamination_cleared():
+            engine = fixturekit_db_param_create_configured_engine()
+            async with engine.acquire() as conn:
+                await conn.execute('create table if not exists functest_contamination_mark (mark text primary key)')
+                cur = await conn.execute('select count(1) from functest_contamination_mark')
+                result = await cur.fetchall()
+                contamination_mark = result[0][0]
+                assert isinstance(contamination_mark, int)
+                contaminated = contamination_mark != 0
+                if contaminated:
+                    await clear_db(engine, fixturekit_db_param_schema_names)
+                    await conn.execute('delete from functest_contamination_mark')
+            engine.close()
+            await engine.wait_closed()
+    
+        with pg_pinger_mocker(
+            patch=unittest.mock.patch,
+            database_setting=fixturekit_db_param_database_setting.get(),
+        ):
+            loop = asyncio.new_event_loop()
+>           loop.run_until_complete(_ensure_contamination_cleared())
+
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../contrib/tools/python3/Lib/asyncio/base_events.py:725: in run_until_complete
+    return future.result()
+../../mail/python/sendr_qtools/src/sendr_pytest/fixturekit/db/unit.py:29: in _ensure_contamination_cleared
+    async with engine.acquire() as conn:
+../../contrib/tools/python3/Lib/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:129: in acquire
+    engine = await self._get_engine(preset)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:121: in _get_engine
+    await self._create_engine(host)
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/lazy.py:115: in _create_engine
+    engine = await create_single_engine(*self._args, host=host, **self._kwargs).__aenter__()
+../../contrib/python/aiopg/aiopg/utils.py:82: in __aenter__
+    self._obj = await self._coro
+../../mail/python/sendr_qtools/src/sendr_aiopg/engine/single.py:86: in _create_engine
+    pool = await aiopg.create_pool(
+../../contrib/python/aiopg/aiopg/pool.py:300: in from_pool_fill
+    await self._fill_free_pool(False)
+../../contrib/python/aiopg/aiopg/pool.py:336: in _fill_free_pool
+    conn = await connect(
+../../contrib/python/aiopg/aiopg/connection.py:1285: in _connect
+    await self._poll(self._waiter, self._timeout)  # type: ignore
+../../contrib/python/aiopg/aiopg/connection.py:941: in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+../../contrib/tools/python3/Lib/asyncio/tasks.py:507: in wait_for
+    return await fut
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+weak_self = <weakref at 0x1199f8680; to 'aiopg.connection.Connection' at 0x119a79fd0>
+
+    @staticmethod
+    def _ready(weak_self: "weakref.ref[Any]") -> None:
+        self = cast(Connection, weak_self())
+        if self is None:
+            return
+    
+        waiter = self._waiter
+    
+        try:
+>           state = self._conn.poll()
+E           psycopg2.OperationalError: Connection refused
+E           	Is the server running on that host and accepting TCP/IP connections?
+
+../../contrib/python/aiopg/aiopg/connection.py:826: OperationalError
+=========================== short test summary info ============================
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestStartPassportTFAChallengeAction::test_uses_default_otp_channel_from_hot_setting[by_sms]
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestStartPassportTFAChallengeAction::test_uses_default_otp_channel_from_hot_setting[by_telegram]
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_runs_action
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_bad_transaction_status
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_start_passport_tfa_challenge.py::TestInitCardChallengeAsyncableAction::test_calls_trust_gateway
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAsyncableAction::test_runs_action
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_calls_passport
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_resets_track_id_when_channel_changes
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_keeps_track_id_when_channel_is_same
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_decrease_retry_budget
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_calls_create_event_action_mock
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_error
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[track_id]
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[number]
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_raises_error_when_passport_returns_incomplete_data[deny_resend_until]
+ERROR yandex_pay_plus/tests/unit/core/actions/psp/ops/prepayment/test_resend_passport_tfa_challenge.py::TestResendPassportTFAChallengeAction::test_bad_transaction_status
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_returns_operation_id
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_split_retry_init_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_retry_init_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_retry_init_challenge_with_confirm_method
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_split_submit_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_passport_submit_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_identification_submit_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_survey_submit_challenge
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_rejects_command_with_wrong_transaction_status[identification-wrong-status]
+ERROR yandex_pay_plus/tests/unit/core/actions/transaction_operation/test_handle_command.py::test_rejects_command_with_wrong_transaction_status[survey-wrong-status]
+============================== 26 errors in 1.82s ==============================
+make: *** [dev-unit] Error 1

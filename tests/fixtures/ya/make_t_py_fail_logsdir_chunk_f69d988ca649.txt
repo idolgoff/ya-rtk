@@ -1,0 +1,13 @@
+
+------ FAIL: 1201 - GOOD billing/yandex_pay_admin/yandex_pay_admin/tests/functional
+
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit <py3test> [size:medium] nchunks:10
+------ [5/10] chunk ran 731 tests (total:420.02s - setup:0.01s recipes:74.89s test:341.62s recipes:3.43s)
+[fail] core.actions.invite.test_validate_phone.py::TestValidateInvitePhoneAction::test_mismatch_existing_member_by_role_created_before_invite [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit/core/actions/invite/test_validate_phone.py:195: in test_mismatch_existing_member_by_role_created_before_invite
+    assert verdict == InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER
+E   AssertionError: assert <InvitePhoneVerdict.MISMATCH: 'mismatch'> == <InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER: 'mismatch_existing_member'>
+E    +  where <InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER: 'mismatch_existing_member'> = InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER
+Log: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff/core.actions.invite.test_validate_phone.py.TestValidateInvitePhoneAction.test_mismatch_existing_member_by_role_created_before_invite.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ FAIL: 8421 - GOOD, 1 - FAIL, 4 - SKIPPED billing/yandex_pay_admin/yandex_pay_admin/tests/unit

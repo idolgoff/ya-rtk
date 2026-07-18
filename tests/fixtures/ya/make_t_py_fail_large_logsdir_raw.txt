@@ -1,0 +1,400 @@
+
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.CASH_ON_DELIVERY] [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.CASH_ON_DELIVERY.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.SBP] [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.SBP.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.SPLIT] [default-darwin-arm64-debug] (0.09s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.SPLIT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.SPLIT_SBP] [default-darwin-arm64-debug] (0.10s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.SPLIT_SBP.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.UNIQR_ONETIME] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.UNIQR_ONETIME.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options[split_6_month_afterpay-CorePaymentMethodType.UNIQR_REUSABLE] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:359: in test_initial_payment_options
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options.split_6_month_afterpay-CorePaymentMethodType.UNIQR_REUSABLE.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_initial_payment_options_with_new_fields [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:374: in test_initial_payment_options_with_new_fields
+    created = await storage.checkout_order.create(make_checkout_order(initial_payment_options=initial_payment_options))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_initial_payment_options_with_new_fields.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_merchant_id_foreign_key [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:90: in test_merchant_id_foreign_key
+    await storage.checkout_order.create(make_checkout_order(merchant_id=uuid4()))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_merchant_id_foreign_key.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_order_id_and_merchant_id_pair_is_unique [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:79: in test_order_id_and_merchant_id_pair_is_unique
+    checkout_order1 = make_checkout_order(merchant_id=stored_merchant.merchant_id, order_id=rands())
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_order_id_and_merchant_id_pair_is_unique.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_points_ensure_type [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:309: in test_points_ensure_type
+    checkout_order = make_checkout_order()
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_points_ensure_type.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.BINDING_NOT_FOUND] [default-darwin-arm64-debug] (0.19s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.BINDING_NOT_FOUND.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.BNPL_PAYMENT_UNAVAILABLE] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.BNPL_PAYMENT_UNAVAILABLE.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CARD_CHALLENGE_FAILED] [default-darwin-arm64-debug] (0.16s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CARD_CHALLENGE_FAILED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CARD_EXPIRED] [default-darwin-arm64-debug] (0.09s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CARD_EXPIRED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CARD_LIMIT_EXCEEDED] [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CARD_LIMIT_EXCEEDED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CARD_OPERATION_NOT_AVAILABLE] [default-darwin-arm64-debug] (0.15s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CARD_OPERATION_NOT_AVAILABLE.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CLIENTS_BANK_REJECT] [default-darwin-arm64-debug] (0.15s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CLIENTS_BANK_REJECT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.CLIENT_REFUSED_BINDING] [default-darwin-arm64-debug] (0.15s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.CLIENT_REFUSED_BINDING.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.INVALID_AMOUNT] [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.INVALID_AMOUNT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.INVALID_CONFIRMATION_CODE] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.INVALID_CONFIRMATION_CODE.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.INVALID_TERMINAL_SETUP] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.INVALID_TERMINAL_SETUP.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.ISSUER_COUNTRY_NOT_SUPPORTED] [default-darwin-arm64-debug] (0.18s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.ISSUER_COUNTRY_NOT_SUPPORTED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.MERCHANT_AUTH_ERROR] [default-darwin-arm64-debug] (0.10s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.MERCHANT_AUTH_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.NOT_ENOUGH_FUNDS] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.NOT_ENOUGH_FUNDS.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.ORDER_CANCELED] [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.ORDER_CANCELED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.ORDER_NOT_FOUND] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.ORDER_NOT_FOUND.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.ORDER_TTL_REACHED] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.ORDER_TTL_REACHED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.PAYMENT_RETRIED_BY_USER] [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.PAYMENT_RETRIED_BY_USER.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.PAYMENT_TIMEOUT] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.PAYMENT_TIMEOUT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.PROCESSING_ERROR] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.PROCESSING_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.PROCESSING_TIMEOUT] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.PROCESSING_TIMEOUT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.QR_TTL_REACHED] [default-darwin-arm64-debug] (0.17s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.QR_TTL_REACHED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.RECEIPT_ERROR] [default-darwin-arm64-debug] (0.19s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.RECEIPT_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.SBP_BINDING_ERROR] [default-darwin-arm64-debug] (0.15s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.SBP_BINDING_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.THREEDS_ERROR] [default-darwin-arm64-debug] (0.12s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.THREEDS_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.TRANSACTION_ACQUIRING_ERROR] [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.TRANSACTION_ACQUIRING_ERROR.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.UNKNOWN] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.UNKNOWN.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.USER_CANCELLED_PAYMENT] [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.USER_CANCELLED_PAYMENT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_reason_code_enum[PaymentFailureReasonCode.USER_DID_NOT_START_PAYMENT] [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:261: in test_reason_code_enum
+    created = await storage.checkout_order.create(make_checkout_order(reason_code=reason_code))
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/storage.mappers.test_checkout_order_mapper.py.test_reason_code_enum.PaymentFailureReasonCode.USER_DID_NOT_START_PAYMENT.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] storage.mappers.test_checkout_order_mapper.py::test_save [default-darwin-arm64-debug] (0.14s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:226: in test_save
+    created = await storage.checkout_order.create(make_checkout_order())
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/storage/mappers/test_checkout_order_mapper.py:424: in _make_checkout_order
+    checkout_order = ensure_all_fields(CheckoutOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"

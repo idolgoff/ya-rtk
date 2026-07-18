@@ -1,0 +1,12 @@
+
+fetch_dynconfig_test:
+	wget https://proxy.sandbox.yandex-team.ru/$(shell ya tool dctl get stage pay-receiptron-testing | grep "dynconfig:" -A 14 | grep sbr | awk '{print $$NF}' | awk '{split($$0,a,":"); print a[2]}') -O ./dynconfig.yaml
+
+fetch_dynconfig_sandbox:
+	wget https://proxy.sandbox.yandex-team.ru/$(shell ya tool dctl get stage pay-receiptron-sandbox | grep "dynconfig:" -A 14 | grep sbr | awk '{print $$NF}' | awk '{split($$0,a,":"); print a[2]}') -O ./dynconfig.yaml
+
+fetch_dynconfig_prod:
+	wget https://proxy.sandbox.yandex-team.ru/$(shell ya tool dctl get stage pay-receiptron-production | grep "dynconfig:" -A 14 | grep sbr | awk '{print $$NF}' | awk '{split($$0,a,":"); print a[2]}') -O ./dynconfig.yaml
+    60|
+push_dynconfig:
+	ya upload ./dynconfig.yaml --ttl inf

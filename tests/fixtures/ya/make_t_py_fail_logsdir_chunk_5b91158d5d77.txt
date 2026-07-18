@@ -1,0 +1,139 @@
+
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk0/testing_out_stuff
+------ [5/10] chunk ran 1482 tests (total:639.92s - setup:0.01s recipes:34.30s test:600.06s recipes:1.87s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+core.actions.psp.ops.test_threeds.py::TestSubmit3DSAction::test_calls_update_status[authorized] (timeout) duration: 3.61s
+core.actions.personal_offers.test_internal_offers.py::test_raises_offer_not_found_error (good) duration: 1.99s
+core.actions.merchants_data.test_get.py::test_get_merchant_cb__success (good) duration: 1.50s
+core.actions.operation.test_assign_status.py::test_assign_order_operation_status_action_assigns_status (good) duration: 1.19s
+core.actions.psp.ops.prepayment.test_wait_card_challenge_start.py::TestWaitCardChallengeStartAction::test_3ds_required_result_schedules_challenge_result_poller (good) duration: 0.84s
+core.actions.psp.ops.test_psp_base.py::test_updates_order[OperationStatus.FAIL-OperationType.AUTHORIZE-True] (good) duration: 0.70s
+core.actions.psp.ops.prepayment.test_split_prepayment_score.py::TestSplitPrepaymentScoreAction::test_calls_mock_risk_get_plan_confirm_user_factors (good) duration: 0.70s
+core.actions.psp.ops.prepayment.test_wait_card_challenge_start.py::TestWaitCardChallengeStartAction::test_in_progress_result_schedules_self (good) duration: 0.69s
+core.actions.psp.ops.test_hold.py::TestHoldAction::test_calls_processing_single_stage (good) duration: 0.66s
+core.actions.psp.ops.test_psp_base.py::TestProcessDelivery::test_calls_create_claim[True-yd_shipping_method] (good) duration: 0.65s
+993 more tests with 255.67s total duration are not listed.
+479 tests were not launched inside chunk.
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff/stderr
+[timeout] core.actions.psp.ops.test_threeds.py::TestSubmit3DSAction::test_calls_update_status[authorized] [default-darwin-arm64-debug] (3.61s) Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff/core.actions.psp.ops.test_threeds.py.TestSubmit3DSAction.test_calls_update_status.authorized.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ [7/10] chunk ran 1439 tests (total:641.30s - setup:0.02s recipes:34.20s test:600.01s recipes:1.90s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+core.actions.test_button_bootstrap.py::test_lootbox_returns_empty_dict_successful_counter_incremented (good) duration: 1.26s
+core.actions.transaction.test_create.py::TestPayOffline::test_when_already_exists_then_create_sbp__cancel_old[0-CorePaymentMethodType.UNIQR_ONETIME-True] (good) duration: 1.14s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_when_switch_to_sbp[100-CorePaymentMethodType.UNIQR_ONETIME-False] (good) duration: 1.09s
+core.actions.transaction.test_change_payment_status_action.py::TestNotifyNSPKFinalPaymentStatuses::test_report_to_nspk_scheduled_payoffline[statuses0-PaymentStatus.CAPTURED-OperationStatus.SUCCESS] (good) duration: 1.08s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_when_switch_to_sbp_anon[100-CorePaymentMethodType.UNIQR_REUSABLE-True] (good) duration: 1.05s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_when_switch_to_sbp_anon[100-CorePaymentMethodType.UNIQR_REUSABLE-False] (good) duration: 1.03s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[100-CorePaymentMethodType.UNIQR_ONETIME-False] (good) duration: 1.01s
+core.actions.transaction.test_create.py::TestPayOffline::test_when_already_exists_then_create_sbp__deanon[100-CorePaymentMethodType.UNIQR_ONETIME-False] (good) duration: 1.00s
+core.actions.transaction.test_create.py::TestPayOffline::test_when_already_exists_then_create_sbp__cancel_old[0-CorePaymentMethodType.UNIQR_REUSABLE-False] (good) duration: 0.98s
+core.actions.transaction.test_create.py::TestPayOffline::test_nspk_notification__sends_notification_to_nspk_only_once_anon[0-CorePaymentMethodType.UNIQR_ONETIME-False] (good) duration: 0.97s
+709 more tests with 269.11s total duration are not listed.
+720 tests were not launched inside chunk.
+Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/stderr
+[fail] core.actions.transaction.test_create.py::test_hold_schedules_separated_transaction_action_if_feature_flag_enabled_anonymous[CorePaymentMethodType.SBP] [default-darwin-arm64-debug] (0.31s)
+mail/python/sendr_qtools/src/sendr_core/action.py:113: in _wrap_exception
+    yield
+mail/python/sendr_qtools/src/sendr_core/action.py:106: in _run
+    result = await self.handle()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/create/v2.py:357: in handle
+    await self.storage.checkout_order.save(self.checkout_order)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base_tracing.py:56: in async_wrapper
+    return await func(self, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/checkout_order.py:102: in save
+    return await super().save(entity, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base_tracing.py:48: in async_wrapper
+    return await func(self, *args, **kwargs)
+billing/yandex_pay_plus/yandex_pay_plus/storage/mappers/base.py:51: in save
+    return await super().save(entity, ignore_fields=('created', *self._builder.id_fields, *ignore_fields))
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:218: in save
+    return mapper(await self._query_one(query))
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:140: in _query_one
+    return await super()._query_one(query, params=params, raise_=raise_)
+mail/python/sendr_qtools/src/sendr_aiopg/storage/__init__.py:64: in _query_one
+    db_result = await self.conn.execute(query, params)
+contrib/python/aiopg/aiopg/sa/connection.py:121: in _execute
+    compiled = query.compile(
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/elements.py:503: in compile
+    return self._compiler(dialect, **kw)
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/elements.py:567: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+contrib/python/sqlalchemy/sqlalchemy-1.4/sqlalchemy/sql/compiler.py:809: in __init__
+    Compiled.__init__(self, dialect, statem
+..[snippet truncated]..
+y/python/pytest/plugins/ya.py:350: in _graceful_shutdown
+    _graceful_shutdown_on_log(not capman.is_globally_capturing())
+library/python/pytest/plugins/ya.py:322: in _graceful_shutdown_on_log
+    pytest.exit("Graceful shutdown requested")
+E   _pytest.outcomes.Exit: Graceful shutdown requested
+
+The above exception was the direct cause of the following exception:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_create.py:4304: in test_hold_schedules_separated_transaction_action_if_feature_flag_enabled_anonymous
+    _ = await CreateTransactionAnonymousAction(**anonymous_params).run()
+mail/python/sendr_qtools/src/sendr_core/action.py:86: in run
+    return await task
+mail/python/sendr_qtools/src/sendr_aiopg/action.py:81: in _run
+    return await super()._run()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/base.py:211: in _run
+    return await super()._run()
+mail/python/sendr_qtools/src/sendr_core/action.py:106: in _run
+    result = await self.handle()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/create/v2.py:1288: in handle
+    result = await CreateTransactionAnonymousActionInternal(**self.kwargs).run()
+mail/python/sendr_qtools/src/sendr_core/action.py:86: in run
+    return await task
+mail/python/sendr_qtools/src/sendr_aiopg/action.py:81: in _run
+    return await super()._run()
+billing/yandex_pay_plus/yandex_pay_plus/core/actions/base.py:211: in _run
+    return await super()._run()
+mail/python/sendr_qtools/src/sendr_core/action.py:102: in _run
+    self._wrap_exception(),
+contrib/tools/python3/Lib/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+mail/python/sendr_qtools/src/sendr_core/action.py:120: in _wrap_exception
+    raise CoreFailError from exc
+E   mail.python.sendr_qtools.src.sendr_core.exceptions.CoreFailError
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/core.actions.transaction.test_create.py.test_hold_schedules_separated_transaction_action_if_feature_flag_enabled_anonymous.CorePaymentMethodType.SBP.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+------ [8/10] chunk ran 1343 tests (total:639.28s - setup:0.03s recipes:33.68s test:600.06s recipes:1.85s)
+Chunk exceeded 600s timeout and was killed
+List of the tests involved in the launch:
+interactions.test_paygine.py::test_order_success[order_success_with_operations] (timeout) duration: 3.64s
+core.processings.yandex_psp.test_card.py::TestRefund::test_success_composite_payment (good) duration: 1.51s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client_composite_payment (good) duration: 1.48s
+core.processings.yandex_psp.test_card.py::TestRefund::test_failure_on_second_payment (good) duration: 1.46s
+core.entities.tilda.test_order.py::test_tilda_payment_subject_type_to_payment_subject_type[composite-PaymentSubjectType.COMPOSITE] (good) duration: 1.46s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart3-output_cart3] (good) duration: 1.44s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart1-output_cart1] (good) duration: 1.42s
+core.processings.yandex_psp.test_sbp.py::TestRefund::test_calls_client (good) duration: 1.42s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart0-output_cart0] (good) duration: 1.41s
+core.processings.yandex_psp.test_card.py::TestRefund::test_calls_client[input_cart4-output_cart4] (good) duration: 1.40s
+1134 more tests with 258.43s total duration are not listed.
+199 tests were not launched inside chunk.
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/run_test.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+Stderr: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/stderr
+[timeout] interactions.test_paygine.py::test_order_success[order_success_with_operations] [default-darwin-arm64-debug] (3.64s) Killed by timeout (600 s)
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/interactions.test_paygine.py.test_order_success.order_success_with_operations.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+------ TIMEOUT: 8891 - GOOD, 2 - FAIL, 1398 - NOT_LAUNCHED, 2 - TIMEOUT, 1 - SKIPPED billing/yandex_pay_plus/yandex_pay_plus/tests/unit
+
+Total 22 suites:
+        21 - GOOD
+        1 - TIMEOUT
+Total 16215 tests:
+        14808 - GOOD
+        2 - FAIL
+        1398 - NOT_LAUNCHED
+        2 - TIMEOUT
+        5 - SKIPPED
+Failed

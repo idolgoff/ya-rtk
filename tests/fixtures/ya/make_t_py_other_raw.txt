@@ -1,0 +1,98 @@
+
+     1|---
+     2|name: Extract phone validation action
+     3|overview: Extract phone verification logic from `POrgEventsWorker` into a new `ValidateInvitePhoneAction` in the existing `core/actions/invite/` directory, add unit tests for the action, and update the worker to call it. Existing worker tests remain untouched.
+     4|todos:
+     5|  - id: create-action
+     6|    content: Create `core/actions/invite/validate_phone.py` with `InvitePhoneVerdict` enum and `ValidateInvitePhoneAction`
+     7|    status: pending
+     8|  - id: update-worker
+     9|    content: "Update `taskq/porg_events_consumer.py`: replace inline phone verification with action call, remove extracted methods and unused imports"
+    10|    status: pending
+    11|  - id: create-tests
+    12|    content: Create `tests/unit/core/actions/invite/test_validate_phone.py` with unit tests for the action
+    13|    status: pending
+    14|  - id: run-tests
+    15|    content: Run unit tests with `ya make -t` to verify nothing is broken
+    16|    status: pending
+    17|isProject: false
+    18|---
+    19|
+    20|# Extract phone verification into a separate Action
+    21|
+    22|## Scope of extraction
+    23|
+    24|From [porg_events_consumer.py](billing/yandex_pay_admin/yandex_pay_admin/taskq/porg_events_consumer.py), extract only what concerns **phone validation**:
+    25|
+    26|- `InvitePhoneVerdict` enum (lines 68-72)
+    27|- `_validate_invite_phone` (lines 164-184) -- blackbox call
+    28|- `_resolve_invite_phone_verdict` (lines 186-200) -- orchestration
+    29|- `_log_phone_verdict` (lines 202-217) -- logging of verdict
+    30|- `_was_member_before_invite` (lines 249-265) -- storage check
+    31|
+    32|**Stays in the worker:**
+    33|
+    34|- `_remove_user_from_partner` (lines 219-247) -- consequence of mismatch, not verification itself; also depends on `_should_edit_user_roles` which is used by 3 other handlers
+    35|
+    36|## 1. New file: `core/actions/invite/validate_phone.py`
+    37|
+    38|Create `ValidateInvitePhoneAction(BaseDBAction[InvitePhoneVerdict])`:
+    39|
+    40|- `**__init__`**: accepts `uid: int` and `invite: Invite`
+    41|- `**handle()**`: returns `InvitePhoneVerdict`
+    42|  - Calls `_check_phone_binding()` via `self.clients.blackbox.phone_bindings` (fixes current antipattern of manual `InteractionClients` creation)
+    43|  - Calls `_was_member_before_invite()` via `self.storage`
+    44|  - Logs the verdict (absorbs `_log_phone_verdict` logic)
+    45|
+    46|Pattern follows existing actions in the same directory, e.g. [revoke_invite.py](billing/yandex_pay_admin/yandex_pay_admin/core/actions/invite/revoke_invite.py) which uses `self.clients` and `self.storage`.
+    47|
+    48|## 2. Update worker: `taskq/porg_events_consumer.py`
+    49|
+    50|In `do_accept_invite` (lines 310-322), replace the inline phone verification block:
+    51|
+    52|```python
+    53|if invite.phone:
+    54|    verdict = await ValidateInvitePhoneAction(uid=int_uid, invite=invite).run()
+    55|
+    56|    if verdict == InvitePhoneVerdict.UNAVAILABLE:
+    57|        raise RuntimeError(...)
+    58|    if verdict == InvitePhoneVerdict.MISMATCH:
+    59|        await self._remove_user_from_partner(storage, invite.partner_id, int_uid)
+    60|        return
+    61|    if verdict == InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER:
+    62|        return
+    63|```
+    64|
+    65|Remove from the worker class:
+    66|
+    67|- `_validate_invite_phone`
+    68|- `_resolve_invite_phone_verdict`
+    69|- `_log_phone_verdict`
+    70|- `_was_member_before_invite`
+    71|
+    72|Remove from module level:
+    73|
+    74|- `InvitePhoneVerdict` enum (moved to the action file)
+    75|
+    76|Update imports: add `ValidateInvitePhoneAction`, `InvitePhoneVerdict`; remove unused `InteractionClients`, `normalize_phone`, `phone_bindings_candidates`, `PhoneBindingType`.
+    77|
+    78|## 3. New test file: `tests/unit/core/actions/invite/test_validate_phone.py`
+    79|
+    80|Unit tests for the action in isolation, following the pattern of [test_revoke_invite.py](billing/yandex_pay_admin/yandex_pay_admin/tests/unit/core/actions/invite/test_revoke_invite.py) (`pytestmark = pytest.mark.usefixtures('setup_interactions_tvm')`).
+    81|
+    82|Test cases:
+    83|
+    84|- **MATCH**: phone binding exists for the given uid/phone
+    85|- **MATCH with normalization**: phone has different formatting but normalizes to the same number
+    86|- **MISMATCH**: phone binding belongs to different uid or number
+    87|- **MISMATCH_EXISTING_MEMBER**: mismatch but user was member before the invite
+    88|- **UNAVAILABLE**: blackbox raises an exception
+    89|- **Empty phone candidates**: `phone_bindings_candidates` returns empty list
+    90|
+    91|## 4. Existing worker tests: no changes
+    92|
+    93|The 5 phone tests in `TestDoAcceptInvite` class (lines 748-926 of [test_porg_events_worker.py](billing/yandex_pay_admin/yandex_pay_admin/tests/unit/taskq/test_porg_events_worker.py)) remain as-is. They test the full flow through the worker and serve as end-to-end coverage. They mock `AbstractBlackBoxClient.phone_bindings` which will still be called transitively via the action.
+    94|
+    95|## Build system
+    96|
+    97|No `ya.make` changes needed: both `ALL_PY_SRCS(RECURSIVE core)` and `ALL_PYTEST_SRCS(RECURSIVE .)` already cover new files automatically.

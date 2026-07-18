@@ -1,0 +1,89 @@
+
+------ [5/10] chunk ran 1 test (total:344.91s - setup:0.06s recipes:32.51s test:310.23s recipes:2.09s)
+[fail] schemas.test_pydantic_classes.py::test_pydantic_classes[CreateMerchantOrderRequest] [default-darwin-arm64-debug] (1.01s)
+pay/lib/tests/export/test_pydantic_classes.py:32: in test_pydantic_classes
+    validate_class(cls)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:81: in validate_field
+    descr = _get_field_descr(field)
+pay/lib/tests/export/test_pydantic_classes.py:187: in _get_field_descr
+    raise AssertionError(f'{field.name} has multiple field types')
+E   AssertionError: receipt has multiple field types
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff/schemas.test_pydantic_classes.py.test_pydantic_classes.CreateMerchantOrderRequest.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ [6/10] chunk ran 1 test (total:343.68s - setup:0.08s recipes:31.64s test:309.77s recipes:2.17s)
+[fail] schemas.test_pydantic_classes.py::test_pydantic_classes[CreatePSPLikeMerchantOrderInternalRequest] [default-darwin-arm64-debug] (1.11s)
+pay/lib/tests/export/test_pydantic_classes.py:32: in test_pydantic_classes
+    validate_class(cls)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:81: in validate_field
+    descr = _get_field_descr(field)
+pay/lib/tests/export/test_pydantic_classes.py:187: in _get_field_descr
+    raise AssertionError(f'{field.name} has multiple field types')
+E   AssertionError: receipt has multiple field types
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff/schemas.test_pydantic_classes.py.test_pydantic_classes.CreatePSPLikeMerchantOrderInternalRequest.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk6/testing_out_stuff
+------ [7/10] chunk ran 1 test (total:299.84s - setup:0.01s recipes:25.15s test:271.96s recipes:2.70s)
+[fail] schemas.test_pydantic_classes.py::test_pydantic_classes[CreatePSPLikeMerchantOrderRequest] [default-darwin-arm64-debug] (0.96s)
+pay/lib/tests/export/test_pydantic_classes.py:32: in test_pydantic_classes
+    validate_class(cls)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:81: in validate_field
+    descr = _get_field_descr(field)
+pay/lib/tests/export/test_pydantic_classes.py:187: in _get_field_descr
+    raise AssertionError(f'{field.name} has multiple field types')
+E   AssertionError: receipt has multiple field types
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/schemas.test_pydantic_classes.py.test_pydantic_classes.CreatePSPLikeMerchantOrderRequest.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+------ [8/10] chunk ran 1 test (total:257.46s - setup:0.01s recipes:25.11s test:230.68s recipes:1.65s)
+[fail] schemas.test_pydantic_classes.py::test_pydantic_classes[StorageCart] [default-darwin-arm64-debug] (0.54s)
+pay/lib/tests/export/test_pydantic_classes.py:32: in test_pydantic_classes
+    validate_class(cls)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:92: in validate_field
+    validate_class(descr.field_type)
+pay/lib/tests/export/test_pydantic_classes.py:75: in validate_class
+    validate_field(field_)
+pay/lib/tests/export/test_pydantic_classes.py:81: in validate_field
+    descr = _get_field_descr(field)
+pay/lib/tests/export/test_pydantic_classes.py:187: in _get_field_descr
+    raise AssertionError(f'{field.name} has multiple field types')
+E   AssertionError: receipt has multiple field types
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff/schemas.test_pydantic_classes.py.test_pydantic_classes.StorageCart.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk8/testing_out_stuff
+------ FAIL: 1 - GOOD, 8 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit
+
+Total 2 suites:
+        2 - FAIL
+Total 14 tests:
+        1 - GOOD
+        13 - FAIL
+Failed

@@ -1,0 +1,23 @@
+
+[fail] api.schemas.internal.test_create_order_request_internal_receipt_uzb.py::test_internal_create_load_uzb_receipt [default-darwin-arm64-debug] (0.11s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/schemas/internal/test_create_order_request_internal_receipt_uzb.py:68: in test_internal_create_load_uzb_receipt
+    assert_that(r, instance_of(ItemReceiptUZ))
+E   AssertionError: 
+E   Expected: an instance of ItemReceiptUZ
+E        but: was <ItemReceipt(tax=<TaxType.VAT_20: 1>, title='Uzb title', excise=None, payment_method_type=None, measure=None, payment_subject_type=None, product_code=None, mark_quantity=None, agent=None, supplier=None, country=None)>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff/api.schemas.internal.test_create_order_request_internal_receipt_uzb.py.test_internal_create_load_uzb_receipt.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff
+[fail] api.schemas.merchant.test_create_order_request_receipt_uzb.py::test_create_order_request_invalid_receipt_country_raises [default-darwin-arm64-debug] (0.08s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/schemas/merchant/test_create_order_request_receipt_uzb.py:124: in test_create_order_request_invalid_receipt_country_raises
+    with pytest.raises(ValidationError):
+E   Failed: DID NOT RAISE <class 'marshmallow.exceptions.ValidationError'>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff/api.schemas.merchant.test_create_order_request_receipt_uzb.py.test_create_order_request_invalid_receipt_country_raises.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff
+[fail] api.schemas.merchant.test_create_order_request_receipt_uzb.py::test_create_order_request_load_uzb_receipt_with_uzb_country [default-darwin-arm64-debug] (0.08s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/schemas/merchant/test_create_order_request_receipt_uzb.py:90: in test_create_order_request_load_uzb_receipt_with_uzb_country
+    assert_that(data.cart.items[0].receipt, instance_of(ItemReceiptUZ))
+E   AssertionError: 
+E   Expected: an instance of ItemReceiptUZ
+E        but: was <ItemReceipt(tax=<TaxType.VAT_20: 1>, title='Uzb product title', excise=None, payment_method_type=None, measure=None, payment_subject_type=None, product_code=None, mark_quantity=None, agent=None, supplier=None, country=None)>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff/api.schemas.merchant.test_create_order_request_receipt_uzb.py.test_create_order_request_load_uzb_receipt_with_uzb_country.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff

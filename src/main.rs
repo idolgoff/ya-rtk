@@ -24,6 +24,7 @@ use cmds::system::{
     deps, env_cmd, find_cmd, format_cmd, json_cmd, local_llm, log_cmd, ls, pipe_cmd, read, search,
     summary, tree, wc_cmd,
 };
+use cmds::yandex::ya_cmd;
 
 use anyhow::{Context, Result};
 use clap::error::ErrorKind;
@@ -814,6 +815,14 @@ enum Commands {
     #[command(name = "mvn")]
     Mvn {
         /// Maven goals and arguments (e.g., clean install, -DskipTests test, -X)
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
+    },
+
+    /// Yandex Arcadia `ya` meta-tool (make / test / tool) — passthrough until filters land
+    #[command(name = "ya")]
+    Ya {
+        /// Arguments passed to ya (e.g., make -t path, test -r -F '*order*')
         #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
         args: Vec<String>,
     },
@@ -2373,6 +2382,8 @@ fn run_cli() -> Result<i32> {
 
         Commands::Mvn { args } => mvn_cmd::run(&args, cli.verbose)?,
 
+        Commands::Ya { args } => ya_cmd::run(&args, cli.verbose)?,
+
         Commands::HookAudit { since } => {
             hooks::hook_audit_cmd::run(since, cli.verbose)?;
             0
@@ -3104,6 +3115,7 @@ mod tests {
             "golangci-lint",
             "gradlew",
             "mvn",
+            "ya",
             "php",
             "phpunit",
             "phpstan",

@@ -1,0 +1,13 @@
+
+/Users/user/arcadia/pay/receiptron
+➜  receiptron arc:(test/YANDEXPAY-26977-e2e-ru) ✗ ya make -tt
+Warn[-WUserWarn]: in $S/pay/receiptron/tests/runserver/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/tests/runserver SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/tests/component/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/tests/component SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/pkg/storage/gotest/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/pkg/storage/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Warn[-WUserWarn]: in $S/pay/receiptron/pkg/core/actions/gotest/ya.make: BUILD_ONLY_IF: $S/pay/receiptron/pkg/core/actions/gotest SHOULD NOT be built, because it is built only if one of (ARCH_X86_64) is true
+Error[-WSyntax]: in $S/pay/lib/go/interactions/fes/schemas/uz/ya.make:11:12: unexpected command GO_LIBRARY. Only one module per ya make list is permitted.
+Error[-WSyntax]: in $S/pay/lib/go/interactions/fes/schemas/uz/ya.make:17:1: unexpected command SRCS outside of a module
+Error[-WSyntax]: in $S/pay/lib/go/interactions/fes/schemas/uz/ya.make:19:5: unexpected command END outside of a module
+Error[-WMisconfiguration]: in $B/pay/lib/go/interactions/fes/schemas/uz/uz.a: Invalid dart field value DartValueError('dart field must not be empty'), field TESTED-PROJECT-NAME
+Error[-WBadFile]: in $B/pay/lib/go/interactions/fes/schemas/uz/uz.a: cannot find source file: root.go
+

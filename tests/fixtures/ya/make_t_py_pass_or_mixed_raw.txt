@@ -1,0 +1,92 @@
+
+------- [TM] {default-darwin-arm64, release} billing/yandex_pay_plus/yandex_pay_plus/tests/unit/py3test
+Test command err:
+contrib/python/ydb/py3/ydb/__init__.py:61: UserWarning: Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior
+contrib/python/ydb/py3/ydb/global_settings.py:22: UserWarning: Global allow split transaction is deprecated behaviour.
+contrib/python/ydb/py3/ydb/global_settings.py:12: UserWarning: Global allow truncated response is deprecated behaviour.
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_WRITE_TABLE_TIMEOUT_SECONDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BACKEND_DEGRADATION_MODE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_DRY_RUN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_PAYMENT_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_REFUND_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_TARIFFICATOR_PAYMENT_MAX_RETRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_CLEAR_PROCESSING_MAX_TRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_SEND_EMAIL_NOTIFICATIONS_FOR_INSTANT_PAYOUT_FLOW, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_WINDOW_DAYS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_INSTANT_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: OPTIONAL_AUTH_FLOW_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DEVSTAND_ROUTING_REDIS_KEY_TTL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: GLOBAL_DISCOUNT_COMPENSATION_CAP, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DECIMAL_PLACE_DIGIT_MULTIPLIER, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MIN_DISCOUNT_ORDER_AMOUNT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_DESCRIPTION_TEMPLATE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_METADATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_PRODUCT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_UNCONDITIONAL_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_AND_TITLE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_ENABLED_IF_REGION_UNKNOWN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BY_SDK_DISABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_AVAILABILITY_CHECK_BYPASS_UIDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DIGITAL_RUBLE_ENABLED_IF_REGION_UNKNOWN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DIGITAL_RUBLE_BY_SDK_DISABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_HEALTHCHECK_PERCENT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_USER_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECK_DISCOUNT_AVAILABILITY_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_ADS_DISCOUNT_DATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: FALLBACK_SPLIT_GMV_PREDICTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_USE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLED_ANONYMOUS_PAYMENT_FOR_SHOPITON, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ORDER_TEMPLATES_LIMITS_CREATING_PER_MERCHANT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_DISCOUNT_AUTO_FILL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_MIGRATED_DISCOUNT_SLUGS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BATCH_CASHBACK_CARDS_LIMIT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_ENABLE_GLOBAL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: NEWBIE_CART_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_UPLOAD_MAX_BATCH_SIZE_BYTES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MERCHANT_FILE_UPLOAD_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_USE_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ARCHIVE_FAILED_TASKS_ENABLED, source: Source.POSTGRESQL
+/Users/user/.ya/build/build_root/kuvf/000009/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/interactions/risk/__init__.py:74: PytestCollectionWarning: cannot collect test class 'TestingRiskClient' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/interactions/test_risk.py)
+/Users/user/.ya/build/build_root/kuvf/000009/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/pay/lib/interactions/uaas/entities.py:58: PytestCollectionWarning: cannot collect test class 'TestBucket' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_fetch_uaas_data_action.py)
+/Users/user/.ya/build/build_root/kuvf/000009/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/middlewares/test_pay_authenticator.py:26: PytestCollectionWarning: cannot collect test class 'TestHandler' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/middlewares/test_pay_authenticator.py)
+/Users/user/.ya/build/build_root/kuvf/000009/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/taskq/test_cron_worker.py:23: PytestCollectionWarning: cannot collect test class 'TestAction' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/taskq/test_cron_worker.py)
+/Users/user/.ya/build/build_root/kuvf/000009/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_base_status.py:25: PytestCollectionWarning: cannot collect test class 'TestUpdateTransactionStatusAction' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_base_status.py)
+Number of suites skipped by name: 3, by filter *test_get_split_tfa_default_otp_channel*|*test_handle_command*
+
+Total 0 suites
+Total 0 tests
+Ok
+
+---
+exit_code: 0
+elapsed_ms: 36190
+ended_at: 2026-07-17T10:32:12.476Z
+---

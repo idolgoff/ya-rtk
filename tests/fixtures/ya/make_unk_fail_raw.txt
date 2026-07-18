@@ -1,0 +1,7 @@
+
+➜  fes arc:(feat/YANDEXPAY-26899-fes-client-uz) ✗ ya make -r
+------- [GO] {FAILED} $(B)/pay/lib/go/interactions/fes/mocks/mocks.a{ ... .vet.txt}
+command (pid: 24037) /Users/user/.ya/tools/v4/9095501860/bin/python3 /Users/user/arcadia/build/scripts/go_tool.py @/Users/user/.ya/build/build_root/1dbe/0001ac/ya_command_file_0.args failed with exit code 2 in /Users/user/.ya/build/build_root/1dbe/0001ac
+/Users/user/.ya/tools/v4/10839549598/pkg/tool/darwin_arm64/compile -o /Users/user/.ya/build/build_root/1dbe/0001ac/pay/lib/go/interactions/fes/mocks/mocks.a -p a.yandex-team.ru/pay/lib/go/interactions/fes/mocks -D "" -trimpath /Users/user/arcadia=>/-S;/Users/user/.ya/build/build_root/1dbe/0001ac=>/-B;/Users/user/.ya/tools/v4=>/-T -importcfg /Users/user/.ya/build/build_root/1dbe/0001ac/r3tmp/tmpwicp9xuc -pack -c=4 /Users/user/.ya/build/build_root/1dbe/0001ac/pay/lib/go/interactions/fes/mocks/main.go returned non-zero exit code 2.
+/Users/user/.ya/build/build_root/1dbe/0001ac/pay/lib/go/interactions/fes/mocks/main.go:17:5: could not import a.yandex-team.ru/pay/lib/go/interactions/fes/schemas/uz (open : no such file or directory)
+Failed

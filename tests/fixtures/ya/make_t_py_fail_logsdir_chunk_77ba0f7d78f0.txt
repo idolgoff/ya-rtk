@@ -1,0 +1,21 @@
+
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit <py3test> [size:medium] nchunks:10
+------ [5/10] chunk ran 11 tests (total:240.01s - setup:0.02s recipes:75.61s test:161.18s recipes:3.19s)
+[fail] taskq.test_porg_events_worker.py::TestDoAcceptInvite::test_accept_invite_phone_mismatch_drops_roles [default-darwin-arm64-debug] (0.13s)
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit/taskq/test_porg_events_worker.py:822: in test_accept_invite_phone_mismatch_drops_roles
+    assert partner_roles == []
+E   AssertionError: assert [Role(created...tickets=None)] == []
+E     
+E     Left contains one more item: Role(created=datetime.datetime(2026, 2, 20, 10, 52, 55, 248502, tzinfo=datetime.timezone.utc), updated=datetime.dateti...9d-8eaf-015a2ca7871d'), partner_id=UUID('32bb0edb-1955-4656-ad1b-eae91f1e7ba2'), merchant_id=None, update_tickets=None)
+E     Use --pytest-args=-v to get more diff
+Log: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff/taskq.test_porg_events_worker.py.TestDoAcceptInvite.test_accept_invite_phone_mismatch_drops_roles.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk5/testing_out_stuff
+------ FAIL: 184 - GOOD, 1 - FAIL billing/yandex_pay_admin/yandex_pay_admin/tests/unit
+
+Total 6 suites:
+        4 - GOOD
+        2 - FAIL
+Total 189 tests:
+        188 - GOOD
+        1 - FAIL
+

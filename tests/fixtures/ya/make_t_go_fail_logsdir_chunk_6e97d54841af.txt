@@ -1,0 +1,37 @@
+
+pay/receiptron/pkg/core/actions/fes/gotest <go_test> [size:medium]
+------ sole chunk ran 35 tests (total:1.18s - test:1.14s)
+[fail] gotest::TestCreateFESJobAction_Branching_Success [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:156: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:156
+                Error:          Received unexpected error:
+                                build UZB receipt content:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.BuildReceiptPayload
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:98
+                                map order items:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.BuildUZBReceiptContentAction
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:61
+                                missing spic_code for product_id=p1
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/uz.mapOrderItemsToUZRows
+                                        /-S/pay/receiptron/pkg/core/actions/fes/uz/build_uzb_receipt_content.go:124
+                Test:           TestCreateFESJobAction_Branching_Success
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_Branching_Success.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestCreateFESJobAction_MarshalErrors [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:222: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:222
+                Error:          "build UZB receipt content: map order items: missing spic_code for product_id=p1" does not contain "marshal UZB receipt error"
+                Test:           TestCreateFESJobAction_MarshalErrors
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_MarshalErrors.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+------ FAIL: 33 - GOOD, 2 - FAIL pay/receiptron/pkg/core/actions/fes/gotest
+
+Total 84 suites:
+        83 - GOOD
+        1 - FAIL
+Total 365 tests:
+        363 - GOOD
+        2 - FAIL
+Failed
+Warn: Can't create symlink to /Users/user/.ya/build/symres/283e59d574b4af8d0c1c5fbbf90c2120/runserver: /Users/user/arcadia/pay/receiptron/tests/runserver/runserver exists and it's not a symlink
+Warn: Can't create symlink to /Users/user/.ya/build/symres/38ee391fe1f636a229cfa4408214a76c/component: /Users/user/arcadia/pay/receiptron/tests/component/component exists and it's not a symlink

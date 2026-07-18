@@ -1,0 +1,41 @@
+
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit/core/actions/invite/test_validate_phone.py:195: in test_mismatch_existing_member_by_role_created_before_invite
+    assert verdict == InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER
+E   AssertionError: assert <InvitePhoneVerdict.MISMATCH: 'mismatch'> == <InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER: 'mismatch_existing_member'>
+E    +  where <InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER: 'mismatch_existing_member'> = InvitePhoneVerdict.MISMATCH_EXISTING_MEMBER
+Log: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk0/testing_out_stuff/core.actions.invite.test_validate_phone.py.TestValidateInvitePhoneAction.test_mismatch_existing_member_by_role_created_before_invite.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk0/testing_out_stuff
+[fail] core.actions.invite.test_validate_phone.py::TestValidateInvitePhoneAction::test_mismatch_on_empty_phone [default-darwin-arm64-debug] (0.17s)
+mail/python/sendr_qtools/src/sendr_core/action.py:113: in _wrap_exception
+    yield
+mail/python/sendr_qtools/src/sendr_core/action.py:106: in _run
+    result = await self.handle()
+billing/yandex_pay_admin/yandex_pay_admin/core/actions/invite/validate_phone.py:25: in handle
+    assert self.invite.phone, "ValidateInvitePhoneAction should only be called when invite has a phone"
+E   AssertionError: ValidateInvitePhoneAction should only be called when invite has a phone
+
+The above exception was the direct cause of the following exception:
+billing/yandex_pay_admin/yandex_pay_admin/tests/unit/core/actions/invite/test_validate_phone.py:225: in test_mismatch_on_empty_phone
+    await ValidateInvitePhoneAction(uid=INVITEE_UID, invite=invite).run()
+mail/python/sendr_qtools/src/sendr_core/action.py:86: in run
+    return await task
+mail/python/sendr_qtools/src/sendr_aiopg/action.py:81: in _run
+    return await super()._run()
+billing/yandex_pay_admin/yandex_pay_admin/core/actions/base.py:47: in _run
+    return await super()._run()
+mail/python/sendr_qtools/src/sendr_core/action.py:102: in _run
+    self._wrap_exception(),
+contrib/tools/python3/Lib/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+mail/python/sendr_qtools/src/sendr_core/action.py:120: in _wrap_exception
+    raise CoreFailError from exc
+E   mail.python.sendr_qtools.src.sendr_core.exceptions.CoreFailError
+Log: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk0/testing_out_stuff/core.actions.invite.test_validate_phone.py.TestValidateInvitePhoneAction.test_mismatch_on_empty_phone.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_admin/yandex_pay_admin/tests/unit/test-results/py3test/chunk0/testing_out_stuff
+------ FAIL: 2 - FAIL billing/yandex_pay_admin/yandex_pay_admin/tests/unit
+
+Total 1 suite:
+        1 - FAIL
+Total 2 tests:
+        2 - FAIL
+Failed

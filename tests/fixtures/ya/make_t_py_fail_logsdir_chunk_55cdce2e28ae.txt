@@ -1,0 +1,135 @@
+
+------ [2/10] chunk ran 21 tests (total:109.19s - setup:0.02s recipes:22.32s test:85.33s recipes:1.51s)
+[fail] handlers.form.orders.test_get_by_token.py::test_unauthorized[PaymentStatus.FAILED] [default-darwin-arm64-debug] (0.57s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/functional/handlers/form/orders/test_get_by_token.py:73: in test_unauthorized
+    assert_that(data['data'], make_expected_response_for_unauthorized(checkout_order, payment_status=payment_status))
+E   AssertionError: 
+E   Expected: <{'order': {'cart': {'items': [], 'total': {'amount': '441.00'}}, 'available_payment_methods': ['CARD', 'SPLIT'], 'payment_method_rules': {'available': a sequence over ['CARD', 'SPLIT'] in any order, 'preferred': 'FULLPAYMENT', 'anonymous': [], 'tips': []}, 'checkout_order_id': '8320d1e1-f3d4-41ad-a586-312c0033cfd8', 'payment_status': 'FAILED', 'merchant_id': '83445e1d-51ba-45d3-870e-8f8a248f22d5', 'order_id': 'IAyJFxVSIGZl', 'order_amount': '123.45', 'metadata': ANYTHING, 'created': ANYTHING, 'updated': ANYTHING, 'is_prepayment': False, 'features': {'public_constructor': '6'}, 'currency_code': 'XTS', 'customer_subscription_id': 'a63d4c94-54e3-48cc-b2d2-79693c5c502f', 'initial_payment_options': {'card_id': '12345', 'payment_method': 'CARD', 'public_constructor': '4'}, 'pending_sbp_binding_id': 'pending-sbp-binding-id', 'uni_qr_id': 'uniqr_id', 'is_express_delivery': False, 'is_microcredit': False, 'cooling_period_extended_info': {'is_active_cooling_period': False}}, 'redirect_urls': {'on_success': 'https://success.url', 'on_error': 'https://error.url', 'on_abort': 'https://abort.url'}, 'disable_credlim_upgrade': False}>
+E        but: was <{'order': {'cart': {'items': [], 'total': {'amount': '441.00'}}, 'checkout_order_id': '8320d1e1-f3d4-41ad-a586-312c0033cfd8', 'customer_subscription_id': 'a63d4c94-54e3-48cc-b2d2-79693c5c502f', 'currency_code': 'XTS', 'merchant_id': '83445e1d-51ba-45d3-870e-8f8a248f22d5', 'metadata': 'mdata', 'order_amount': '123.45', 'order_id': 'IAyJFxVSIGZl', 'created': '2026-03-19T22:18:56.359357+03:00', 'updated': '2026-03-19T22:18:56.359357+03:00', 'payment_status': 'FAILED', 'is_prepayment': False, 'country': 'RUS', 'available_payment_methods': ['CARD', 'SPLIT'], 'payment_method_rules': {'available': ['CARD', 'SPLIT'], 'preferred': 'FULLPAYMENT', 'anonymous': [], 'tips': []}, 'features': {'public_constructor': '6'}, 'initial_payment_options': {'card_id': '12345', 'payment_method': 'CARD', 'public_constructor': '4'}, 'pending_sbp_binding_id': 'pending-sbp-binding-id', 'uni_qr_id': 'uniqr_id', 'is_express_delivery': False, 'cooling_period_extended_info': {'is_active_cooling_period': False}, 'is_microcredit': False}, 'redirect_urls': {'on_success': 'https://success.url', 'on_error': 'https://error.url', 'on_abort': 'https://abort.url'}, 'disable_credlim_upgrade': False}>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk2/testing_out_stuff/handlers.form.orders.test_get_by_token.py.test_unauthorized.PaymentStatus.FAILED.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk2/testing_out_stuff
+[fail] handlers.form.orders.test_get_by_token.py::test_unauthorized[PaymentStatus.PENDING] [default-darwin-arm64-debug] (0.66s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/functional/handlers/form/orders/test_get_by_token.py:73: in test_unauthorized
+    assert_that(data['data'], make_expected_response_for_unauthorized(checkout_order, payment_status=payment_status))
+E   AssertionError: 
+E   Expected: <{'order': {'cart': {'items': [], 'total': {'amount': '441.00'}}, 'available_payment_methods': ['CARD', 'SPLIT'], 'payment_method_rules': {'available': a sequence over ['CARD', 'SPLIT'] in any order, 'preferred': 'FULLPAYMENT', 'anonymous': [], 'tips': []}, 'checkout_order_id': 'c9387634-ce07-48a0-9ae6-11aaf7938e31', 'payment_status': 'PENDING', 'merchant_id': '4e1b25a6-9409-4091-8a94-2a583ca91b15', 'order_id': 'uKZPaomJQMbs', 'order_amount': '123.45', 'metadata': ANYTHING, 'created': ANYTHING, 'updated': ANYTHING, 'is_prepayment': False, 'features': {'public_constructor': '6'}, 'currency_code': 'XTS', 'customer_subscription_id': '00597697-90ea-4f78-a6a4-e32b6145a3c5', 'initial_payment_options': {'card_id': '12345', 'payment_method': 'CARD', 'public_constructor': '4'}, 'pending_sbp_binding_id': 'pending-sbp-binding-id', 'uni_qr_id': 'uniqr_id', 'is_express_delivery': False, 'is_microcredit': False, 'cooling_period_extended_info': {'is_active_cooling_period': False}}, 'redirect_urls': {'on_success': 'https://success.url', 'on_error': 'https://error.url', 'on_abort': 'https://abort.url'}, 'disable_credlim_upgrade': False}>
+E        but: was <{'order': {'cart': {'items': [], 'total': {'amount': '441.00'}}, 'checkout_order_id': 'c9387634-ce07-48a0-9ae6-11aaf7938e31', 'customer_subscription_id': '00597697-90ea-4f78-a6a4-e32b6145a3c5', 'currency_code': 'XTS', 'merchant_id': '4e1b25a6-9409-4091-8a94-2a583ca91b15', 'metadata': 'mdata', 'order_amount': '123.45', 'order_id': 'uKZPaomJQMbs', 'created': '2026-03-19T22:18:58.762861+03:00', 'updated': '2026-03-19T22:18:58.762861+03:00', 'payment_status': 'PENDING', 'is_prepayment': False, 'country': 'RUS', 'available_payment_methods': ['CARD', 'SPLIT'], 'payment_method_rules': {'available': ['CARD', 'SPLIT'], 'preferred': 'FULLPAYMENT', 'anonymous': [], 'tips': []}, 'features': {'public_constructor': '6'}, 'initial_payment_options': {'card_id': '12345', 'payment_method': 'CARD', 'public_constructor': '4'}, 'pending_sbp_binding_id': 'pending-sbp-binding-id', 'uni_qr_id': 'uniqr_id', 'is_express_delivery': False, 'cooling_period_extended_info': {'is_active_cooling_period': False}, 'is_microcredit': False}, 'redirect_urls': {'on_success': 'https://success.url', 'on_error': 'https://error.url', 'on_abort': 'https://abort.url'}, 'disable_credlim_upgrade': False}>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk2/testing_out_stuff/handlers.form.orders.test_get_by_token.py.test_unauthorized.PaymentStatus.PENDING.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk2/testing_out_stuff
+------ [4/10] chunk ran 21 tests (total:100.24s - setup:0.02s recipes:23.28s test:75.39s recipes:1.52s)
+[fail] handlers.internal.test_merchant_order_create.py::test_success [default-darwin-arm64-debug] (0.44s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/functional/handlers/internal/test_merchant_order_create.py:29: in test_success
+    assert_that(
+E   AssertionError: 
+E   Expected: <{'cart': {'items': [{'product_id': 'product-1', 'quantity': {'count': '1'}, 'type': 'UNSPECIFIED', 'title': 'Ботинок', 'description': 'Левый', 'total': '123.45', 'discounted_unit_price': '123.45', 'final_price': '123.45'}], 'total': {'amount': '123.45'}, 'external_id': 'external_id'}, 'currency_code': 'RUB', 'merchant_id': 'abeb9b67-528c-44b2-bf07-32af6e375936', 'metadata': 'blablabla', 'order_amount': '123.45', 'order_id': '6cb14f8d-0a7f-419b-b4e6-55062a2bd932', 'created': not None, 'updated': not None, 'payment_status': 'PENDING', 'purpose': 'оплата товаров за деньги', 'is_prepayment': False, 'payment_url': not None}>
+E        but: <{'cart': {'items': [{'product_id': 'product-1', 'quantity': {'count': '1'}, 'type': 'UNSPECIFIED', 'title': 'Ботинок', 'description': 'Левый', 'total': '123.45', 'discounted_unit_price': '123.45', 'final_price': '123.45'}], 'total': {'amount': '123.45'}, 'external_id': 'external_id'}, 'currency_code': 'RUB', 'merchant_id': 'abeb9b67-528c-44b2-bf07-32af6e375936', 'metadata': 'blablabla', 'order_amount': '123.45', 'order_id': '6cb14f8d-0a7f-419b-b4e6-55062a2bd932', 'created': '2026-03-19T22:19:17.072593+03:00', 'updated': '2026-03-19T22:19:17.072593+03:00', 'payment_status': 'PENDING', 'purpose': 'оплата товаров за деньги', 'is_prepayment': False, 'country': 'RUS', 'payment_url': 'https://test.pay.ya.ru/u/eIiqOT'}> has extra keys <{'country'}>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk4/testing_out_stuff/handlers.internal.test_merchant_order_create.py.test_success.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk4/testing_out_stuff
+------ [5/10] chunk ran 21 tests (total:92.36s - setup:0.03s recipes:24.27s test:66.63s recipes:1.41s)
+[fail] handlers.internal.test_merchant_order_create.py::test_success_partially_valid_cart [default-darwin-arm64-debug] (0.79s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/functional/handlers/internal/test_merchant_order_create.py:78: in test_success_partially_valid_cart
+    assert_that(
+E   AssertionError: 
+E   Expected: <{'cart': {'items': [{'product_id': 'product-1', 'quantity': {'count': '1'}, 'type': 'UNSPECIFIED', 'title': 'Ботинок', 'description': 'Левый, на развес', 'total': '124.00', 'discounted_unit_price': '123.45', 'unit_price': '123.45', 'final_price': '123.45'}], 'total': {'amount': '124.00'}, 'external_id': 'external_id'}, 'currency_code': 'RUB', 'merchant_id': 'febb2c92-ce51-4001-a798-cd34096c673f', 'metadata': 'blablabla', 'order_amount': '124.00', 'order_id': '8dc5e0b2-405c-434a-9156-a1312d9253d7', 'created': not None, 'updated': not None, 'payment_status': 'PENDING', 'purpose': 'оплата товаров за деньги', 'is_prepayment': False, 'payment_url': not None}>
+E        but: <{'cart': {'items': [{'product_id': 'product-1', 'quantity': {'count': '1'}, 'type': 'UNSPECIFIED', 'title': 'Ботинок', 'description': 'Левый, на развес', 'total': '124.00', 'discounted_unit_price': '123.45', 'unit_price': '123.45', 'final_price': '123.45'}], 'total': {'amount': '124.00'}, 'external_id': 'external_id'}, 'currency_code': 'RUB', 'merchant_id': 'febb2c92-ce51-4001-a798-cd34096c673f', 'metadata': 'blablabla', 'order_amount': '124.00', 'order_id': '8dc5e0b2-405c-434a-9156-a1312d9253d7', 'created': '2026-03-19T22:22:34.076383+03:00', 'updated': '2026-03-19T22:22:34.076383+03:00', 'payment_status': 'PENDING', 'purpose': 'оплата товаров за деньги', 'is_prepayment': False, 'country': 'RUS', 'payment_url': 'https://test.pay.ya.ru/u/JKYysZ'}> has extra keys <{'country'}>
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk5/testing_out_stuff/handlers.internal.test_merchant_order_create.py.test_success_partially_valid_cart.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/chunk5/testing_out_stuff
+------ FAIL: 212 - GOOD, 4 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/functional
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit <py3test> [size:medium] nchunks:10
+------ [1/10] chunk ran 13 tests (total:412.29s - setup:0.08s recipes:32.39s test:377.64s recipes:2.15s)
+[fail] core.actions.merchant_order.test_get.py::test_success[False] [default-darwin-arm64-debug] (0.33s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get.py:168: in test_success
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff/core.actions.merchant_order.test_get.py.test_success.False.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff
+[fail] core.actions.merchant_order.test_get.py::test_success[True] [default-darwin-arm64-debug] (0.31s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get.py:168: in test_success
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff/core.actions.merchant_order.test_get.py.test_success.True.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk1/testing_out_stuff
+------ [3/10] chunk ran 12 tests (total:424.34s - setup:0.09s recipes:34.09s test:388.06s recipes:2.06s)
+[fail] core.actions.merchant_order.test_get_by_payment_url.py::test_success_by_short [default-darwin-arm64-debug] (1.67s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get_by_payment_url.py:700: in get_order_by_payment_url_response
+    order=ensure_all_fields(FormOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff/core.actions.merchant_order.test_get_by_payment_url.py.test_success_by_short.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff
+[fail] core.actions.merchant_order.test_get_by_payment_url.py::test_success_payment_url [default-darwin-arm64-debug] (0.37s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get_by_payment_url.py:700: in get_order_by_payment_url_response
+    order=ensure_all_fields(FormOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff/core.actions.merchant_order.test_get_by_payment_url.py.test_success_payment_url.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff
+[fail] core.actions.merchant_order.test_get_by_payment_url.py::test_unauthorized [default-darwin-arm64-debug] (0.29s)
+setup failed:
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get_by_payment_url.py:700: in get_order_by_payment_url_response
+    order=ensure_all_fields(FormOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff/core.actions.merchant_order.test_get_by_payment_url.py.test_unauthorized.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk3/testing_out_stuff
+------ [7/10] chunk ran 12 tests (total:429.75s - setup:0.07s recipes:36.39s test:391.30s recipes:1.96s)
+[fail] core.actions.merchant_order.test_get_by_token.py::test_success [default-darwin-arm64-debug] (0.34s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/merchant_order/test_get_by_token.py:92: in test_success
+    order=ensure_all_fields(FormOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff/core.actions.merchant_order.test_get_by_token.py.test_success.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk7/testing_out_stuff
+------ [9/10] chunk ran 12 tests (total:429.42s - setup:0.09s recipes:34.80s test:392.59s recipes:1.90s)
+[fail] core.actions.split_proxy.test_get_merchant_order.py::test_success_by_checkout_order_id [default-darwin-arm64-debug] (0.25s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/split_proxy/test_get_merchant_order.py:206: in test_success_by_checkout_order_id
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/core.actions.split_proxy.test_get_merchant_order.py.test_success_by_checkout_order_id.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] core.actions.split_proxy.test_get_merchant_order.py::test_success_by_order_id [default-darwin-arm64-debug] (0.23s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/split_proxy/test_get_merchant_order.py:127: in test_success_by_order_id
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/core.actions.split_proxy.test_get_merchant_order.py.test_success_by_order_id.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] core.actions.split_proxy.test_get_merchant_order.py::test_success_without_plan [default-darwin-arm64-debug] (0.22s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/split_proxy/test_get_merchant_order.py:379: in test_success_without_plan
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/core.actions.split_proxy.test_get_merchant_order.py.test_success_without_plan.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] core.actions.split_proxy.test_get_merchant_order.py::test_success_without_plan_due_to_not_found_split_order [default-darwin-arm64-debug] (0.17s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/split_proxy/test_get_merchant_order.py:466: in test_success_without_plan_due_to_not_found_split_order
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/core.actions.split_proxy.test_get_merchant_order.py.test_success_without_plan_due_to_not_found_split_order.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+[fail] core.actions.split_proxy.test_get_merchant_order.py::test_success_without_split_proxy_original_cart [default-darwin-arm64-debug] (0.19s)
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/split_proxy/test_get_merchant_order.py:293: in test_success_without_split_proxy_original_cart
+    order=ensure_all_fields(MerchantApiOrder)(
+mail/python/sendr_qtools/src/sendr_pytest/helpers.py:41: in _constructor
+    raise KeyError(f'Missing fields: {missing}')
+E   KeyError: "Missing fields: ['country']"
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff/core.actions.split_proxy.test_get_merchant_order.py.test_success_without_split_proxy_original_cart.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/chunk9/testing_out_stuff
+------ FAIL: 112 - GOOD, 11 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit

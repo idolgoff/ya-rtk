@@ -1,0 +1,36 @@
+
+pay/receiptron/pkg/core/actions/fes/gotest <go_test> [size:medium]
+------ sole chunk ran 28 tests (total:1.89s - test:1.87s)
+[fail] gotest::TestCreateFESJobAction_Branching_Success [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:121: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:121
+                Error:          Received unexpected error:
+                                build v1.2 receipt content:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes.createFESJobAction
+                                        /-S/pay/receiptron/pkg/core/actions/fes/create_job.go:78
+                                map order items:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions/fes/ru.BuildV1_2ReceiptContentAction
+                                        /-S/pay/receiptron/pkg/core/actions/fes/ru/build_receipt_content.go:113
+                                failed to resolve tax type:
+                                    a.yandex-team.ru/pay/receiptron/pkg/core/actions.MapOrderItemsToReceiptRowsAction
+                                        /-S/pay/receiptron/pkg/core/actions/map_order_items_to_receipt_rows.go:56
+                                  - unknown tax type: 20
+                Test:           TestCreateFESJobAction_Branching_Success
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_Branching_Success.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+[fail] gotest::TestCreateFESJobAction_MarshalErrors [default-darwin-arm64-debug] (0.00s)
+create_job_test.go:185: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:185
+                Error:          "build v1.2 receipt content: map order items: failed to resolve tax type: unknown tax type: 20" does not contain "marshal v1.2 receipt error"
+                Test:           TestCreateFESJobAction_MarshalErrors
+    create_job_test.go:189: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:189
+                Error:          "build v1.05 receipt content: map order items: failed to resolve tax type: unknown tax type: 20" does not contain "marshal v1.05 receipt error"
+                Test:           TestCreateFESJobAction_MarshalErrors
+    create_job_test.go:193: 
+                Error Trace:    /-S/pay/receiptron/pkg/core/actions/fes/create_job_test.go:193
+                Error:          "build legacy receipt content: map order items: failed to resolve tax type: unknown tax type: 20" does not contain "marshal default receipt error"
+                Test:           TestCreateFESJobAction_MarshalErrors
+Log: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff/gotest.TestCreateFESJobAction_MarshalErrors.log
+Logsdir: /Users/user/arcadia/pay/receiptron/pkg/core/actions/fes/gotest/test-results/gotest/testing_out_stuff
+------ FAIL: 26 - GOOD, 2 - FAIL pay/receiptron/pkg/core/actions/fes/gotest

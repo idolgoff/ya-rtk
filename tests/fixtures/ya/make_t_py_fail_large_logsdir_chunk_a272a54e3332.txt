@@ -1,0 +1,352 @@
+------- [TM] {default-darwin-arm64, release} billing/yandex_pay_plus/yandex_pay_plus/tests/functional/py3test
+Test command err:
+contrib/python/ydb/py3/ydb/__init__.py:61: UserWarning: Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior
+contrib/python/ydb/py3/ydb/global_settings.py:22: UserWarning: Global allow split transaction is deprecated behaviour.
+contrib/python/ydb/py3/ydb/global_settings.py:12: UserWarning: Global allow truncated response is deprecated behaviour.
+Unexpected getting uninitialized hot settings: PAY_TARIFFICATOR_POINTS_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_WRITE_TABLE_TIMEOUT_SECONDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BACKEND_DEGRADATION_MODE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_TARIFFICATOR_PAYMENT_MAX_RETRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_PAYMENT_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_REFUND_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_DRY_RUN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_CLEAR_PROCESSING_MAX_TRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_SEND_EMAIL_NOTIFICATIONS_FOR_INSTANT_PAYOUT_FLOW, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_WINDOW_DAYS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_INSTANT_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_UPLOAD_MAX_BATCH_SIZE_BYTES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: GLOBAL_DISCOUNT_COMPENSATION_CAP, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DECIMAL_PLACE_DIGIT_MULTIPLIER, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MIN_DISCOUNT_ORDER_AMOUNT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DEVSTAND_ROUTING_REDIS_KEY_TTL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ARCHIVE_FAILED_TASKS_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: OPTIONAL_AUTH_FLOW_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_DESCRIPTION_TEMPLATE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_METADATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_PRODUCT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_UNCONDITIONAL_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_AND_TITLE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_ENABLED_IF_REGION_UNKNOWN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BY_SDK_DISABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_AVAILABILITY_CHECK_BYPASS_UIDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_HEALTHCHECK_PERCENT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_USER_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECK_DISCOUNT_AVAILABILITY_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_ADS_DISCOUNT_DATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: FALLBACK_SPLIT_GMV_PREDICTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_USE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLED_ANONYMOUS_PAYMENT_FOR_SHOPITON, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ORDER_TEMPLATES_LIMITS_CREATING_PER_MERCHANT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_DISCOUNT_AUTO_FILL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_MIGRATED_DISCOUNT_SLUGS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BATCH_CASHBACK_CARDS_LIMIT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_ENABLE_GLOBAL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: NEWBIE_CART_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MERCHANT_FILE_UPLOAD_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_USE_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+/Users/user/.ya/build/build_root/3nlu/000c95/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py:41: PytestCollectionWarning: cannot collect test class 'TestCaseFlow' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py)
+/Users/user/.ya/build/build_root/3nlu/000c95/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py:214: PytestCollectionWarning: cannot collect test class 'TestCaseFlowWithWaiting' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py)
+/Users/user/.ya/build/build_root/3nlu/000c95/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py:434: PytestCollectionWarning: cannot collect test class 'TestCaseFlowWithRefund' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/secure_payments/test_secure_payments_flow.py)
+/Users/user/.ya/build/build_root/3nlu/000c95/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/payments/test_mkk_payment.py:29: PytestCollectionWarning: cannot collect test class 'TestCase' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/functional/scenarios/payments/test_mkk_payment.py)
+------- [TM] {default-darwin-arm64, release} billing/yandex_pay_plus/yandex_pay_plus/tests/unit/py3test >> core.action
+Test command err:
+contrib/python/ydb/py3/ydb/__init__.py:61: UserWarning: Used deprecated behavior, for fix ADD PEERDIR kikimr/public/sdk/python/ydb_v3_new_behavior
+contrib/python/ydb/py3/ydb/global_settings.py:22: UserWarning: Global allow split transaction is deprecated behaviour.
+contrib/python/ydb/py3/ydb/global_settings.py:12: UserWarning: Global allow truncated response is deprecated behaviour.
+Unexpected getting uninitialized hot settings: PAY_TARIFFICATOR_POINTS_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_LOG_REQUEST_BODY, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_WRITE_TABLE_TIMEOUT_SECONDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BACKEND_DEGRADATION_MODE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_DRY_RUN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_PAYMENT_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YANDEX_PSP_WAIT_SECONDS_AFTER_REFUND_INTERACTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TARIFFICATOR_ROLLBACK_REFUND_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_MINUS_TRIAL_PROMOCODES_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_TARIFFICATOR_PAYMENT_MAX_RETRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: TASKQ_CLEAR_PROCESSING_MAX_TRIES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_SEND_EMAIL_NOTIFICATIONS_FOR_INSTANT_PAYOUT_FLOW, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_ALERT_WINDOW_DAYS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: INSTANT_PAYOUT_COOLING_SYNCHRONIZATION_WITH_CREDLIM_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECKOUT_ORDER_TTL_AFTER_INSTANT_COOLING_OFF_ENDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: OPTIONAL_AUTH_FLOW_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DEVSTAND_ROUTING_REDIS_KEY_TTL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: GLOBAL_DISCOUNT_COMPENSATION_CAP, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DECIMAL_PLACE_DIGIT_MULTIPLIER, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MIN_DISCOUNT_ORDER_AMOUNT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_DESCRIPTION_TEMPLATE, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_METADATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METAITEM_CART_TARGET_PRODUCT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_UNCONDITIONAL_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_AND_TITLE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: PATCH_METADATA_BY_PRODUCT_ID_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_ENABLED_IF_REGION_UNKNOWN, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BY_SDK_DISABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_AVAILABILITY_CHECK_BYPASS_UIDS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_HEALTHCHECK_PERCENT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: DISABLED_PAYMENT_METHODS_USER_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CHECK_DISCOUNT_AVAILABILITY_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_ADS_DISCOUNT_DATA, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: FALLBACK_SPLIT_GMV_PREDICTION, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_USE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLED_ANONYMOUS_PAYMENT_FOR_SHOPITON, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: UPDATE_SPLIT_PURCHASE_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_NEW_LOGIC_ENABLED, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: SBP_BACKWARD_REDIRECT_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ORDER_TEMPLATES_LIMITS_CREATING_PER_MERCHANT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ENABLE_DISCOUNT_AUTO_FILL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_MIGRATED_DISCOUNT_SLUGS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_CATEGORY_ROUND_NDIGITS, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_USER_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: CASHBACK_CALCULATOR_BY_CARD_LIMIT_ID, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: BATCH_CASHBACK_CARDS_LIMIT, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_MERCHANT_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_PROMO_PLAN_ENABLE_GLOBAL, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: NEWBIE_CART_THRESHOLD, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: YT_UPLOAD_MAX_BATCH_SIZE_BYTES, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: MERCHANT_FILE_UPLOAD_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_USE_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: LOOTBOX_IN_BUTTON_BOOTSTRAP_MERCHANTS_WHITELIST, source: Source.POSTGRESQL
+Unexpected getting uninitialized hot settings: ARCHIVE_FAILED_TASKS_ENABLED, source: Source.POSTGRESQL
+/Users/user/.ya/build/build_root/3nlu/000c97/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/middlewares/test_pay_authenticator.py:26: PytestCollectionWarning: cannot collect test class 'TestHandler' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/api/middlewares/test_pay_authenticator.py)
+/Users/user/.ya/build/build_root/3nlu/000c97/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_base_status.py:25: PytestCollectionWarning: cannot collect test class 'TestUpdateTransactionStatusAction' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/transaction/test_base_status.py)
+/Users/user/.ya/build/build_root/3nlu/000c97/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/pay/lib/interactions/uaas/entities.py:58: PytestCollectionWarning: cannot collect test class 'TestBucket' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_fetch_uaas_data_action.py)
+/Users/user/.ya/build/build_root/3nlu/000c97/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/interactions/risk/__init__.py:74: PytestCollectionWarning: cannot collect test class 'TestingRiskClient' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/interactions/test_risk.py)
+/Users/user/.ya/build/build_root/3nlu/000c97/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/taskq/test_cron_worker.py:23: PytestCollectionWarning: cannot collect test class 'TestAction' because it has a __init__ constructor (from: billing/yandex_pay_plus/yandex_pay_plus/tests/unit/taskq/test_cron_worker.py)
+Number of suites skipped by size: 1, skipped by name: 17, by filter *test_blackbox*
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit <py3test> [size:medium]
+------ sole chunk ran 15 tests (total:22.82s - setup:5.01s recipes:7.01s test:9.66s recipes:1.13s)
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_not_calls_blackbox_get_user_info [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 51
+      @pytest.mark.asyncio
+      async def test_not_calls_blackbox_get_user_info(self, entity_auth_user, mock_blackbox_client):
+          contact = Contact(email='test@test.test', phone='+79990001122')
+          await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=contact).run()
+          mock_blackbox_client.assert_not_awaited()
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity_operation, entity_operation_uzb, entity_order_payment_splitting, entity_payments_splitting_scenarios, entity_psp, entity_receipt, entity_report_order, entity_shipping_method, entity_storage_risk_info, entity_subscription
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:51
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_not_calls_blackbox_get_user_info.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_calls_blackbox_get_user_info_for_missing_billing_contact [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 57
+      @pytest.mark.asyncio
+      async def test_calls_blackbox_get_user_info_for_missing_billing_contact(
+          self, entity_auth_user, mock_blackbox_client
+      ):
+          await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=None).run()
+          mock_blackbox_client.assert_awaited_once()
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity_operation, entity_operation_uzb, entity_order_payment_splitting, entity_payments_splitting_scenarios, entity_psp, entity_receipt, entity_report_order, entity_shipping_method, entity_storage_risk_info, entity_subscription_plan, entity_threeds_authenticati
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:57
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_calls_blackbox_get_user_info_for_missing_billing_contact.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_calls_blackbox_get_user_info_for_missing_billing_contact_email [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 64
+      @pytest.mark.asyncio
+      async def test_calls_blackbox_get_user_info_for_missing_billing_contact_email(
+          self, entity_auth_user, mock_blackbox_client
+      ):
+          contact = Contact(email=None)
+          await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=contact).run()
+          mock_blackbox_client.assert_awaited_once()
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity_operation, entity_operation_uzb, entity_order_payment_splitting, entity_payments_splitting_scenarios, entity_psp, entity_receipt, entity_report_order, entity_shipping_method, entity_storage_risk_info, enti
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:64
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_calls_blackbox_get_user_info_for_missing_billing_contact_email.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_calls_blackbox_for_missing_phone [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 72
+      @pytest.mark.asyncio
+      async def test_calls_blackbox_for_missing_phone(self, entity_auth_user, mock_blackbox_client):
+          contact = Contact(email='test@test.test', phone=None)
+          await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=contact).run()
+          mock_blackbox_client.assert_awaited_once()
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity_operation, entity_operation_uzb, entity_order_payment_splitting, entity_payments_splitting_scenarios, entity_psp, entity_receipt, entity_report_order, entity_shipping_method, entity_storage_risk_info, entity_subscription_plan, en
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:72
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_calls_blackbox_for_missing_phone.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_enriches_phone [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 78
+      @pytest.mark.asyncio
+      async def test_enriches_phone(self, entity_auth_user, mock_blackbox_client):
+          mock_blackbox_client.return_value = UserInfo(
+              uid_data=UIDData(),
+              phones=[Phone(attributes={'102': '+998901234567', '4': '1', '107': '1'})],
+          )
+
+          contact = await EnrichUzbContactWithBlackboxAction(
+              user=entity_auth_user,
+              contact=Contact(email='test@test.test'),
+          ).run()
+
+          assert_that(contact, has_properties(email='test@test.test', phone='+998-90-1**-**67'))
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:78
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_enriches_phone.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_requests_email_and_phone_in_single_blackbox_call [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 92
+      @pytest.mark.asyncio
+      async def test_requests_email_and_phone_in_single_blackbox_call(self, entity_auth_user, mock_blackbox_client):
+          mock_blackbox_client.return_value = UserInfo(
+              uid_data=UIDData(),
+              address_list=[Email(address='address@mail.test', default=True, native=True)],
+              phones=[Phone(attributes={'102': '+998901234567', '4': '1', '107': '1'})],
+          )
+
+          contact = await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=None).run()
+
+          assert_that(contact, has_properties(email='address@mail.test', phone='+998-90-1**-**67'))
+          mock_blackbox_client.assert_awaited_once_with(
+              uid=entity_auth_user.uid,
+              user_ip='127.0.0.1',
+              emails_mode=EmailsMode.DEFAULT,
+              phones_mode=PhonesMode.BOUND,
+              phone_attributes=['102', '4', '107'],
+          )
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity
+..[snippet truncated]..
+pytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:92
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_requests_email_and_phone_in_single_blackbox_call.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_raises_contact_email_not_found_when_email_missing [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 111
+      @pytest.mark.asyncio
+      async def test_raises_contact_email_not_found_when_email_missing(self, entity_auth_user, mock_blackbox_client):
+          mock_blackbox_client.side_effect = UserNotFoundBlackboxError
+
+          with pytest.raises(ContactEmailNotFoundError):
+              await EnrichUzbContactWithBlackboxAction(user=entity_auth_user, contact=None).run()
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity_checkout_order, entity_checkout_order_uzb, entity_contact, entity_courier_option, entity_customer_subscription, entity_full_receipt, entity_integration, entity_item_receipt_uzb, entity_merchant, entity_merchant_risk_info, entity_offer, entity_operation, entity_operation_uzb, entity_order_payment_splitting, entity_payments_splitting_scenarios, entity_psp, entity_receipt, entity_report_order, entity_shipping_method, entity_storage_risk_inf
+..[snippet truncated]..
+ytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:111
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_raises_contact_email_not_found_when_email_missing.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+[fail] core.actions.test_blackbox_uzb.py::TestEnrichUzbContactWithBlackbox::test_does_not_raise_when_only_phone_missing_and_user_not_found [default-darwin-arm64-release] (0.01s)
+setup failed:
+file billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py, line 118
+      @pytest.mark.asyncio
+      async def test_does_not_raise_when_only_phone_missing_and_user_not_found(
+          self, entity_auth_user, mock_blackbox_client, dummy_logs
+      ):
+          mock_blackbox_client.side_effect = UserNotFoundBlackboxError
+
+          contact = await EnrichUzbContactWithBlackboxAction(
+              user=entity_auth_user,
+              contact=Contact(email='test@test.test'),
+          ).run()
+
+          assert_that(contact, has_properties(email='test@test.test', phone=None))
+          logs = dummy_logs()
+          assert_that(
+              logs,
+              has_item(
+                  has_properties(
+                      message='Exception while receiving data from blackbox',
+                      levelno=logging.ERROR,
+                  )
+              ),
+          )
+E       fixture 'mock_blackbox_client' not found
+>       available fixtures: action_context_setup, actx_mock, aiohttp_client, aiohttp_client_cls, aiohttp_raw_server, aiohttp_server, aiohttp_unused_port, aioresponses_mocker, aioresponses_zora_mocker, amount, api_handlers, app, batch_to_upsert, build_pmt_form_offer_response, cache, calculator_card_limit, calculator_unknown_limit, calculator_user, calculator_user_limit, capfd, capfdbinary, caplog, capsys, capsysbinary, card_id, card_personal_discount_rate, cart_item, cart_item_empty_sku_id, cart_item_high, cart_item_low, cart_item_low_with_version, cart_item_without_modifier, cart_with_none_total, cart_with_zero_external, checkout_order, checkout_order_default, checkout_order_none_total, checkout_order_zero_external, child_merchant, class_mocker, clear_db_contaminated_by_func_tests, client_id_header, clients_to_passthrough, cms_app, cms_application_router, common_setup_apps, configure_db, core_context, core_context_with_storage, create_cart_with_external_amount, create_checkout_order_with_discounts, create_client, create_crypters, create_deployed_integration_by_payment_method_type, create_service_discount, db_engine, dbconn, default_card, default_cart, default_params, default_source_params, discounts_collection, doctest_namespace, dummy_logger, dummy_logs, empty_params, enable_mobile_app_oauth_fallback, encrypted_public_constructor_settings, entity_address, entity_auth_user, entity_auth_user_with_client_id, entity_cart, entity_cart_ps, entity_cart_uzb_refund, entity
+..[snippet truncated]..
+ytestconfig, randbool, randdate, randdecimal, randitem, randmail, randn, rands, rands_url_safe, randslice, randurl, raw_db_engine, raw_db_engine_session, record_property, record_testsuite_property, record_xml_attribute, recwarn, redis_client, request_id, returned, rich_batch_items, rich_entity_address, rich_entity_checkout_order, rich_entity_contact, rich_entity_customer_subscription, rich_entity_customer_subscription_extended_info, rich_entity_merchant_offer, rich_entity_offer, rich_entity_payment_splitting, rich_entity_persistent_cart, rich_entity_shipping_method, rich_entity_split_order, rich_entity_split_order_plan, rich_entity_split_order_service_loan, rich_entity_split_order_service_payment, rich_merchant_redirect_urls, rsa_keys, service_discount_period, session_mocker, session_span_exporter, settings_to_overwrite, setup_tvm, sku_enabled, sku_id_high, sku_id_low, sku_id_without_modifier, skus_in_db, span_exporter, span_status_logger, split_personal_discount_rate, ss_transaction_with_user_session_data, ss_user_session_user_ticket, storage, stored_checkout_order, stored_checkout_order_uzb, stored_customer_subscription, stored_integration, stored_merchant, stored_merchant_for_cashback, stored_merchant_payments_splitting, stored_notification, stored_notification_sending, stored_offer, stored_operation, stored_operation_uzb, stored_psp, stored_report_order, stored_subscription_plan, stored_transaction, stored_transaction_operation, stored_transaction_uzb, stored_unittest_psp, stored_user_offer, tariffication_applied_service_discounts, tariffication_authorize_operation, tariffication_checkout_order, tariffication_discounted_amount, tariffication_merchant, tariffication_merchant_tags, tariffication_refund_operation, tariffication_transaction, test_public_pem, tilda_merchant, tilda_merchant_id, tilda_order_dict, tilda_order_items_dict, tilda_order_receipt_dict, tilda_secret, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, tracer, transaction, trust_card_id, tvm_service_id, tvm_user_id, uid, uniqr_app, uniqr_application_router, unique_rand, unixtime, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, user, user_agent, user_ip, user_port, worker_app, yabank_source_params, yandex_pay_plus_settings, yenv_type_production, yenv_type_testing
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/test_blackbox_uzb.py:118
+Log: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff/core.actions.test_blackbox_uzb.py.TestEnrichUzbContactWithBlackbox.test_does_not_raise_when_only_phone_missing_and_user_not_found.log
+Logsdir: /Users/user/arcadia/billing/yandex_pay_plus/yandex_pay_plus/tests/unit/test-results/py3test/testing_out_stuff
+------ FAIL: 7 - GOOD, 8 - FAIL billing/yandex_pay_plus/yandex_pay_plus/tests/unit
+
+Total 3 suites:
+	2 - GOOD
+	1 - FAIL
+Total 19 tests:
+	11 - GOOD
+	8 - FAIL
+Failed
