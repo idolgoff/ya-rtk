@@ -86,7 +86,7 @@ src/cmds/yandex/          # locked S0-T4
 | 1 | Scaffold + CLI shell | P0 | Done | 0 |
 | 2 | Envelope + generic fail | P0 | Done | 1 |
 | 3 | Inner detect + py3test | P0 | Done | 2 |
-| 4 | `ya test` parity + flags | P0 | Not started | 3 |
+| 4 | `ya test` parity + flags | P0 | Done | 3 |
 | 5 | Go (+ optional JS) adapters | P1 | Not started | 3 |
 | 6 | Build-only `ya make` | P1 | Not started | 2 |
 | 7 | `arc` commands | P1 | Not started | 1 |
@@ -214,14 +214,14 @@ Detection from **output text**, not directory name alone.
 
 ### Tasks
 
-- [ ] **S4-T1** Route `ya test` through same filter pipeline as test-mode `ya make`
-- [ ] **S4-T2** Argv passthrough: preserve `-F`, `-r`, `-ttX`, extra flags untouched
-- [ ] **S4-T3** Fixture or synthetic argv unit test: `-F '*order*'` still present in spawned command
-- [ ] **S4-T4** Confirm `-ttX` still benefits from fail-block extraction (use `make_ttX_py_fail_logsdir_chunk_raw.txt`)
-- [ ] **S4-T5** README: document shared pipeline + flag passthrough
-- [ ] **S4-T6** Quality gate
+- [x] **S4-T1** Route `ya test` through same filter pipeline as test-mode `ya make`
+- [x] **S4-T2** Argv passthrough: preserve `-F`, `-r`, `-ttX`, extra flags untouched
+- [x] **S4-T3** Fixture or synthetic argv unit test: `-F '*order*'` still present in spawned command
+- [x] **S4-T4** Confirm `-ttX` still benefits from fail-block extraction (use `make_ttX_py_fail_logsdir_chunk_raw.txt`)
+- [x] **S4-T5** README: document shared pipeline + flag passthrough
+- [x] **S4-T6** Quality gate
 
-**Exit:** `ya test` and `ya make -t` behave equivalently for filtering; filters never rewritten away.
+**Exit:** `ya test` and `ya make -t` behave equivalently for filtering; filters never rewritten away. ✅
 
 ---
 
@@ -384,7 +384,7 @@ Never synthesize fake `ya` output when a fixture exists.
 |----|----------|--------|------------|
 | Q1 | Ecosystem name `yandex/` vs `arcadia/`? | S1 | **`yandex/`** (S0-T4) |
 | Q2 | Ultra-compact: body vs headline+Logsdir? | S2-T6 | **Headline + location + error head + Log/Logsdir**; drop Expected/but bodies (S0-T5) |
-| Q3 | `ya test` vs `ya make -t` format parity? | S4 | **Assume shared** in v1; re-open if Stage 4 finds divergence (S0-T6) |
+| Q3 | `ya test` vs `ya make -t` format parity? | S4 | **Assume shared** in v1; Stage 4 confirmed same pipeline (S0-T6); re-open only if real `ya test` dumps diverge |
 | Q4 | Hooks: always vs arc-mount only? | S8-T4 | _TBD_ |
 
 ---
@@ -399,3 +399,5 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-18 | S1-T1…T7 | `src/cmds/yandex/` + `Commands::Ya` passthrough; Stage 1 done |
 | 2026-07-18 | S2-T1…T12 | Envelope + generic_fail; test-mode `run_filtered` + tee; Stage 2 done |
 | 2026-07-18 | S3-T1…T9 | `detect` + py3test→pytest reuse; Stage 3 done |
+| 2026-07-19 | S4-T1…T6 | `ya test` ≡ make -t pipeline; G10 locked; Stage 4 done |
+| 2026-07-19 | S4 review | `YaPipeline` + `Command::get_args` asserts; drop tautological `child_argv` / double clone |

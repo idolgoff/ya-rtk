@@ -386,12 +386,21 @@ mod tests {
         assert_min_savings(raw, &out, 60.0);
     }
 
+    /// S4-T4: `-ttX` verbose dumps still get fail-block extraction (≥60%).
     #[test]
     fn g10_ttx_fail_extracts_fails() {
         let raw =
             include_str!("../../../tests/fixtures/ya/make_ttX_py_fail_logsdir_chunk_raw.txt");
+        assert!(
+            is_test_mode(&["make".into(), "-ttX".into()]),
+            "-ttX must select test-mode filter"
+        );
         let out = filter_ya_envelope(raw);
-        assert!(out.contains("[FAIL]") || out.contains("failed"));
+        assert!(
+            out.contains("test_response") || out.contains("TestRenderOrder"),
+            "must keep failed node id\n{out}"
+        );
+        assert!(out.contains("[FAIL]") || out.contains("failed") || out.contains("[fail]"));
         assert!(out.contains("Logsdir:"));
         assert_min_savings(raw, &out, 60.0);
     }

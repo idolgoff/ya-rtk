@@ -1,6 +1,7 @@
-//! `ya` CLI proxy — test-mode envelope filter (Stage 2) + passthrough otherwise.
+//! `ya` CLI proxy — test-mode envelope filter + passthrough otherwise.
 //!
-//! `ya make -t*` / `ya test` → `filter_ya_envelope` via `run_filtered`.
+//! `ya make -t*` / `ya test` share the same filter pipeline (`filter_ya_envelope`).
+//! User argv (`-F`, `-r`, `-ttX`, …) is forwarded unchanged — never rewritten.
 //! Build / tool / other → passthrough until later stages.
 
 use crate::cmds::yandex::envelope::{filter_ya_envelope, is_test_mode};
@@ -8,6 +9,7 @@ use crate::core::runner;
 use crate::core::utils::resolved_command;
 use anyhow::Result;
 use std::ffi::OsString;
+use std::process::Command;
 
 /// First-token subdispatch for filter routing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -16,6 +18,14 @@ pub enum YaKind {
     Test,
     Tool,
     Other,
+}
+
+/// Execution plan for `run` — testable without spawning (S4-T1).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum YaPipeline {
+    /// `run_filtered` + tee label `"ya"`.
+    Filtered { tee: &'static str },
+    Passthrough,
 }
 
 /// Classify `ya` argv by the first positional token.
@@ -28,39 +38,52 @@ pub fn classify(args: &[String]) -> YaKind {
     }
 }
 
+/// Shared routing: `ya test` and test-mode `ya make` both get filtered+tee.
+pub fn pipeline(args: &[String]) -> YaPipeline {
+    if is_test_mode(args) {
+        YaPipeline::Filtered { tee: "ya" }
+    } else {
+        YaPipeline::Passthrough
+    }
+}
+
+/// Child `Command` with user argv forwarded as-is (no rewrite).
+fn build_ya_command(args: &[String]) -> Command {
+    let mut cmd = resolved_command("ya");
+    for arg in args {
+        cmd.arg(arg);
+    }
+    cmd
+}
+
 /// Run `ya` — filtered in test mode, passthrough otherwise.
 pub fn run(args: &[String], verbose: u8) -> Result<i32> {
     let kind = classify(args);
-    let test_mode = is_test_mode(args);
 
     if verbose > 0 {
         eprintln!(
             "ya {:?} → {}",
             kind,
-            if test_mode {
-                "test-mode filter"
-            } else {
-                "passthrough"
+            match pipeline(args) {
+                YaPipeline::Filtered { .. } => "test-mode filter",
+                YaPipeline::Passthrough => "passthrough",
             }
         );
     }
 
-    if test_mode {
-        let mut cmd = resolved_command("ya");
-        for arg in args {
-            cmd.arg(arg);
-        }
-        return runner::run_filtered(
-            cmd,
+    match pipeline(args) {
+        YaPipeline::Filtered { tee } => runner::run_filtered(
+            build_ya_command(args),
             "ya",
             &args.join(" "),
             filter_ya_safe,
-            runner::RunOptions::with_tee("ya"),
-        );
+            runner::RunOptions::with_tee(tee),
+        ),
+        YaPipeline::Passthrough => {
+            let os_args: Vec<OsString> = args.iter().map(OsString::from).collect();
+            runner::run_passthrough("ya", &os_args, verbose)
+        }
     }
-
-    let os_args: Vec<OsString> = args.iter().map(OsString::from).collect();
-    runner::run_passthrough("ya", &os_args, verbose)
 }
 
 /// Infallible wrapper — on unexpected panic path we still must not block the user.
@@ -100,5 +123,65 @@ mod tests {
         assert_eq!(classify(&[]), YaKind::Other);
         assert_eq!(classify(&["package".into()]), YaKind::Other);
         assert_eq!(classify(&["-h".into()]), YaKind::Other);
+    }
+
+    /// S4-T1: both routes select `run_filtered` + tee `"ya"` (not just `is_test_mode`).
+    #[test]
+    fn ya_test_and_make_t_share_filtered_tee_pipeline() {
+        let make_t = ["make", "-t", "pay/lib/tests"].map(String::from);
+        let ya_test = ["test", "-r", "pay/lib/tests"].map(String::from);
+        let filtered = YaPipeline::Filtered { tee: "ya" };
+        assert_eq!(pipeline(&make_t), filtered);
+        assert_eq!(pipeline(&ya_test), filtered);
+        assert_eq!(
+            pipeline(&["make", "python", "-r"].map(String::from)),
+            YaPipeline::Passthrough
+        );
+        assert_eq!(
+            pipeline(&["tool", "dump"].map(String::from)),
+            YaPipeline::Passthrough
+        );
+    }
+
+    /// S4-T3: flags land on the `Command` that would be spawned (not a to_vec tautology).
+    #[test]
+    fn build_ya_command_forwards_filter_flags() {
+        let args = [
+            "test",
+            "-F",
+            "*order*",
+            "-r",
+            "pay/lib/tests",
+            "-ttX",
+        ]
+        .map(String::from);
+        let cmd = build_ya_command(&args);
+        let forwarded: Vec<_> = cmd
+            .get_args()
+            .map(|a| a.to_string_lossy().into_owned())
+            .collect();
+        assert_eq!(
+            forwarded,
+            vec![
+                "test",
+                "-F",
+                "*order*",
+                "-r",
+                "pay/lib/tests",
+                "-ttX",
+            ]
+        );
+    }
+
+    #[test]
+    fn build_ya_command_forwards_make_ttx_and_filter() {
+        let args = ["make", "-ttX", "-F", "*sku*", "pay/lib"].map(String::from);
+        let cmd = build_ya_command(&args);
+        let forwarded: Vec<_> = cmd
+            .get_args()
+            .map(|a| a.to_string_lossy().into_owned())
+            .collect();
+        assert_eq!(forwarded, args);
+        assert_eq!(pipeline(&args), YaPipeline::Filtered { tee: "ya" });
     }
 }
