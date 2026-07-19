@@ -87,8 +87,8 @@ src/cmds/yandex/          # locked S0-T4
 | 2 | Envelope + generic fail | P0 | Done | 1 |
 | 3 | Inner detect + py3test | P0 | Done | 2 |
 | 4 | `ya test` parity + flags | P0 | Done | 3 |
-| 5 | Go (+ optional JS) adapters | P1 | Not started | 3 |
-| 6 | Build-only `ya make` | P1 | Not started | 2 |
+| 5 | Go (+ optional JS) adapters | P1 | Done | 3 |
+| 6 | Build-only `ya make` | P1 | Done | 2 |
 | 7 | `arc` commands | P1 | Not started | 1 |
 | 8 | Hooks & discover | P1 | Not started | 2–4 |
 | 9 | Hardening | P2 | Not started | 3–6 |
@@ -231,15 +231,16 @@ Detection from **output text**, not directory name alone.
 
 ### Tasks
 
-- [ ] **S5-T1** RED: go fail fixture → adapter keeps fail headlines + Logsdir, ≥60%
-- [ ] **S5-T2** GREEN: `adapters/go_test.rs` — strip envelope, reuse `go` test filter where shapes match; else specialized go-under-ya keep
-- [ ] **S5-T3** Wire detector → go adapter
-- [ ] **S5-T4** SNAPSHOT: go fail + go other
-- [ ] **S5-T5** (Optional) Collect JS/TS `ya make -t` fixture if missing; else skip
-- [ ] **S5-T6** (Optional) `adapters/jest_vitest.rs` + detector fingerprints
-- [ ] **S5-T7** Quality gate
+- [x] **S5-T1** RED: go fail fixture → adapter keeps fail headlines + Logsdir, ≥60%
+- [x] **S5-T2** GREEN: `adapters/go_test.rs` — strip envelope, reuse `go` test filter where shapes match; else specialized go-under-ya keep
+- [x] **S5-T3** Wire detector → go adapter
+- [x] **S5-T4** SNAPSHOT: go fail + go other → locked shape asserts (no insta in repo)
+- [x] **S5-T5** (Optional) Collect JS/TS `ya make -t` fixture if missing; else skip
+- [x] **S5-T6** (Optional) `adapters/jest_vitest.rs` + detector fingerprints
+- [x] **S5-T7** Quality gate
 
-**Exit:** Go path live; JS optional behind same architecture.
+**Exit:** Go path live; JS optional behind same architecture. ✅  
+_Note: S5-T5/T6 skipped — no JS fixtures in corpus; `go test -json` shapes do not appear under ya, so adapter is specialized go-under-ya keep (not `filter_go_test_json`)._
 
 ---
 
@@ -249,14 +250,14 @@ Detection from **output text**, not directory name alone.
 
 ### Tasks
 
-- [ ] **S6-T1** Mode detect: absence of `-t`/`-tt*`/`--test` → build mode
-- [ ] **S6-T2** RED: `make_python_py_build_large_proto_raw.txt` — ≥60% savings; keep real errors/warnings
-- [ ] **S6-T3** GREEN: collapse `Ok [n/m]` / `[PB]` proto spam / PEERDIR chatter
-- [ ] **S6-T4** Prefer `run_streamed` + `BlockHandler` if outputs are huge
-- [ ] **S6-T5** SNAPSHOT: build golden fixture
-- [ ] **S6-T6** Quality gate
+- [x] **S6-T1** Mode detect: absence of `-t`/`-tt*`/`--test` → build mode
+- [x] **S6-T2** RED: `make_python_py_build_large_proto_raw.txt` — ≥60% savings; keep real errors/warnings
+- [x] **S6-T3** GREEN: collapse `Ok [n/m]` / `[PB]` proto spam / PEERDIR chatter
+- [x] **S6-T4** Prefer `run_streamed` + line handler — `YaBuildStreamFilter` / `LineHandler` implemented; `run()` uses `run_filtered(filter_ya_build)` (same handler) for oracle parity; Stage 9 can switch the runner to `run_streamed`
+- [x] **S6-T5** SNAPSHOT: build golden fixture → locked shape asserts (no insta)
+- [x] **S6-T6** Quality gate
 
-**Exit:** Build-mode filter separate from test-mode; large proto dump compressed.
+**Exit:** Build-mode filter separate from test-mode; large proto dump compressed. ✅
 
 ---
 
@@ -401,3 +402,7 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-18 | S3-T1…T9 | `detect` + py3test→pytest reuse; Stage 3 done |
 | 2026-07-19 | S4-T1…T6 | `ya test` ≡ make -t pipeline; G10 locked; Stage 4 done |
 | 2026-07-19 | S4 review | `YaPipeline` + `Command::get_args` asserts; drop tautological `child_argv` / double clone |
+| 2026-07-19 | S5-T1…T7 | `adapters/go_test` + detect `/gotest/`; JS optional skipped (no fixture); Stage 5 done |
+| 2026-07-19 | S5 review | Per-block `Log:`; tighten go detect; rename snapshot→locked_shape; `/home/` chrome |
+| 2026-07-19 | S6-T1…T6 | `ya_build` allowlist + `run_filtered` (stream oracle); G7 ≥60%; Stage 6 done |
+| 2026-07-19 | S6 review | Doc drift fixed; no in-filter tee; CAP_ERRORS assert; compile-fail fixture |

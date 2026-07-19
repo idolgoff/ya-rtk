@@ -1,11 +1,12 @@
 //! Outer Arcadia envelope filter for `ya make -t*` / `ya test` output.
 //!
 //! Dispatches by [`detect_inner_runner`](crate::cmds::yandex::detect::detect_inner_runner):
-//! py3test → pytest reuse; otherwise generic fail compact (Stage 2).
+//! py3test → pytest reuse; go_test → go-under-ya compact; otherwise generic fail.
 
 use crate::cmds::yandex::adapters::generic_fail::{
     compact_fail_block, split_fail_sections, MAX_FAIL_BLOCKS,
 };
+use crate::cmds::yandex::adapters::go_test::filter_go_test;
 use crate::cmds::yandex::adapters::py3test::filter_py3test;
 use crate::cmds::yandex::detect::{detect_inner_runner, InnerRunner};
 use crate::cmds::yandex::framing::keep_framing_line;
@@ -46,10 +47,9 @@ pub fn filter_ya_envelope(raw: &str) -> String {
                 filter_generic(&clean)
             }
         }
-        // Go / JS adapters land in later stages — generic fail until then.
-        InnerRunner::GoTest | InnerRunner::JestVitest | InnerRunner::Unknown => {
-            filter_generic(&clean)
-        }
+        InnerRunner::GoTest => filter_go_test(&clean),
+        // JS adapter optional (Stage 5) — no fixtures yet; generic fail.
+        InnerRunner::JestVitest | InnerRunner::Unknown => filter_generic(&clean),
     };
 
     finalize(raw, body, truncated)
@@ -406,7 +406,7 @@ mod tests {
     }
 
     #[test]
-    fn g1_snapshot_shape() {
+    fn g1_locked_shape() {
         let raw = include_str!("../../../tests/fixtures/ya/make_t_py_fail_logsdir_raw.txt");
         let out = filter_ya_envelope(raw);
         // py3test adapter → pytest-style [FAIL] lines (3 node ids)
@@ -434,8 +434,9 @@ mod tests {
         assert_min_savings(raw, &out, 40.0);
     }
 
+    /// Locked shape asserts (no insta — same pattern as Stage 2).
     #[test]
-    fn g5_snapshot_shape() {
+    fn g5_locked_shape() {
         let raw = include_str!("../../../tests/fixtures/ya/make_t_go_fail_logsdir_chunk_raw.txt");
         let out = filter_ya_envelope(raw);
         assert!(out.contains("<go_test>") || out.contains("chunk"));
@@ -444,5 +445,19 @@ mod tests {
             2
         );
         assert!(out.contains("------ FAIL") || out.contains("FAIL"));
+    }
+
+    /// S5-T4: G6 via full envelope dispatch (detector → go adapter).
+    #[test]
+    fn g6_go_other_via_envelope() {
+        let raw = include_str!("../../../tests/fixtures/ya/make_tt_go_other_raw.txt");
+        assert_eq!(detect_inner_runner(raw), InnerRunner::GoTest);
+        let out = filter_ya_envelope(raw);
+        assert!(
+            out.contains("Error[-WSyntax]") || out.contains("unexpected command"),
+            "out={out}"
+        );
+        assert!(!out.contains("BUILD_ONLY_IF"));
+        assert_min_savings(raw, &out, 60.0);
     }
 }

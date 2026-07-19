@@ -30,8 +30,10 @@ fn looks_like_py3test(raw: &str) -> bool {
 }
 
 fn looks_like_go_test(raw: &str) -> bool {
+    // Prefer structured markers — avoid bare `go_test` substring false positives.
     raw.contains("<go_test>")
-        || raw.contains("go_test")
+        || raw.contains("/gotest/")
+        || raw.contains("test-results/gotest/")
         || (raw.contains("=== RUN") && raw.contains(".go:"))
 }
 
@@ -61,6 +63,25 @@ mod tests {
     #[test]
     fn detects_go_fail_fixture() {
         let raw = include_str!("../../../tests/fixtures/ya/make_t_go_fail_logsdir_chunk_raw.txt");
+        assert_eq!(detect_inner_runner(raw), InnerRunner::GoTest);
+    }
+
+    #[test]
+    fn detects_go_other_via_gotest_path() {
+        let raw = include_str!("../../../tests/fixtures/ya/make_tt_go_other_raw.txt");
+        assert_eq!(detect_inner_runner(raw), InnerRunner::GoTest);
+    }
+
+    #[test]
+    fn bare_go_test_substring_is_not_enough() {
+        // Avoid misfires when py3test markers are absent but prose mentions go_test.
+        let raw = "building go_test helper binary\nno suite markers here\n";
+        assert_eq!(detect_inner_runner(raw), InnerRunner::Unknown);
+    }
+
+    #[test]
+    fn structured_go_run_with_file_loc_detects() {
+        let raw = "=== RUN   TestFoo\nfoo_test.go:12: boom\n";
         assert_eq!(detect_inner_runner(raw), InnerRunner::GoTest);
     }
 
