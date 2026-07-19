@@ -166,6 +166,17 @@ rtk git push                    # -> "ok main"
 rtk git pull                    # -> "ok 3 files +10 -2"
 ```
 
+### Yandex / Arcadia
+```bash
+rtk ya make -t path/to/tests    # Test envelope (fails + Logsdir, streamed)
+rtk ya test -F '*order*' -r path
+rtk ya make python -r           # Build progress collapsed
+rtk arc status                  # Compact like git status
+rtk arc log -n 20               # Oneline bias
+rtk arc diff                    # Tightened patch
+rtk arc show HEAD               # Compact commit + patch
+```
+
 ### GitHub CLI
 ```bash
 rtk gh pr list                  # Compact PR listing

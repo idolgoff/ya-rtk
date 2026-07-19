@@ -2,40 +2,57 @@
 
 > Part of [`src/cmds/`](../README.md) — see also [docs/contributing/TECHNICAL.md](../../../docs/contributing/TECHNICAL.md)
 
-Filters for Arcadia meta-tools. Design: **envelope + inner-runner** for `ya` (see [`ya-roadmap.md`](../../../ya-roadmap.md)); compact VCS filters for `arc`.
+Filters for Arcadia meta-tools: **envelope + inner-runner** for `ya`, compact VCS filters for `arc`.
 
-| Module | Tool(s) | Stage |
-|--------|---------|-------|
-| `ya_cmd.rs` | `ya` | 1–6, 9 — classify + test/build `run_streamed` / else passthrough |
-| `ya_build.rs` | `ya make` | 6+9 — build-mode progress collapse + stream handler |
-| `arc_cmd.rs` | `arc` | 7 — status/log/diff/show filtered; other passthrough |
-| `envelope.rs` | — | 2–5, 9 — framing + dispatch + `YaTestStreamFilter` |
-| `framing.rs` | — | shared suite/chunk/totals keep rules |
-| `detect.rs` | — | 3–5 — fingerprint inner runner from output |
-| `adapters/generic_fail.rs` | — | 2 — S0-T5 per-`[fail]` compact |
-| `adapters/py3test.rs` | — | 3 — convert ya fails → reuse `filter_pytest_output` |
-| `adapters/go_test.rs` | — | 5 — ya-framed go fails + go-other errors |
+**Design docs:** [ya-roadmap.md](../../../ya-roadmap.md) (stages 0–10) · [ya-analitycs.md](../../../ya-analitycs.md) (token ROI) · [ACCEPTANCE.md](../../../tests/fixtures/ya/ACCEPTANCE.md) (golden criteria)
 
-## Shared pipelines
+| Module | Role |
+|--------|------|
+| [`ya_cmd.rs`](ya_cmd.rs) | Classify argv → test / build / passthrough; `run_streamed` |
+| [`ya_build.rs`](ya_build.rs) | Build-mode progress collapse (`YaBuildStreamFilter`) |
+| [`envelope.rs`](envelope.rs) | Test-mode dispatch + live `YaTestStreamFilter` |
+| [`framing.rs`](framing.rs) | Suite / chunk / totals keep rules |
+| [`detect.rs`](detect.rs) | Fingerprint inner runner from output text |
+| [`adapters/`](adapters/) | `py3test`, `go_test`, `generic_fail` |
+| [`arc_cmd.rs`](arc_cmd.rs) | `arc status\|log\|diff\|show` (+ other passthrough) |
 
-### Test mode (Stage 4 + 9)
+```
+rtk ya make -t … / rtk ya test …
+        │
+        ▼
+┌─ YaTestStreamFilter (live) ─┐
+│ fat Expected / Ok / [PB] drop │
+│ [fail] → S0-T5 compact live   │
+│ no-fail → on_exit envelope    │
+└────────────┬─────────────────┘
+             ▼
+   framing + Log: / Logsdir:
+   (overflow → fail_overflow_tee_hint)
+             │
+             ▼  runner with_tee("ya")
+        full raw recovery
+```
 
-`ya make` with `-t` / `-tt` / `-ttX` / `--test` and **`ya test`** → `run_streamed` + [`YaTestStreamFilter`](envelope.rs) (live compact `[fail]` blocks; fat Expected/progress dropped; no-fail suites filter at `on_exit` with `never_worse`).
+**Stream vs envelope:**
 
-### Build mode (Stage 6 + 9)
+| Path | When | Behavior |
+|------|------|----------|
+| Live fail stream | Production suites with `[fail]` | S0-T5 compact as blocks close (generic keep; same must-keep fields) |
+| [`filter_ya_envelope`](envelope.rs) | Unit-test oracle **and** production **no-fail** `on_exit` | Dispatches `py3test` / `go_test` / `generic_fail` adapters |
 
-`ya make` **without** test flags → [`ya_build`](ya_build.rs) via `run_streamed` + [`YaBuildStreamFilter`](ya_build.rs).
+## Modes
 
 | Invoked as | Pipeline |
 |------------|----------|
-| `rtk ya test …` | test stream filter |
-| `rtk ya make -t` / `-tt` / `-ttX` / `--test …` | test stream filter |
-| `rtk ya make …` (no test flags) | **build stream filter** |
-| `rtk ya tool …` | passthrough |
+| `rtk ya test …` | test stream (`YaTestStreamFilter`) |
+| `rtk ya make -t` / `-tt` / `-ttX` / `--test …` | test stream |
+| `rtk ya make …` (no test flags) | build stream (`YaBuildStreamFilter`) |
+| `rtk ya tool …` | passthrough + track |
+| other `rtk ya …` | passthrough + track |
 
 ### Flag passthrough
 
-User filters and verbosity flags are **never rewritten**:
+User filters and verbosity are **never rewritten** — args reach bare `ya` byte-for-byte:
 
 ```bash
 rtk ya test -F '*order*' -r path/to/tests
@@ -43,16 +60,35 @@ rtk ya make -ttX -F '*sku*' path
 rtk ya make python -r
 ```
 
-`-F`, `-r`, `-ttX`, and any other args reach bare `ya` byte-for-byte.
+### Compact policy (S0-T5)
 
-## `arc` (Stage 7)
+Per `[fail]` keep: headline (node id) · first location · first error head · `Log:` · `Logsdir:` (dedupe OK).
+
+Drop: Expected/but bodies · long stacks · PEERDIR / `[PB]` / `Ok [n/m]` progress when compressing.
+
+### Truncation recovery
+
+- **Full raw:** runner `RunOptions::with_tee("ya")` only — filters do **not** call `force_tee_hint` on full output (avoids double tee).
+- **Capped fail lists** (`CAP_ERRORS`): `fail_overflow_tee_hint` — `force_tee_tail_hint` on the **full** headline list with offset `shown + 1`.
+
+## Adapters
+
+| Fingerprint | Adapter | Notes |
+|-------------|---------|--------|
+| `py3test` / `test-results/py3test` | `py3test` | **Oracle / buffered** (`filter_ya_envelope`): synthetic FAILURES → `filter_pytest_output`. Live fail stream uses S0-T5 compact instead. |
+| `<go_test>` / `/gotest/` | `go_test` | **Oracle / buffered** (`filter_ya_envelope`): ya-framed compact — **not** `go test -json`. Live fail stream uses S0-T5 compact instead. |
+| vitest / jest | — | Skipped (no fixtures); follow-up F3 |
+| unknown (test) | `generic_fail` | Oracle / buffered; live fail stream uses the same S0-T5 compact rules |
+| build `ya make` | `ya_build` | Allowlist errors/warnings; collapse progress (`run_streamed`) |
+
+## `arc`
 
 | Invoked as | Pipeline |
 |------------|----------|
-| `rtk arc status …` | compact like `git status` (strip hints; branch + short entries) |
+| `rtk arc status …` | compact like `git status` |
 | `rtk arc log …` | oneline bias; default `-n 10` if unset |
-| `rtk arc diff …` | normalize arc unified diff → `compact_diff` + tighten |
-| `rtk arc show …` | compact commit header + tightened patch (stat mode when many files) |
+| `rtk arc diff …` | normalize → `compact_diff` + tighten |
+| `rtk arc show …` | compact header + tightened patch |
 | `rtk arc <other> …` | passthrough + track |
 
 ```bash
@@ -63,23 +99,23 @@ rtk arc show HEAD
 rtk arc info   # passthrough
 ```
 
-## Hooks & discover (Stage 8)
+## Hooks & discover
 
-With RTK hooks installed, agents' shell commands are rewritten automatically:
+With RTK hooks installed:
 
 | Raw command | Rewritten to |
 |-------------|----------------|
 | `ya make …` | `rtk ya make …` |
 | `ya test …` | `rtk ya test …` |
 | `arc status\|log\|diff\|show …` | `rtk arc …` |
-| `ya tool …` | **not rewritten** (passthrough until allowlisted) |
+| `ya tool …` | **not rewritten** |
 | other `arc …` | **not rewritten** |
 
-**Hook scope (Q4):** always rewrite when hooks are active — same as git/cargo. No PATH or arc-mount gate (avoids hook latency; missing binaries fail the same way without RTK).
+**Hook scope (Q4):** always rewrite when hooks are active — same as git/cargo. No PATH or arc-mount gate.
 
-**Known gap — absolute binary paths:** `classify` strips `/usr/local/bin/ya` → `ya`, but rewrite prefix matching still sees the absolute path, so `/usr/local/bin/ya make` classifies as supported yet is **not** rewritten (same pre-existing gap as `/usr/bin/git status`). Prefer bare `ya` / `arc` on `PATH`, or call `rtk ya` / `rtk arc` explicitly. Fix deferred (platform-wide rewrite normalization).
+**Known gap — absolute binary paths:** `/usr/local/bin/ya make` classifies as supported but is not rewritten (same gap as `/usr/bin/git status`). Prefer bare `ya` / `arc` on `PATH`, or call `rtk ya` / `rtk arc` explicitly.
 
-Preferred explicit form in Arcadia projects (also fine to paste into project `AGENTS.md`):
+Preferred note for Arcadia `AGENTS.md`:
 
 ```markdown
 ## RTK (token-optimized CLI)
@@ -89,43 +125,27 @@ over bare `ya` / `arc` when RTK is installed. Do not wrap arbitrary `ya tool *`
 unless a dedicated filter exists.
 ```
 
-Rules live in [`src/discover/rules.rs`](../../discover/rules.rs).
-
-## Adapters
-
-| Fingerprint | Adapter | Notes |
-|-------------|---------|--------|
-| `py3test` | `py3test` | Reuses pytest filter on synthetic FAILURES dump |
-| `<go_test>` / `/gotest/` | `go_test` | Specialized ya keep — **not** `go test -json` |
-| vitest/jest | — | Skipped (no JS fixtures) |
-| unknown (test) | `generic_fail` | Headline + location + error head + Log/Logsdir |
-| build make | `ya_build` | Progress collapse; stream-friendly |
+Rules: [`src/discover/rules.rs`](../../discover/rules.rs).
 
 ## Status
 
-**Stage 9:** Test + build modes use `run_streamed`; fat-line slim + `force_tee_*` on capped fails; Logsdir invariants audited.
-
-**Stage 8:** Hooks rewrite `ya make|test` and `arc status|log|diff|show`; `ya tool *` excluded.
-
-**Stage 7:** `rtk arc status|log|diff|show` filtered; other `arc` subcommands passthrough.
-
-**Stage 6:** Build-only `ya make` filtered via `ya_build` + `run_streamed`.
-
-**Stage 5:** Go path live. JS optional skipped.
-
-**Stage 4:** `ya test` ≡ test-mode `ya make` for filtering; argv identity preserved.
-
-Compact policy (S0-T5): keep failure node ids + `Logsdir:`; drop Expected/but bodies.
-Truncation recovery: runner tee `"ya"` for full raw; capped fail lists use
-`fail_overflow_tee_hint` (`force_tee_tail_hint` on the **full** headline list with
-offset `CAP_ERRORS + 1`). Filters do **not** embed `force_tee_hint` for full raw
-(avoids double/triple tee with the runner).
+**v1 complete (stages 0–10).** Test + build `ya` streamed; `arc` filtered subset; hooks rewrite safe set; Logsdir / tee / cross-platform / fuzz hardened.
 
 ## Non-goals (v1)
 
 - Rewriting RECIPE / parsing all Makefile dialects
 - Injecting pytest flags through `ya`
 - Blanket `ya tool *` hook rewrite
+- JS/vitest under `ya` without fixtures
+
+## Follow-ups (post-v1)
+
+| Item | Notes |
+|------|--------|
+| Allowlisted `ya tool <name>` | New mini-stage per tool when ROI + fixtures exist; keep wildcard out of hooks |
+| Absolute-path rewrite | Platform-wide discover normalization (`/usr/bin/git`, `/usr/local/bin/ya`, …) |
+| JS under `ya` | Collect fixtures → `jest_vitest` adapter |
+| Dual `ya test` corpus | Only if real dumps diverge from `ya make -t` |
 
 ## Related
 

@@ -2,7 +2,9 @@
 
 Extend RTK for internal Yandex meta-tools (`ya`, `arc`) using an **envelope + inner-runner** model.
 
-**Context:** [ya-analitycs.md](ya-analitycs.md) (token ROI + design) · fixtures in [`tests/fixtures/ya/`](tests/fixtures/ya/) · filter checklist in [`src/cmds/README.md`](src/cmds/README.md)
+**Status:** **v1 complete** (stages 0–10). Follow-ups: [§ Follow-ups](#follow-ups-post-v1).
+
+**Context:** [ya-analitycs.md](ya-analitycs.md) (token ROI + design) · fixtures in [`tests/fixtures/ya/`](tests/fixtures/ya/) · filter checklist in [`src/cmds/README.md`](src/cmds/README.md) · ecosystem docs in [`src/cmds/yandex/README.md`](src/cmds/yandex/README.md)
 
 **v1 success criteria**
 
@@ -57,23 +59,24 @@ rtk ya make -t …
 
 ---
 
-## Target module layout
+## Module layout (as shipped)
 
 ```
 src/cmds/yandex/          # locked S0-T4
   README.md
-  ya_cmd.rs               # clap subdispatch: make | test | tool
-  ya_make.rs
-  ya_test.rs
+  ya_cmd.rs               # classify + run_streamed (test | build | passthrough)
+  ya_build.rs             # build-mode YaBuildStreamFilter
   arc_cmd.rs
-  envelope.rs
+  envelope.rs             # filter_ya_envelope + YaTestStreamFilter
+  framing.rs
   detect.rs
   adapters/
-    py3test.rs
-    go_test.rs
-    jest_vitest.rs
+    py3test.rs            # oracle / no-fail on_exit
+    go_test.rs            # oracle / no-fail on_exit
     generic_fail.rs
 ```
+
+_Early draft also sketched `ya_make.rs` / `ya_test.rs` / `jest_vitest.rs` — not shipped; routing lives in `ya_cmd` + `envelope`, JS deferred (F3)._
 
 ---
 
@@ -91,7 +94,7 @@ src/cmds/yandex/          # locked S0-T4
 | 7 | `arc` commands | P1 | Done | 1 |
 | 8 | Hooks & discover | P1 | Done | 2–4 |
 | 9 | Hardening | P2 | Done | 3–6 |
-| 10 | Docs & polish | P2 | Not started | 8 |
+| 10 | Docs & polish | P2 | Done | 8–9 |
 
 Work **one stage at a time**. Within a stage, finish tasks in listed order unless noted parallel.
 
@@ -166,7 +169,7 @@ Pure functions first (TDD): `filter_ya_envelope(raw) -> String` and `adapters/ge
 - [x] **S2-T5** GREEN: implement `adapters/generic_fail.rs` (used when no inner adapter)
 - [x] **S2-T6** Cap oversized assertion / stack bodies per S0-T5; emit tee hint for truncated blocks
 - [x] **S2-T7** SNAPSHOT: shape asserts on G1/G5 (project has no insta; locked via unit asserts)
-- [x] **S2-T8** Wire test-mode path: if argv has `-t` / `-tt` / `-ttX` / `--test` → `run_filtered` + envelope filter
+- [x] **S2-T8** Wire test-mode path: if argv has `-t` / `-tt` / `-ttX` / `--test` → `run_filtered` + envelope filter _(Stage 9: production switched to `run_streamed` + `YaTestStreamFilter`)_
 - [x] **S2-T9** Fallback: filter panic → raw output + stderr warning
 - [x] **S2-T10** `.tee("ya")` on filtered path
 - [x] **S2-T11** Savings tests for Stage-2 goldens (G1–G3, G5, G8, G10)
@@ -322,19 +325,34 @@ _Decision (Q4): always rewrite when hooks are installed — see Decisions table.
 
 ### Tasks
 
-- [ ] **S10-T1** Finish `src/cmds/yandex/README.md` (modes, adapters, non-goals)
-- [ ] **S10-T2** Update top-level command list in `README.md` if required by project convention
-- [ ] **S10-T3** Cross-link this roadmap + analytics from ecosystem README
-- [ ] **S10-T4** Optional: allowlisted `ya tool <name>` filters case-by-case (new mini-stages per tool)
-- [ ] **S10-T5** Mark stages complete in this file; note follow-ups
+- [x] **S10-T1** Finish `src/cmds/yandex/README.md` (modes, adapters, non-goals)
+- [x] **S10-T2** Update top-level command list in `README.md` if required by project convention
+- [x] **S10-T3** Cross-link this roadmap + analytics from ecosystem README
+- [x] **S10-T4** Optional: allowlisted `ya tool <name>` filters case-by-case — **deferred** as post-v1 follow-ups (mini-stages per tool when fixtures + ROI exist); documented in ecosystem README
+- [x] **S10-T5** Mark stages complete in this file; note follow-ups
 
-**Exit:** Docs accurate; roadmap status current.
+**Exit:** Docs accurate; roadmap status current. ✅
+
+---
+
+## Follow-ups (post-v1)
+
+Tracked for later mini-stages — not blocking v1:
+
+| ID | Item | Notes |
+|----|------|-------|
+| F1 | Allowlisted `ya tool <name>` | One mini-stage per tool; keep `ya tool *` out of hooks until then |
+| F2 | Absolute-path rewrite | Platform-wide discover normalization (`/usr/local/bin/ya`, …) |
+| F3 | JS / vitest under `ya` | Needs fixtures → `jest_vitest` adapter |
+| F4 | Dual `ya test` corpus | Only if real dumps diverge from `ya make -t` |
 
 ---
 
 ## Engineering backlog (priority order)
 
-Use this when picking the next atomic task:
+**v1 backlog complete** (S0–S10). Next work is [Follow-ups](#follow-ups-post-v1) when prioritized.
+
+Historical order (done):
 
 1. S0-T4…T8 — decisions + golden set
 2. S1 — scaffold / passthrough CLI
@@ -398,14 +416,16 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-18 | — | Roadmap filed as `ya-roadmap.md` |
 | 2026-07-18 | S0-T4…T8 | Decisions locked; golden set G1–G10 + `ACCEPTANCE.md`; Stage 0 done |
 | 2026-07-18 | S1-T1…T7 | `src/cmds/yandex/` + `Commands::Ya` passthrough; Stage 1 done |
-| 2026-07-18 | S2-T1…T12 | Envelope + generic_fail; test-mode `run_filtered` + tee; Stage 2 done |
+| 2026-07-18 | S2-T1…T12 | Envelope + generic_fail; test-mode `run_filtered` + tee; Stage 2 done _(later: S9 → `run_streamed`)_ |
 | 2026-07-18 | S3-T1…T9 | `detect` + py3test→pytest reuse; Stage 3 done |
 | 2026-07-19 | S4-T1…T6 | `ya test` ≡ make -t pipeline; G10 locked; Stage 4 done |
 | 2026-07-19 | S4 review | `YaPipeline` + `Command::get_args` asserts; drop tautological `child_argv` / double clone |
 | 2026-07-19 | S5-T1…T7 | `adapters/go_test` + detect `/gotest/`; JS optional skipped (no fixture); Stage 5 done |
 | 2026-07-19 | S5 review | Per-block `Log:`; tighten go detect; rename snapshot→locked_shape; `/home/` chrome |
-| 2026-07-19 | S6-T1…T6 | `ya_build` allowlist + `run_filtered` (stream oracle); G7 ≥60%; Stage 6 done |
+| 2026-07-19 | S6-T1…T6 | `ya_build` allowlist + stream oracle via `run_filtered`; G7 ≥60%; Stage 6 done _(S9 → `run_streamed`)_ |
 | 2026-07-19 | S8-T1…T7 | Hooks rewrite `ya make|test` + `arc status|log|diff|show`; Q4 always-rewrite; Stage 8 done |
 | 2026-07-19 | S8 review | Sync Q4 tracker; doc abs-path rewrite gap; env/sudo/redirect/pipe ya/arc tests |
 | 2026-07-19 | S9-T1…T7 | `run_streamed` test+build; fat-line slim; Logsdir audit; tee overflow; linux tags; perf+fuzz |
 | 2026-07-19 | S9 review | Fix overflow tee (full list + offset); live fail emit; drop in-filter full tee; stream audits; build catch_unwind |
+| 2026-07-19 | S10-T1…T5 | Ecosystem README finished; top-level Commands + CLAUDE ecosystems; follow-ups F1–F4; v1 complete |
+| 2026-07-19 | S10 review | Docs accuracy: oracle no-fail on_exit; go/py oracle labels; layout as-shipped; arc diff/show split |
