@@ -4,12 +4,26 @@
 //! first location line, first error head, `Log:` / `Logsdir:` — drops Expected/but
 //! dumps and long stacks.
 
+use crate::core::tee::force_tee_tail_hint;
 use crate::core::truncate::CAP_ERRORS;
 use lazy_static::lazy_static;
 use regex::Regex;
 
 /// Max `[fail]` blocks emitted (remainder → overflow + tee).
 pub const MAX_FAIL_BLOCKS: usize = CAP_ERRORS;
+
+/// Tee hint for capped fail headlines.
+///
+/// `headlines` must be the **full** flat list (shown + hidden). Offset is
+/// `shown + 1` so `tail -n +{offset}` lands on the first hidden line — same
+/// contract as gh/pnpm/pytest flat-list recovery.
+pub fn fail_overflow_tee_hint(headlines: &[&str], shown: usize) -> Option<String> {
+    if headlines.len() <= shown {
+        return None;
+    }
+    let content = headlines.join("\n");
+    force_tee_tail_hint(&content, "ya-fails", shown + 1)
+}
 
 /// Truncate kept lines so a single stack line cannot blow the budget.
 const MAX_LINE_CHARS: usize = 240;
@@ -179,7 +193,8 @@ pub fn split_fail_sections(raw: &str) -> (Vec<&str>, Vec<Vec<&str>>, Vec<&str>) 
     (preamble, blocks, postamble)
 }
 
-fn is_fail_block_boundary(line: &str) -> bool {
+/// Structural boundaries that end a `[fail]` block (chunk/suite framing).
+pub fn is_fail_block_boundary(line: &str) -> bool {
     let t = line.trim_start();
     t.starts_with("------")
         || t.starts_with("Total ")
@@ -187,6 +202,39 @@ fn is_fail_block_boundary(line: &str) -> bool {
         || t.starts_with("------- [TM]")
         || t.starts_with("------- [GO]")
         || t.starts_with("------- [PB]")
+}
+
+/// Fat assertion / progress lines that dominate multi-MB dumps — safe to drop
+/// before buffering (tee + Logsdir recover the rest).
+pub fn is_fat_drop_line(line: &str) -> bool {
+    let t = line.trim_start();
+    if t.starts_with("E   Expected:")
+        || t.starts_with("E        but:")
+        || t.starts_with("E   But:")
+    {
+        return true;
+    }
+    if t == "Ok" || t.starts_with("Ok [") {
+        return true;
+    }
+    if t.starts_with("------- [PB]") || t.starts_with("-------[PB]") {
+        return true;
+    }
+    if t.contains("PEERDIR") && !t.starts_with("[fail]") {
+        return true;
+    }
+    if t.contains("Unexpected getting uninitialized hot settings") {
+        return true;
+    }
+    // Pathological single-line dumps (keep Log/Logsdir/[fail] regardless)
+    if t.len() > 2_000
+        && !t.starts_with("Log:")
+        && !t.starts_with("Logsdir:")
+        && !t.starts_with("[fail]")
+    {
+        return true;
+    }
+    false
 }
 
 #[cfg(test)]
@@ -215,5 +263,54 @@ mod tests {
         assert!(!joined.contains("Expected:"));
         assert!(joined.contains("Logsdir:"));
         assert!(joined.contains("Log:"));
+    }
+
+    #[test]
+    fn fat_drop_line_targets_expected_and_progress() {
+        assert!(is_fat_drop_line("E   Expected: <huge>"));
+        assert!(is_fat_drop_line("E        but: was <x>"));
+        assert!(is_fat_drop_line("Ok [12/100] building"));
+        assert!(is_fat_drop_line("------- [PB] proto.spam"));
+        assert!(!is_fat_drop_line("Logsdir: /tmp/out"));
+        assert!(!is_fat_drop_line("[fail] mod::t [default-linux-x86_64-debug] (0.1s)"));
+        assert!(!is_fat_drop_line("Log: /tmp/t.log"));
+    }
+
+    /// Overflow tee must cover the full headline list; offset = shown + 1.
+    #[test]
+    fn fail_overflow_tee_uses_full_list_offset() {
+        let headlines = [
+            "[fail] t0",
+            "[fail] t1",
+            "[fail] t2",
+            "[fail] t3",
+            "[fail] t4",
+        ];
+        // Helper no-ops cleanly when shown covers all
+        assert!(fail_overflow_tee_hint(&headlines, headlines.len()).is_none());
+        // When tee enabled, hint is tail -n +4 on a 5-line file starting at t0.
+        if let Some(hint) = fail_overflow_tee_hint(&headlines, 3) {
+            assert!(
+                hint.contains("tail -n +4"),
+                "offset must be shown+1 on full list, got {hint}"
+            );
+            assert!(hint.contains("[see remaining:"));
+        }
+    }
+
+    /// S9-T4: linux platform tag in compact headline is preserved.
+    #[test]
+    fn compact_preserves_linux_platform_in_headline() {
+        let block = [
+            "[fail] mod::test_x [default-linux-x86_64-debug] (0.1s)",
+            "path.py:10: in test_x",
+            "E   AssertionError: boom",
+            "Logsdir: /tmp/out",
+        ];
+        let refs: Vec<&str> = block.to_vec();
+        let (out, _) = compact_fail_block(&refs);
+        let joined = out.join("\n");
+        assert!(joined.contains("default-linux-x86_64-debug"));
+        assert!(joined.contains("Logsdir:"));
     }
 }

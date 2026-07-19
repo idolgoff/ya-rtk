@@ -1,13 +1,14 @@
 //! `ya` CLI proxy — test-mode envelope + build-mode progress filter.
 //!
-//! `ya make -t*` / `ya test` → [`filter_ya_envelope`] via `run_filtered`.
-//! `ya make` (no test flags) → [`filter_ya_build`] via `run_filtered`
-//! (stream handler powers the oracle; [`ya_build::build_stream_filter`] ready for Stage-9 `run_streamed`).
+//! `ya make -t*` / `ya test` → [`filter_ya_envelope`] via `run_streamed`
+//! ([`test_stream_filter`](crate::cmds::yandex::envelope::test_stream_filter)).
+//! `ya make` (no test flags) → [`filter_ya_build`] via `run_streamed`
+//! ([`build_stream_filter`](crate::cmds::yandex::ya_build::build_stream_filter)).
 //! User argv (`-F`, `-r`, `-ttX`, …) is forwarded unchanged — never rewritten.
 //! `ya tool` / other → passthrough.
 
-use crate::cmds::yandex::envelope::{filter_ya_envelope, is_test_mode};
-use crate::cmds::yandex::ya_build::{filter_ya_build, is_build_mode};
+use crate::cmds::yandex::envelope::{is_test_mode, test_stream_filter};
+use crate::cmds::yandex::ya_build::{build_stream_filter, is_build_mode};
 use crate::core::runner;
 use crate::core::utils::resolved_command;
 use anyhow::Result;
@@ -26,10 +27,9 @@ pub enum YaKind {
 /// Execution plan for `run` — testable without spawning.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum YaPipeline {
-    /// Test-mode: `run_filtered` + tee `"ya"`.
+    /// Test-mode: `run_streamed` + tee `"ya"`.
     TestFiltered { tee: &'static str },
-    /// Build-mode: `run_filtered` + tee `"ya"` (same [`YaBuildStreamFilter`] as the
-    /// unit-test oracle; switch runner to `run_streamed` in Stage 9).
+    /// Build-mode: `run_streamed` + tee `"ya"` (same [`YaBuildStreamFilter`] oracle).
     BuildFiltered { tee: &'static str },
     Passthrough,
 }
@@ -73,51 +73,31 @@ pub fn run(args: &[String], verbose: u8) -> Result<i32> {
             "ya {:?} → {}",
             kind,
             match pipeline(args) {
-                YaPipeline::TestFiltered { .. } => "test-mode filter",
-                YaPipeline::BuildFiltered { .. } => "build-mode filter",
+                YaPipeline::TestFiltered { .. } => "test-mode stream filter",
+                YaPipeline::BuildFiltered { .. } => "build-mode stream filter",
                 YaPipeline::Passthrough => "passthrough",
             }
         );
     }
 
     match pipeline(args) {
-        YaPipeline::TestFiltered { tee } => runner::run_filtered(
+        YaPipeline::TestFiltered { tee } => runner::run_streamed(
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            filter_ya_test_safe,
+            Box::new(test_stream_filter()),
             runner::RunOptions::with_tee(tee),
         ),
-        YaPipeline::BuildFiltered { tee } => runner::run_filtered(
+        YaPipeline::BuildFiltered { tee } => runner::run_streamed(
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            filter_ya_build_safe,
+            Box::new(build_stream_filter()),
             runner::RunOptions::with_tee(tee),
         ),
         YaPipeline::Passthrough => {
             let os_args: Vec<OsString> = args.iter().map(OsString::from).collect();
             runner::run_passthrough("ya", &os_args, verbose)
-        }
-    }
-}
-
-fn filter_ya_test_safe(raw: &str) -> String {
-    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| filter_ya_envelope(raw))) {
-        Ok(s) => s,
-        Err(_) => {
-            eprintln!("rtk: ya filter warning: panic in filter_ya_envelope; showing raw output");
-            raw.to_string()
-        }
-    }
-}
-
-fn filter_ya_build_safe(raw: &str) -> String {
-    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| filter_ya_build(raw))) {
-        Ok(s) => s,
-        Err(_) => {
-            eprintln!("rtk: ya filter warning: panic in filter_ya_build; showing raw output");
-            raw.to_string()
         }
     }
 }

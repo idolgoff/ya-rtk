@@ -41,6 +41,15 @@ mod tests {
         assert!(keep_framing_line(line, false));
     }
 
+    /// S9-T4: linux platform tags in suite headers are still framing.
+    #[test]
+    fn keeps_tm_header_linux_platform_variant() {
+        let line = "------- [TM] {default-linux-x86_64, release} path/py3test";
+        assert!(keep_framing_line(line, false));
+        let arm = "------- [TM] {default-linux-arm64, debug} path/gotest";
+        assert!(keep_framing_line(arm, false));
+    }
+
     #[test]
     fn keeps_chunk_fail_summary() {
         assert!(keep_framing_line("------ FAIL: 2 - FAIL pay/receiptron/tests", true));

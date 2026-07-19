@@ -5,7 +5,7 @@
 
 use crate::cmds::python::pytest_cmd::filter_pytest_output;
 use crate::cmds::yandex::adapters::generic_fail::{
-    split_fail_sections, MAX_FAIL_BLOCKS,
+    split_fail_sections, fail_overflow_tee_hint, MAX_FAIL_BLOCKS,
 };
 use crate::cmds::yandex::framing::keep_framing_line;
 
@@ -51,6 +51,13 @@ pub fn filter_py3test(raw: &str) -> Option<(String, bool)> {
 
     if total > take_n {
         out.push(format!("… +{} more failing tests", total - take_n));
+        let headlines: Vec<&str> = blocks
+            .iter()
+            .filter_map(|b| b.first().map(|l| l.trim_end()))
+            .collect();
+        if let Some(hint) = fail_overflow_tee_hint(&headlines, take_n) {
+            out.push(hint);
+        }
     }
 
     for line in &postamble {
@@ -136,6 +143,15 @@ mod tests {
             extract_node_id(h),
             "api.handlers.merchant.test_order.py::test_returned_fiscal_contact"
         );
+    }
+
+    /// S9-T4: linux platform tags strip the same way as darwin.
+    #[test]
+    fn extract_node_id_linux_platform_variant() {
+        let h = "[fail] pkg.test_mod.py::test_x [default-linux-x86_64-release] (0.02s)";
+        assert_eq!(extract_node_id(h), "pkg.test_mod.py::test_x");
+        let arm = "[fail] pkg::TestFoo [default-linux-arm64-debug] (1.0s)";
+        assert_eq!(extract_node_id(arm), "pkg::TestFoo");
     }
 
     #[test]

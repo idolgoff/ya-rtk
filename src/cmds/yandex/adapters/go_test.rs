@@ -6,7 +6,7 @@
 //! drop Warn/BUILD_ONLY_IF + shell chrome.
 
 use crate::cmds::yandex::adapters::generic_fail::{
-    compact_fail_block, split_fail_sections, MAX_FAIL_BLOCKS,
+    compact_fail_block, fail_overflow_tee_hint, split_fail_sections, MAX_FAIL_BLOCKS,
 };
 use crate::cmds::yandex::framing::keep_framing_line;
 
@@ -63,6 +63,13 @@ fn filter_go_fails(raw: &str) -> (String, bool) {
     if total > take_n {
         truncated = true;
         out.push(format!("… +{} more failing tests", total - take_n));
+        let headlines: Vec<&str> = blocks
+            .iter()
+            .filter_map(|b| b.first().map(|l| l.trim_end()))
+            .collect();
+        if let Some(hint) = fail_overflow_tee_hint(&headlines, take_n) {
+            out.push(hint);
+        }
     }
 
     for line in &postamble {

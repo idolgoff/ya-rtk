@@ -4,10 +4,9 @@
 //! Keeps real `Error[` / `Warn[` (non-spam), compile-fail signals, pytest short
 //! ERROR summary, and final make/outcome lines.
 //!
-//! Production uses `run_filtered(filter_ya_build)` + runner tee. The stream
-//! handler ([`YaBuildStreamFilter`]) powers the oracle so Stage 9 can switch
-//! to `run_streamed` without changing filter rules. Tee hints come from the
-//! runner only — this filter does **not** call `force_tee_hint`.
+//! Production uses `run_streamed` + [`YaBuildStreamFilter`] (Stage 9). The same
+//! handler powers [`filter_ya_build`] for unit-test oracle parity. Tee hints come
+//! from the runner only — this filter does **not** call `force_tee_hint`.
 
 use crate::core::stream::{LineHandler, LineStreamFilter, StreamFilter};
 use crate::core::truncate::CAP_ERRORS;
@@ -20,6 +19,8 @@ pub fn is_build_mode(args: &[String]) -> bool {
 }
 
 /// Pure filter for build-mode `ya make` dumps (unit-test oracle; mirrors stream handler).
+/// Production runs [`build_stream_filter`] via `run_streamed`.
+#[cfg_attr(not(test), allow(dead_code))]
 pub fn filter_ya_build(raw: &str) -> String {
     let clean = strip_ansi(raw);
     if clean.trim().is_empty() {
@@ -43,7 +44,7 @@ pub fn filter_ya_build(raw: &str) -> String {
     kept
 }
 
-/// Line handler shared by the buffered oracle and future `run_streamed` path.
+/// Line handler shared by the buffered oracle and `run_streamed` path.
 #[derive(Debug, Default)]
 pub struct YaBuildHandler {
     pb_suppressed: usize,
@@ -246,21 +247,43 @@ impl Default for YaBuildStreamFilter {
 
 impl StreamFilter for YaBuildStreamFilter {
     fn feed_line(&mut self, line: &str) -> Option<String> {
-        self.inner
-            .feed_line(line)
-            .map(|emitted| truncate_kept(emitted.trim_end()) + "\n")
+        match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            self.inner
+                .feed_line(line)
+                .map(|emitted| truncate_kept(emitted.trim_end()) + "\n")
+        })) {
+            Ok(chunk) => chunk,
+            Err(_) => {
+                eprintln!("rtk: ya filter warning: panic in ya_build stream; passing line through");
+                Some(format!("{}\n", line))
+            }
+        }
     }
 
     fn flush(&mut self) -> String {
-        self.inner.flush()
+        match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| self.inner.flush())) {
+            Ok(s) => s,
+            Err(_) => {
+                eprintln!("rtk: ya filter warning: panic in ya_build flush");
+                String::new()
+            }
+        }
     }
 
     fn on_exit(&mut self, exit_code: i32, raw: &str) -> Option<String> {
-        self.inner.on_exit(exit_code, raw)
+        match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            self.inner.on_exit(exit_code, raw)
+        })) {
+            Ok(s) => s,
+            Err(_) => {
+                eprintln!("rtk: ya filter warning: panic in ya_build on_exit");
+                None
+            }
+        }
     }
 }
 
-/// Stream filter entry for Stage-9 `run_streamed` (also powers [`filter_ya_build`]).
+/// Stream filter entry for `run_streamed` (also powers [`filter_ya_build`]).
 pub fn build_stream_filter() -> YaBuildStreamFilter {
     YaBuildStreamFilter::new()
 }

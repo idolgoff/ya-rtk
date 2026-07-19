@@ -90,7 +90,7 @@ src/cmds/yandex/          # locked S0-T4
 | 6 | Build-only `ya make` | P1 | Done | 2 |
 | 7 | `arc` commands | P1 | Done | 1 |
 | 8 | Hooks & discover | P1 | Done | 2–4 |
-| 9 | Hardening | P2 | Not started | 3–6 |
+| 9 | Hardening | P2 | Done | 3–6 |
 | 10 | Docs & polish | P2 | Not started | 8 |
 
 Work **one stage at a time**. Within a stage, finish tasks in listed order unless noted parallel.
@@ -252,7 +252,7 @@ _Note: S5-T5/T6 skipped — no JS fixtures in corpus; `go test -json` shapes do 
 - [x] **S6-T1** Mode detect: absence of `-t`/`-tt*`/`--test` → build mode
 - [x] **S6-T2** RED: `make_python_py_build_large_proto_raw.txt` — ≥60% savings; keep real errors/warnings
 - [x] **S6-T3** GREEN: collapse `Ok [n/m]` / `[PB]` proto spam / PEERDIR chatter
-- [x] **S6-T4** Prefer `run_streamed` + line handler — `YaBuildStreamFilter` / `LineHandler` implemented; `run()` uses `run_filtered(filter_ya_build)` (same handler) for oracle parity; Stage 9 can switch the runner to `run_streamed`
+- [x] **S6-T4** Prefer `run_streamed` + line handler — `YaBuildStreamFilter` / `LineHandler` implemented; Stage 9 switched `run()` to `run_streamed`
 - [x] **S6-T5** SNAPSHOT: build golden fixture → locked shape asserts (no insta)
 - [x] **S6-T6** Quality gate
 
@@ -304,15 +304,15 @@ _Decision (Q4): always rewrite when hooks are installed — see Decisions table.
 
 ### Tasks
 
-- [ ] **S9-T1** Streaming path for long test suites (`run_streamed`) — avoid buffering multi-MB logs
-- [ ] **S9-T2** Audit: never strip `Logsdir` / per-fail `Log:` paths
-- [ ] **S9-T3** Truncation recovery: `force_tee_hint` / `force_tee_tail_hint` for capped fail lists (use `CAP_*`)
-- [ ] **S9-T4** Cross-platform string variants in tests (`default-darwin-arm64-debug`, linux if available)
-- [ ] **S9-T5** Perf smoke: filtered path overhead acceptable on large fixture (filter-only bench OK)
-- [ ] **S9-T6** Fuzz/malformed: binary noise, truncated mid-fail block
-- [ ] **S9-T7** Quality gate
+- [x] **S9-T1** Streaming path for long test suites (`run_streamed`) — avoid buffering multi-MB logs
+- [x] **S9-T2** Audit: never strip `Logsdir` / per-fail `Log:` paths
+- [x] **S9-T3** Truncation recovery: `force_tee_hint` / `force_tee_tail_hint` for capped fail lists (use `CAP_*`)
+- [x] **S9-T4** Cross-platform string variants in tests (`default-darwin-arm64-debug`, linux if available)
+- [x] **S9-T5** Perf smoke: filtered path overhead acceptable on large fixture (filter-only bench OK)
+- [x] **S9-T6** Fuzz/malformed: binary noise, truncated mid-fail block
+- [x] **S9-T7** Quality gate
 
-**Exit:** Streaming + tee + Logsdir invariants verified.
+**Exit:** Streaming + tee + Logsdir invariants verified. ✅
 
 ---
 
@@ -407,3 +407,5 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-19 | S6-T1…T6 | `ya_build` allowlist + `run_filtered` (stream oracle); G7 ≥60%; Stage 6 done |
 | 2026-07-19 | S8-T1…T7 | Hooks rewrite `ya make|test` + `arc status|log|diff|show`; Q4 always-rewrite; Stage 8 done |
 | 2026-07-19 | S8 review | Sync Q4 tracker; doc abs-path rewrite gap; env/sudo/redirect/pipe ya/arc tests |
+| 2026-07-19 | S9-T1…T7 | `run_streamed` test+build; fat-line slim; Logsdir audit; tee overflow; linux tags; perf+fuzz |
+| 2026-07-19 | S9 review | Fix overflow tee (full list + offset); live fail emit; drop in-filter full tee; stream audits; build catch_unwind |

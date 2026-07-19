@@ -6,10 +6,10 @@ Filters for Arcadia meta-tools. Design: **envelope + inner-runner** for `ya` (se
 
 | Module | Tool(s) | Stage |
 |--------|---------|-------|
-| `ya_cmd.rs` | `ya` | 1–6 — classify + test/build pipelines / else passthrough |
-| `ya_build.rs` | `ya make` | 6 — build-mode progress collapse + stream handler |
+| `ya_cmd.rs` | `ya` | 1–6, 9 — classify + test/build `run_streamed` / else passthrough |
+| `ya_build.rs` | `ya make` | 6+9 — build-mode progress collapse + stream handler |
 | `arc_cmd.rs` | `arc` | 7 — status/log/diff/show filtered; other passthrough |
-| `envelope.rs` | — | 2–5 — framing + dispatch by `detect` |
+| `envelope.rs` | — | 2–5, 9 — framing + dispatch + `YaTestStreamFilter` |
 | `framing.rs` | — | shared suite/chunk/totals keep rules |
 | `detect.rs` | — | 3–5 — fingerprint inner runner from output |
 | `adapters/generic_fail.rs` | — | 2 — S0-T5 per-`[fail]` compact |
@@ -18,19 +18,19 @@ Filters for Arcadia meta-tools. Design: **envelope + inner-runner** for `ya` (se
 
 ## Shared pipelines
 
-### Test mode (Stage 4)
+### Test mode (Stage 4 + 9)
 
-`ya make` with `-t` / `-tt` / `-ttX` / `--test` and **`ya test`** → `run_filtered` + envelope adapters.
+`ya make` with `-t` / `-tt` / `-ttX` / `--test` and **`ya test`** → `run_streamed` + [`YaTestStreamFilter`](envelope.rs) (live compact `[fail]` blocks; fat Expected/progress dropped; no-fail suites filter at `on_exit` with `never_worse`).
 
-### Build mode (Stage 6)
+### Build mode (Stage 6 + 9)
 
-`ya make` **without** test flags → [`ya_build`](ya_build.rs) via `run_filtered` (line-oriented [`YaBuildStreamFilter`](ya_build.rs) powers the oracle; `build_stream_filter()` ready for Stage-9 `run_streamed`).
+`ya make` **without** test flags → [`ya_build`](ya_build.rs) via `run_streamed` + [`YaBuildStreamFilter`](ya_build.rs).
 
 | Invoked as | Pipeline |
 |------------|----------|
-| `rtk ya test …` | test filter |
-| `rtk ya make -t` / `-tt` / `-ttX` / `--test …` | test filter |
-| `rtk ya make …` (no test flags) | **build filter** |
+| `rtk ya test …` | test stream filter |
+| `rtk ya make -t` / `-tt` / `-ttX` / `--test …` | test stream filter |
+| `rtk ya make …` (no test flags) | **build stream filter** |
 | `rtk ya tool …` | passthrough |
 
 ### Flag passthrough
@@ -103,17 +103,23 @@ Rules live in [`src/discover/rules.rs`](../../discover/rules.rs).
 
 ## Status
 
+**Stage 9:** Test + build modes use `run_streamed`; fat-line slim + `force_tee_*` on capped fails; Logsdir invariants audited.
+
 **Stage 8:** Hooks rewrite `ya make|test` and `arc status|log|diff|show`; `ya tool *` excluded.
 
 **Stage 7:** `rtk arc status|log|diff|show` filtered; other `arc` subcommands passthrough.
 
-**Stage 6:** Build-only `ya make` filtered via `ya_build` + `run_filtered` (stream filter powers the oracle; Stage 9 can switch to `run_streamed`).
+**Stage 6:** Build-only `ya make` filtered via `ya_build` + `run_streamed`.
 
 **Stage 5:** Go path live. JS optional skipped.
 
 **Stage 4:** `ya test` ≡ test-mode `ya make` for filtering; argv identity preserved.
 
-Compact policy (S0-T5): keep failure node ids + `Logsdir:`; drop Expected/but bodies (via pytest truncation + envelope).
+Compact policy (S0-T5): keep failure node ids + `Logsdir:`; drop Expected/but bodies.
+Truncation recovery: runner tee `"ya"` for full raw; capped fail lists use
+`fail_overflow_tee_hint` (`force_tee_tail_hint` on the **full** headline list with
+offset `CAP_ERRORS + 1`). Filters do **not** embed `force_tee_hint` for full raw
+(avoids double/triple tee with the runner).
 
 ## Non-goals (v1)
 

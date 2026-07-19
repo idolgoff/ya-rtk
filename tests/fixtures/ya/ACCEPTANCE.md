@@ -56,6 +56,7 @@ Tee recovery (`RunOptions::….tee("ya")`) is required whenever bodies are trunc
 | 5 go adapter | G5, G6 |
 | 6 build-only | G7 |
 | 4 / tool edge | G9; G10 for `-ttX` |
+| 9 streaming / Logsdir audit | G1–G3, G5, G10 (+ synthetic linux / fuzz) |
 
 ## How to assert in tests
 
