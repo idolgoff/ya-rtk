@@ -4713,4 +4713,60 @@ mod tests {
             Some("rtk ya make -t path && rtk arc status".into())
         );
     }
+
+    #[test]
+    fn test_rewrite_ya_arc_sudo_env_redirect_pipe() {
+        assert_eq!(
+            rewrite_command_no_prefixes("sudo ya make -t path", &[]),
+            Some("sudo rtk ya make -t path".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("YA_CACHE=1 ya test -r path", &[]),
+            Some("YA_CACHE=1 rtk ya test -r path".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("ya make -t path 2>&1", &[]),
+            Some("rtk ya make -t path 2>&1".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("arc status 2>&1", &[]),
+            Some("rtk arc status 2>&1".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("ya make -t path | head -20", &[]),
+            Some("rtk ya make -t path | head -20".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("arc log -n 5 | head", &[]),
+            Some("rtk arc log -n 5 | head".into())
+        );
+    }
+
+    #[test]
+    fn test_absolute_path_ya_classifies_but_not_rewritten() {
+        // Known platform-wide gap: classify strips abs paths; rewrite prefix match does not.
+        // Same behavior as `/usr/bin/git status`. Documented in yandex/README.md; fix deferred.
+        assert!(matches!(
+            classify_command("/usr/local/bin/ya make -t path"),
+            Classification::Supported {
+                rtk_equivalent: "rtk ya",
+                ..
+            }
+        ));
+        assert_eq!(
+            rewrite_command_no_prefixes("/usr/local/bin/ya make -t path", &[]),
+            None
+        );
+        assert!(matches!(
+            classify_command("/opt/bin/arc status"),
+            Classification::Supported {
+                rtk_equivalent: "rtk arc",
+                ..
+            }
+        ));
+        assert_eq!(
+            rewrite_command_no_prefixes("/opt/bin/arc status", &[]),
+            None
+        );
+    }
 }

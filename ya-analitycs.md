@@ -239,10 +239,10 @@ Lower token impact in the analytics sample, but high agent frequency.
 
 ### Open questions (resolve during Phase 0–1)
 
-1. Should `rtk ya` live as ecosystem `yandex/` or `arcadia/` naming?
-2. Is `ya test` always the same formatter as `ya make -t` for Python targets in pay-plus, or are there RECIPE divergences worth dual fixtures?
-3. For hooks: rewrite only when `ya` is on `PATH` / inside an arc mount, or always?
-4. Ultra-compact policy: keep one failed assertion body vs headline-only + `Logsdir`?
+1. Should `rtk ya` live as ecosystem `yandex/` or `arcadia/` naming? → **Resolved: `yandex/`** (S0-T4)
+2. Is `ya test` always the same formatter as `ya make -t` for Python targets in pay-plus, or are there RECIPE divergences worth dual fixtures? → **Resolved: assume shared in v1** (S0-T6 / Stage 4)
+3. For hooks: rewrite only when `ya` is on `PATH` / inside an arc mount, or always? → **Resolved: always rewrite when hooks are installed** (S8-T4 / Q4)
+4. Ultra-compact policy: keep one failed assertion body vs headline-only + `Logsdir`? → **Resolved: headline + location + error head + Log/Logsdir** (S0-T5)
 
 ---
 

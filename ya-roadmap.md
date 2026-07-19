@@ -386,7 +386,7 @@ Never synthesize fake `ya` output when a fixture exists.
 | Q1 | Ecosystem name `yandex/` vs `arcadia/`? | S1 | **`yandex/`** (S0-T4) |
 | Q2 | Ultra-compact: body vs headline+Logsdir? | S2-T6 | **Headline + location + error head + Log/Logsdir**; drop Expected/but bodies (S0-T5) |
 | Q3 | `ya test` vs `ya make -t` format parity? | S4 | **Assume shared** in v1; Stage 4 confirmed same pipeline (S0-T6); re-open only if real `ya test` dumps diverge |
-| Q4 | Hooks: always vs arc-mount only? | S8-T4 | _TBD_ |
+| Q4 | Hooks: always vs arc-mount only? | S8-T4 | **Always rewrite** when hooks installed (no PATH / arc-mount gate); same as git/cargo |
 
 ---
 
@@ -405,4 +405,5 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-19 | S5-T1…T7 | `adapters/go_test` + detect `/gotest/`; JS optional skipped (no fixture); Stage 5 done |
 | 2026-07-19 | S5 review | Per-block `Log:`; tighten go detect; rename snapshot→locked_shape; `/home/` chrome |
 | 2026-07-19 | S6-T1…T6 | `ya_build` allowlist + `run_filtered` (stream oracle); G7 ≥60%; Stage 6 done |
-| 2026-07-19 | S6 review | Doc drift fixed; no in-filter tee; CAP_ERRORS assert; compile-fail fixture |
+| 2026-07-19 | S8-T1…T7 | Hooks rewrite `ya make|test` + `arc status|log|diff|show`; Q4 always-rewrite; Stage 8 done |
+| 2026-07-19 | S8 review | Sync Q4 tracker; doc abs-path rewrite gap; env/sudo/redirect/pipe ya/arc tests |

@@ -77,6 +77,8 @@ With RTK hooks installed, agents' shell commands are rewritten automatically:
 
 **Hook scope (Q4):** always rewrite when hooks are active — same as git/cargo. No PATH or arc-mount gate (avoids hook latency; missing binaries fail the same way without RTK).
 
+**Known gap — absolute binary paths:** `classify` strips `/usr/local/bin/ya` → `ya`, but rewrite prefix matching still sees the absolute path, so `/usr/local/bin/ya make` classifies as supported yet is **not** rewritten (same pre-existing gap as `/usr/bin/git status`). Prefer bare `ya` / `arc` on `PATH`, or call `rtk ya` / `rtk arc` explicitly. Fix deferred (platform-wide rewrite normalization).
+
 Preferred explicit form in Arcadia projects (also fine to paste into project `AGENTS.md`):
 
 ```markdown
