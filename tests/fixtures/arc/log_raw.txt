@@ -1,0 +1,480 @@
+commit 7c37aa64a238d993f85a67c12962cad5594e87b8 (HEAD -> feat/FININT-160_split_tfa_otp_channel, arcadia/users/idolgoff/feat/FININT-160_split_tfa_otp_channel)
+author: idolgoff
+date: 2026-07-17T15:06:51+03:00
+
+    FININT-160: keep previous Split OTP channel on retry without confirm_method
+    
+    Fallback to transaction.data.tfa.otp_channel before country default, matching
+    Passport resend behavior when FE omits channel on Android/iOS retry.
+
+commit 71f403848e369f4892fed07c1431406335648847
+author: idolgoff
+date: 2026-07-17T13:22:17+03:00
+
+    FININT-160: rename Split init confirmation channel → confirm_method
+    
+    Align request field with BNPL OpenAPI FrontUserConfirmationRequest
+    (confirm_method: by_sms|by_telegram) so the OTP channel reaches Split.
+
+commit ddf5ea0b77aca3b127c4a15a28457d252399dd15
+author: idolgoff
+date: 2026-07-17T13:09:13+03:00
+
+    FININT-160: fix tests — add otp_channel to split_tfa_params assertions
+
+commit 637490f8f6613df071839e2f9f3109d32a80f6c9
+author: idolgoff
+date: 2026-07-17T11:07:20+03:00
+
+    FININT-160: add tests for Split TFA OTP channel support
+
+commit 81f4fcbfd098e9e6f27bd881cdd5641e088a0d30
+author: idolgoff
+date: 2026-07-16T22:04:02+03:00
+
+    FININT-160: add OTP channel selection (SMS/Telegram) for Split TFA flow
+    
+    - Add channel field to YandexSplitInitConfirmationRequest and pass it in split client
+    - Add SPLIT_TFA_DEFAULT_OTP_CHANNEL_BY_COUNTRY config (per-country, no HotSetting fallback)
+    - Add GetSplitTfaDefaultOtpChannelAction to read channel from config
+    - Add confirm_method to InitTFAParams, CommandSplitRetryInitChallenge
+    - Add otp_channel to SplitTFAData, ResultSplitSubmitTFARequired, SplitTFAParams
+    - Add confirm_method/otp_channel to TransactionEvent data classes
+    - Wire channel selection in BaseSplitBnplFramelessProcessing.init_tfa
+    - Propagate otp_channel through InitTFAAction, ApplyEvent{,Separated}Action
+    - Expose otp_channel in SplitTFAParams API schema via get_view
+
+commit 1f0a827f722f8852579335228388788e1fc84c58 (trunk)
+merge: 961dc6bbfdb76abf85d0019db272bfc78bb22724 4147b9f6ac0e906ed22ef9c3c2981118db48f119
+author: dboyarinkov
+date: 2026-07-16T20:23:54+03:00
+revision: 20350442
+
+    broharness-fallow: clean dead-code report
+    
+    ## Dependency
+    - Depends on https://a.yandex-team.ru/review/14475813.
+    - Branch was created from users/dboyarinkov/wp/broharness-test-coverage/0. Arcanum only allows PR target trunk/release, so this PR should be reviewed/merged after 14475813; then the diff is the 5-file follow-up cleanup.
+    
+    ## Summary
+    - Added a minimal fallow config for intentional tooling/native adapter dependencies.
+    - Declared unified as a direct dependency because frontend code imports unified types directly.
+    - Removed two unused public exports from chat message factory and mock registry.
+    
+    ## Why
+    - The previous PR made fallow health clean; this follow-up makes the broader repository fallow dead-code/dependency report clean too.
+    
+    ## Invariant and risk
+    - Invariant: runtime chat/mock behavior stays unchanged; only dependency metadata and unused public surface change.
+    - Risk: ignoreDependencies can hide real unused packages if expanded casually; this PR keeps it limited to platform/tool adapters loaded outside static imports.
+    
+    ## Test plan
+    - npm run lint
+    - npm run test:coverage -- --reporter=dot
+    - npx fallow dead-code --format json --quiet --output-file /tmp/broharness-fallow-dead-after2.json
+    - npx fallow --coverage coverage/coverage-final.json --format json --quiet --output-file /tmp/broharness-fallow-all-final.json
+    - npm run build
+    - npm run e2e
+    broharness-fallow: clean dead-code report
+    
+    Make fallow dead-code strict enough to run cleanly across the frontend repo: remove two unused public exports, declare unified as a direct dependency because the code imports its types directly, and configure fallow to ignore intentional tooling/native adapter dependencies that are used by package manager or CLI indirection.
+    
+    Invariant: runtime chat/mock behavior stays unchanged; only public surface and dependency metadata change.
+    
+    Risk: dependency-ignore config can hide real unused packages if it grows casually, so keep it limited to platform/tool adapters with an external loading path.
+    
+    Verification: npm run lint; npm run test:coverage -- --reporter=dot; npx fallow dead-code; npx fallow --coverage coverage/coverage-final.json; npm run build; npm run e2e.
+    
+    REVIEW: 14479818
+
+commit 961dc6bbfdb76abf85d0019db272bfc78bb22724
+merge: 7ff8e2565cdddeda7aa7b496bf29c860c54d7048 0ea9c1a4c260e2897882c2dcbbde39cc699df253
+author: robot-recs
+date: 2026-07-16T20:23:50+03:00
+revision: 20350441
+
+    New version of dssms.txt, shard.txt https://nirvana.yandex-team.ru/process/f7dbef97-cf23-4836-a08d-af1df1f7e605 SKIP_CHECK SKIP_REVIEW
+    
+    REVIEW: 14480262
+
+commit 7ff8e2565cdddeda7aa7b496bf29c860c54d7048
+merge: 73b235e04f94aec2d83f54d1819ae2b28b694ae8 b08e0c33cf63b634f74c7312409ddc7002bba6be
+author: robot-mlmarines
+date: 2026-07-16T20:23:48+03:00
+revision: 20350440
+
+    Update fast shard resource
+    
+    Update fast shard for 2025-03-23 from https://nirvana.yandex-team.ru/process/53fac079-181c-430b-b5fe-e5814b0be41e
+    
+    REVIEW: 14480261
+
+commit 73b235e04f94aec2d83f54d1819ae2b28b694ae8
+merge: 9182647eca1de9a960489f73919d04bf9452691a 18b670b6d081f061806bff08f8b9177bafb127e4
+author: robot-god-emperor
+date: 2026-07-16T20:23:46+03:00
+revision: 20350439
+
+    Changes from O Dev Platform
+    
+    Changes from O Dev Platform CI
+    
+    REVIEW: 14480012
+
+commit 9182647eca1de9a960489f73919d04bf9452691a
+merge: b3ffc54029f0ed91ebc69546d7ed1d25cbf72ad8 edac52e592725798d22a34c33c64a3fe6d9af837
+author: ivashka27
+date: 2026-07-16T20:23:43+03:00
+revision: 20350438
+
+    fix marroco: change text for wheel referral push
+    
+    Relates: MARKETGAMEBACK-499
+    
+    REVIEW: 14479281
+
+commit b3ffc54029f0ed91ebc69546d7ed1d25cbf72ad8
+merge: 3f015c1dc31ff335ad23a39630939e968150b767 90acdad02aa52b81207e652e3f002044a41466fc
+author: sofiaemtseva
+date: 2026-07-16T20:23:28+03:00
+revision: 20350437
+
+    change path in README
+    
+    REVIEW: 14480129
+
+commit 3f015c1dc31ff335ad23a39630939e968150b767
+merge: e6eea7da75a1707929681d792c47d42913dffc33 e1dfe419444a8c1d639d12a7486a8d44c0814fe4
+author: robot-yamarec
+date: 2026-07-16T20:23:26+03:00
+revision: 20350436
+
+    Update resource
+    
+    New version of GETTER_RESOURCE_BUNDLE : 12820478509
+    12820453717
+    12820475075
+    12820468376
+    12820478035
+    12820457024
+    12820450766
+    12820491796
+    12820482146
+    12820464657
+    12820460128
+    12820457856
+    12820456831
+    12820477722
+    12820475534
+    12820460447
+    (https://nirvana.yandex-team.ru/process/50c9fd61-2c61-403e-9e0f-2e0a3ccf5822)
+    
+    REVIEW: 14480060
+
+commit e6eea7da75a1707929681d792c47d42913dffc33
+merge: 30ae23c5b6ecd17f5903f16b70bfcd655809b650 13615af747dc2a94027d5979cf0f1c3703e1d884
+author: paveldanilov
+date: 2026-07-16T20:23:23+03:00
+revision: 20350435
+
+    YASUPGPT-3962: фильтры и пагинация в запросе /items
+    
+    REVIEW: 14477575
+
+commit 30ae23c5b6ecd17f5903f16b70bfcd655809b650
+merge: 892b0aca8da9b1f428daa8c3ce8f3b4892f35811 8e26b6c62a8da830713b72e74ec900c15f083695
+author: mahenzon
+date: 2026-07-16T20:23:21+03:00
+revision: 20350434
+
+    CONTRIB-4596: build Pyrefly for Linux and macOS & add rust/96
+    
+    Воспроизводимая сборка Pyrefly 1.1.1 для `linux-x86_64` и `darwin-arm64` в Toolchain Registry.
+    
+    {% cut "**Что сделано:**" %}
+    
+    - для Pyrefly добавлен отдельный `bld/rust/96`; глобальный Rust toolchain остальных пакетов не меняется. Старый Rust не подходил - для Pyrefly нужен более свежий. Добавляю по примеру из PR <https://a.yandex-team.ru/review/10378677/details>;
+    - добавлен Linux/musl runtime, необходимый для сборки и загрузки host proc-macro;
+    - фикс checksum Cargo vendor PZD (был указан не тот);
+    - подключён IX jemalloc, который соответствует используемому Pyrefly `tikv-jemallocator` - правки для devendor; потому что Pyrefly при сборке обращается к jemalloc - [pyrefly/bin/main.rs, строки 21–26](https://github.com/facebook/pyrefly/blob/1.1.1/pyrefly/bin/main.rs#L21-L26);
+    - для Darwin добавлен локальный shim между ожидаемыми Rust crate символами `mallocx/rallocx/sdallocx` и экспортируемыми IX jemalloc символами `je_*`;
+    - Linux musl library path применяется только к `FREESTANDING_CLANG` кандидату `rustcc`, поэтому host proc-macro собираются с musl, а Darwin linker не получает ELF-библиотеки.
+    
+    {% endcut %}
+    
+    {% cut "**Почему выбран Rust 1.96**" %}
+    
+    Pyrefly 1.1.1 содержит match-arm `if let` guards, стабилизированные в Rust 1.95. Сам релиз Pyrefly использовал канал `stable`; на момент релиза актуальной стабильной версией был Rust 1.96. Отдельный toolchain ограничивает изменение только Pyrefly и не затрагивает существующих потребителей Rust в Toolchain Registry.
+    
+    {% endcut %}
+    
+    {% cut "**Почему нужен отдельный linker wrapper**" %}
+    
+    IX `rustcc` сначала использует freestanding Clang для host proc-macro, затем target и host compiler fallbacks. Freestanding Clang не учитывает `LIBRARY_PATH`, поэтому musl path передаётся ему явно. При этом путь нельзя передавать всему `rustcc`: тогда Darwin `ld64` видит Linux ELF `libc.so`. Wrapper ограничивает `-L` только первым кандидатом и оставляет Darwin target linker чистым.
+    
+    {% endcut %}
+    
+    {% cut "**Проверки**" %}
+    
+    - полная сборка `linux-x86_64` завершилась успешно;
+    - результат — статически слинкованный ELF64 без `INTERP` и `DT_NEEDED`;
+    - smoke проверки:
+      - `pyrefly --version`;
+      - положительный type-check;
+      - отрицательный type-check;
+      - запуск LSP;
+    - полная Linux-hosted сборка `darwin-arm64`;
+    - результат — Mach-O 64-bit arm64;
+    - `LC_BUILD_VERSION`: macOS, minimum 11.0, SDK 11.0;
+    - зависимости ограничены CoreFoundation, CoreServices, libiconv и libSystem;
+    - `codesign --verify --strict` проходит;
+    - на Apple Silicon проходят smoke проверки:
+      - `pyrefly --version`;
+      - положительный type-check;
+      - отрицательный type-check;
+      - запуск LSP.
+    
+    {% endcut %}
+    
+    {% cut "**примеры запуска**" %}
+    
+    ### linux (codenv)
+    
+    ```
+    ((venv-pyrefly-rust93) ) mahenzon@hcaec063fa9464fc3886c10e8fd65:~/toolchain-registry-pyrefly-rust93-preflight$ ROOT="$HOME/toolchain-registry-pyrefly-rust93-preflight"
+    BIN="$ROOT/store/Zm0g4CU0fD86Z2QJHUZVe4-bin-bin-pyrefly-unwrap/bin/pyrefly"
+    
+    test -x "$BIN" && echo "OK: executable"
+    file "$BIN"
+    sha256sum "$BIN"
+    "$BIN" --version
+    OK: executable
+    /home/mahenzon/toolchain-registry-pyrefly-rust93-preflight/store/Zm0g4CU0fD86Z2QJHUZVe4-bin-bin-pyrefly-unwrap/bin/pyrefly: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+    23c1c0428da3ee7525ca4df4b3129627bc974c8382b9f7c8da8ac0dae482adba  /home/mahenzon/toolchain-registry-pyrefly-rust93-preflight/store/Zm0g4CU0fD86Z2QJHUZVe4-bin-bin-pyrefly-unwrap/bin/pyrefly
+    pyrefly 1.1.1
+    ((venv-pyrefly-rust93) ) mahenzon@hcaec063fa9464fc3886c10e8fd65:~/toolchain-registry-pyrefly-rust93-preflight$ readelf -l "$BIN" | grep INTERP || echo "OK: no ELF interpreter"
+    readelf -d "$BIN" 2>/dev/null | grep NEEDED || echo "OK: no dynamic dependencies"
+    OK: no ELF interpreter
+    OK: no dynamic dependencies
+    ((venv-pyrefly-rust93) ) mahenzon@hcaec063fa9464fc3886c10e8fd65:~/toolchain-registry-pyrefly-rust93-preflight$ TMP="$(mktemp -d)"
+    
+    printf '%s\n' \
+        'def add(x: int, y: int) -> int:' \
+        '    return x + y' \
+        'result: int = add(1, 2)' \
+        > "$TMP/ok.py"
+    
+    "$BIN" check --color=never "$TMP/ok.py"
+    echo "rc=$?"
+     INFO 0 errors
+    No `pyrefly.toml` found — using preset `basic`.
+    Run `pyrefly init` to continue setting up Pyrefly.
+    Docs: https://pyrefly.org/en/docs/installation/
+    rc=0
+    ((venv-pyrefly-rust93) ) mahenzon@hcaec063fa9464fc3886c10e8fd65:~/toolchain-registry-pyrefly-rust93-preflight$ printf '%s\n' \
+        'does_not_exist' \
+        > "$TMP/bad.py"
+    
+    if "$BIN" check --color=never "$TMP/bad.py"; then
+        echo "ERROR: expected a diagnostic"
+    else
+        RC=$?
+        echo "OK: diagnostic returned, rc=$RC"
+    fi
+    ERROR Could not find name `does_not_exist` [unknown-name]
+     --> /tmp/tmp.M8LtnCPWyX/bad.py:1:1
+      |
+    1 | does_not_exist
+      | ^^^^^^^^^^^^^^
+      |
+     INFO 1 error
+    No `pyrefly.toml` found — using preset `basic`.
+    Run `pyrefly init` to continue setting up Pyrefly.
+    Docs: https://pyrefly.org/en/docs/installation/
+    OK: diagnostic returned, rc=1
+    ((venv-pyrefly-rust93) ) mahenzon@hcaec063fa9464fc3886c10e8fd65:~/toolchain-registry-pyrefly-rust93-preflight$ "$BIN" lsp --indexing-mode=none </dev/null
+    echo "rc=$?"
+    starting generic LSP server
+    shutting down server
+    rc=0
+    ```
+    
+    ### macOS
+    
+    бинарь скопирован с виртуалки, где был собран
+    
+    ```
+    ➜  CONTRIB-4596_fix-pyrefly-rust-93 scp \
+      hcaec063fa9464fc3886c10e8fd65.sas.yp-c.yandex.net:/tmp/pyrefly-darwin-arm64 \
+      /tmp/pyrefly-darwin-arm64
+    
+    chmod +x /tmp/pyrefly-darwin-arm64
+    
+    file /tmp/pyrefly-darwin-arm64
+    lipo -archs /tmp/pyrefly-darwin-arm64
+    otool -L /tmp/pyrefly-darwin-arm64
+    vtool -show-build /tmp/pyrefly-darwin-arm64
+    codesign --verify --strict --verbose=2 /tmp/pyrefly-darwin-arm64
+    pyrefly-darwin-arm64                                                                                       100%   32MB   7.5MB/s   00:04    
+    /tmp/pyrefly-darwin-arm64: Mach-O 64-bit executable arm64
+    arm64
+    /tmp/pyrefly-darwin-arm64:
+    	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 1770.106.0)
+    	/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1122.4.0)
+    	/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)
+    	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
+    /tmp/pyrefly-darwin-arm64:
+    Load command 10
+          cmd LC_BUILD_VERSION
+      cmdsize 32
+     platform MACOS
+        minos 11.0
+          sdk 11.0
+       ntools 1
+         tool 4
+      version 21.1.2
+    /tmp/pyrefly-darwin-arm64: valid on disk
+    /tmp/pyrefly-darwin-arm64: satisfies its Designated Requirement                                                                         /6.8s
+    ➜  CONTRIB-4596_fix-pyrefly-rust-93 BIN=/tmp/pyrefly-darwin-arm64
+    TMP="$(mktemp -d)"
+    
+    "$BIN" --version
+    
+    printf 'x: int = 1\n' > "$TMP/good.py"
+    "$BIN" check --color=never "$TMP/good.py"
+    echo "good_rc=$?"
+    
+    printf 'does_not_exist\n' > "$TMP/bad.py"
+    "$BIN" check --color=never "$TMP/bad.py"
+    echo "bad_rc=$?"
+    
+    "$BIN" lsp --indexing-mode=none </dev/null
+    echo "lsp_rc=$?"
+    pyrefly 1.1.1
+     INFO 0 errors
+    No `pyrefly.toml` found — using preset `basic`.
+    Run `pyrefly init` to continue setting up Pyrefly.
+    Docs: https://pyrefly.org/en/docs/installation/
+    good_rc=0
+    ERROR Could not find name `does_not_exist` [unknown-name]
+     --> /var/folders/21/rkjw1mrx3xb5_1k3kq027h940000gn/T/tmp.UefaE73Fiy/bad.py:1:1
+      |
+    1 | does_not_exist
+      | ^^^^^^^^^^^^^^
+      |
+     INFO 1 error
+    No `pyrefly.toml` found — using preset `basic`.
+    Run `pyrefly init` to continue setting up Pyrefly.
+    Docs: https://pyrefly.org/en/docs/installation/
+    bad_rc=1
+    starting generic LSP server
+    shutting down server
+    lsp_rc=0                
+    ```
+    
+    {% endcut %}
+    
+    REVIEW: 14454410
+
+commit 892b0aca8da9b1f428daa8c3ce8f3b4892f35811
+merge: 30e1ff06e180ef3f0d88702285205ab77ca0036f 22a14f4318352b0510d43c18f97818c601e4182b
+author: psydvl
+date: 2026-07-16T20:22:58+03:00
+revision: 20350433
+
+    CODENV-814: ci: supply api config to metrics deploy
+    
+    REVIEW: 14475857
+
+commit 30e1ff06e180ef3f0d88702285205ab77ca0036f
+merge: 580d11635541e6ba03db9c26d9506486294f8293 7f1533464838571eda3045310869d036fd955eff
+author: maximperest
+date: 2026-07-16T20:22:54+03:00
+revision: 20350432
+
+    MARKETFINPROD-1901 personal inn fiscalis
+    
+    <section id="quibbler-autodescription">
+    
+    #### Поддержка персонального INN для страховок 📝
+    
+    - 🔄 Добавлена возможность использовать персональный INN вместо стандартного для страховок, если включена соответствующая настройка
+    - 🛠️ Расширена логика обработки данных для определения юридического лица на основе персонального ID
+    - 🧪 Обновлены тесты для проверки нового функционала и обеспечения корректной работы с персональными INN
+    - ⚙️ Внедрена настройка для включения/отключения использования персонального INN при обработке страховок
+    - 📦 Добавлено поле для хранения персонального INN в сущности страховки и соответствующие изменения в тестовых Creator'ах
+    
+    <a href="https://nda.ya.ru/t/qa0kX64r7DqvtN"><font size="2">Autodescription by Yandex Code Assistant</font></a>
+    </section>
+    
+    REVIEW: 14452846
+
+commit 580d11635541e6ba03db9c26d9506486294f8293
+merge: 7801c462f7ba12b183fd9e6876e2236d9c04d32a 7c781669e90232f6d5914f05e6c10f1fa2e280c7
+author: maximperest
+date: 2026-07-16T20:22:49+03:00
+revision: 20350431
+
+    MARKETFINPROD-1901 personal inn cashier
+    
+    <section id="quibbler-autodescription">
+    
+    #### Обновление обработки данных по страховке с поддержкой персонального ИНН 📝
+    
+    - 🔄 Добавлена поддержка нового поля `personalInnId` для данных страховой компании, позволяющая использовать персональный ИНН вместо стандартного при формировании запросов и обработке данных.
+    - 🛠️ Внесены изменения в логику получения юридической информации по страховке: теперь при включённой функции используется персональный ИНН, если он доступен, с последующим fallback на стандартный ИНН при необходимости.
+    - 🧪 Расширены тесты для проверки корректной работы с персональным ИНН и добавлены новые сценарии для проверки поведения при отсутствии персонального ИНН.
+    - ⚙️ Введена новая настройка фич-флага для управления использованием персонального ИНН при обработке данных по страховке.
+    - 📦 Обновлена структура данных и API для передачи персонального ИНН в запросах, включая обновления в тестовых и интеграционных компонентах.
+    
+    <a href="https://nda.ya.ru/t/qa0kX64r7DqvtN"><font size="2">Autodescription by Yandex Code Assistant</font></a>
+    </section>
+    
+    REVIEW: 14434846
+
+commit 7801c462f7ba12b183fd9e6876e2236d9c04d32a
+merge: 81da8fac831095b0a7dd0dfa50a56f4a5767f375 d6f9438f5fecd72d170f87e5148007488a872c25
+author: romanzhukov
+date: 2026-07-16T20:22:44+03:00
+revision: 20350430
+
+    DOCSUP-131265: [DOC-40767] Обновить документ: реструктуризация Алертов и Уведомлений.
+    
+    Что сделано: 
+    1. https://previewer.docs.yandex-team.ru/deploy/how-to/alerts-manage?revision=8c1347ffb0e6facaf03a2ab6302b905a1f2d6e98 - На концепцию информации не набралось. Возможно позже можно будет вытащить отсюда концепцию по алертам, трейсам, метрикам и прочее и вывести в общие концепции. В этом разделе собраны пошаговые инструкции.
+    2. https://previewer.docs.yandex-team.ru/deploy/reference/alerts?revision=8c1347ffb0e6facaf03a2ab6302b905a1f2d6e98 - справочник-описание каждого алерта.
+    3. https://previewer.docs.yandex-team.ru/deploy/changelog/alerts?revision=8c1347ffb0e6facaf03a2ab6302b905a1f2d6e98 - история изменений.
+    4. https://previewer.docs.yandex-team.ru/deploy/reference/glossary#alert?revision=8c1347ffb0e6facaf03a2ab6302b905a1f2d6e98 -  термин в глоссарии.
+    
+    REVIEW: 13718892
+
+commit 81da8fac831095b0a7dd0dfa50a56f4a5767f375
+merge: 380f2a6343f4072495033625efb302a0e2ecb744 b4697cfd4f2806b9e528b1419eb79bb7a6e3e69f
+author: martynovsky
+date: 2026-07-16T20:22:41+03:00
+revision: 20350429
+
+    yabs-exception-watch: run daily cron on opus instead of sonnet
+    
+    Ежедневный крон yabs-exception-watch (yabs-exception-watch.service) теперь запускает Claude с `--model opus` вместо `--model sonnet`: автодебаг новых сигнатур эксепшенов — это анализ бэктрейсов и поиск первопричины, где качество рассуждений важнее стоимости.
+    
+    Одна строка в ExecStart systemd-юнита; на машину изменение доедет автоматически — setup.sh на SessionStart копирует юниты из канона и делает daemon-reload.
+    
+    Тикета нет — конфигурационная правка в junk/martynovsky/ai.
+    
+    [AI-MANAGED]
+    
+    REVIEW: 14480058
+
+commit 380f2a6343f4072495033625efb302a0e2ecb744
+merge: 01ef4d9c0351423e12485747fa36e54699862e47 1585e17c5c0bbdaf5d16f957a5f68d00cc404f95
+author: boboxa
+date: 2026-07-16T20:22:29+03:00
+revision: 20350428
+
+    ASRML-736: exp
+    
+    exp
+    
+    REVIEW: 14480247
+

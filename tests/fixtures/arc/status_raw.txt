@@ -1,0 +1,8 @@
+On branch feat/FININT-160_split_tfa_otp_channel
+Your branch is up-to-date with 'arcadia/users/idolgoff/feat/FININT-160_split_tfa_otp_channel'.
+Untracked files:
+  (use "arc add <file>..." to include in what will be committed)
+
+    billing/yandex_pay_plus/progress.md
+
+nothing added to commit but untracked files present (use "arc add" to track)

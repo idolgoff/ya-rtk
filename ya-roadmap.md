@@ -27,10 +27,9 @@ Extend RTK for internal Yandex meta-tools (`ya`, `arc`) using an **envelope + in
 | **S0-T4 / Q1** | Ecosystem dir = [`src/cmds/yandex/`](src/cmds/yandex/) | Matches CLI surface `rtk ya`; parallel to other ecosystem folders |
 | **S0-T5 / Q2** | Per-fail keep: **`[fail]` headline + first location line + first `E …` / error head + `Log:` + `Logsdir:`**; drop giant Expected/but / stack bodies (tee recovers full output) | Balances agent signal vs token ROI; assertion dumps dominate fail fixtures |
 | **S0-T6 / Q3** | **Assume shared formatter** for `ya test` and `ya make -t` in v1; no separate `ya test` fixtures required now | Corpus is almost all `make_*`; analytics had no measurable `ya test` pastes; Stage 4 validates; add dual fixtures only if divergence appears |
+| **S8-T4 / Q4** | **Always rewrite** when hooks are installed (no PATH / arc-mount gate) | Same contract as git/cargo; mount/PATH checks add hook latency and edge cases; missing `ya`/`arc` fails the same with or without RTK |
 
 Acceptance criteria for CI-critical fixtures: [`tests/fixtures/ya/ACCEPTANCE.md`](tests/fixtures/ya/ACCEPTANCE.md).
-
-Q4 (hooks always vs arc-mount) stays open — blocked on Stage 8.
 
 ---
 
@@ -89,8 +88,8 @@ src/cmds/yandex/          # locked S0-T4
 | 4 | `ya test` parity + flags | P0 | Done | 3 |
 | 5 | Go (+ optional JS) adapters | P1 | Done | 3 |
 | 6 | Build-only `ya make` | P1 | Done | 2 |
-| 7 | `arc` commands | P1 | Not started | 1 |
-| 8 | Hooks & discover | P1 | Not started | 2–4 |
+| 7 | `arc` commands | P1 | Done | 1 |
+| 8 | Hooks & discover | P1 | Done | 2–4 |
 | 9 | Hardening | P2 | Not started | 3–6 |
 | 10 | Docs & polish | P2 | Not started | 8 |
 
@@ -267,16 +266,16 @@ _Note: S5-T5/T6 skipped — no JS fixtures in corpus; `go test -json` shapes do 
 
 ### Tasks
 
-- [ ] **S7-T1** Collect fixtures: `arc status`, `arc log`, `arc diff`, `arc show` (real dumps → `tests/fixtures/arc/`)
-- [ ] **S7-T2** Scaffold `arc_cmd.rs` + `Commands::Arc` in `main.rs`
-- [ ] **S7-T3** `arc status` — compact like `git status`
-- [ ] **S7-T4** `arc log` — cap / oneline bias like `git log`
-- [ ] **S7-T5** `arc diff` / `arc show` — reuse `compact_diff` patterns from git/gh
-- [ ] **S7-T6** Other `arc` subcommands: passthrough + track
-- [ ] **S7-T7** Savings + snapshot tests per implemented subcommand
-- [ ] **S7-T8** Quality gate
+- [x] **S7-T1** Collect fixtures: `arc status`, `arc log`, `arc diff`, `arc show` (real dumps → `tests/fixtures/arc/`)
+- [x] **S7-T2** Scaffold `arc_cmd.rs` + `Commands::Arc` in `main.rs`
+- [x] **S7-T3** `arc status` — compact like `git status`
+- [x] **S7-T4** `arc log` — cap / oneline bias like `git log`
+- [x] **S7-T5** `arc diff` / `arc show` — reuse `compact_diff` patterns from git/gh
+- [x] **S7-T6** Other `arc` subcommands: passthrough + track
+- [x] **S7-T7** Savings + snapshot tests per implemented subcommand
+- [x] **S7-T8** Quality gate
 
-**Exit:** `rtk arc status|log|diff|show` filtered; rest tracked passthrough.
+**Exit:** `rtk arc status|log|diff|show` filtered; rest tracked passthrough. ✅
 
 ---
 
@@ -286,15 +285,16 @@ _Note: S5-T5/T6 skipped — no JS fixtures in corpus; `go test -json` shapes do 
 
 ### Tasks
 
-- [ ] **S8-T1** Add rewrite patterns in `src/discover/rules.rs` for `ya make`, `ya test`
-- [ ] **S8-T2** Add patterns for `arc status|log|diff|show` only
-- [ ] **S8-T3** Do **not** rewrite blanket `ya tool *` (passthrough/track only until allowlisted)
-- [ ] **S8-T4** Decide hook scope: always rewrite vs only when `ya` on PATH / inside arc mount (document)
-- [ ] **S8-T5** Unit/integration tests for rewrite rules
-- [ ] **S8-T6** Document preferred `rtk ya make -t …` in ecosystem README (and optional AGENTS.md note for Arcadia projects)
-- [ ] **S8-T7** Quality gate
+- [x] **S8-T1** Add rewrite patterns in `src/discover/rules.rs` for `ya make`, `ya test`
+- [x] **S8-T2** Add patterns for `arc status|log|diff|show` only
+- [x] **S8-T3** Do **not** rewrite blanket `ya tool *` (passthrough/track only until allowlisted)
+- [x] **S8-T4** Decide hook scope: always rewrite vs only when `ya` on PATH / inside arc mount (document)
+- [x] **S8-T5** Unit/integration tests for rewrite rules
+- [x] **S8-T6** Document preferred `rtk ya make -t …` in ecosystem README (and optional AGENTS.md note for Arcadia projects)
+- [x] **S8-T7** Quality gate
 
-**Exit:** Discover/hooks rewrite safe command set; tool wildcard excluded.
+**Exit:** Discover/hooks rewrite safe command set; tool wildcard excluded. ✅  
+_Decision (Q4): always rewrite when hooks are installed — see Decisions table._
 
 ---
 

@@ -1,0 +1,307 @@
+commit 81f4fcbfd098e9e6f27bd881cdd5641e088a0d30
+author: idolgoff
+date: 2026-07-16T22:04:02+03:00
+
+    FININT-160: add OTP channel selection (SMS/Telegram) for Split TFA flow
+    
+    - Add channel field to YandexSplitInitConfirmationRequest and pass it in split client
+    - Add SPLIT_TFA_DEFAULT_OTP_CHANNEL_BY_COUNTRY config (per-country, no HotSetting fallback)
+    - Add GetSplitTfaDefaultOtpChannelAction to read channel from config
+    - Add confirm_method to InitTFAParams, CommandSplitRetryInitChallenge
+    - Add otp_channel to SplitTFAData, ResultSplitSubmitTFARequired, SplitTFAParams
+    - Add confirm_method/otp_channel to TransactionEvent data classes
+    - Wire channel selection in BaseSplitBnplFramelessProcessing.init_tfa
+    - Propagate otp_channel through InitTFAAction, ApplyEvent{,Separated}Action
+    - Expose otp_channel in SplitTFAParams API schema via get_view
+
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/psp/ops/init_tfa.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/psp/ops/init_tfa.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -17,11 +17,17 @@ from billing.yandex_pay_plus.yandex_pay_plus.core.entities.processing.result imp
+     ResultSplitSubmitTFARequired,
+     ResultTFASuccess,
+ )
+-from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.enums import ProcessingErrorCode, TaskType
++from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.enums import (
++    ProcessingErrorCode,
++    TaskType,
++    TransactionEventType,
++)
+ from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.transaction_event import (
++    TransactionEvent,
+     TransactionEventChallengeRequiredData,
+     TransactionEventChallengeSuccessData,
+     TransactionEventInitFailedData,
++    TransactionEventInitRequiredData,
+ )
+ 
+ 
+@@ -34,7 +40,10 @@ class InitTFAAction(
+         async with self._get_processing() as processing:
+             assert self.transaction.data.processing_additional_data is not None
+             assert self.transaction.data.processing_additional_data.user_session_data is not None
+-            params = InitTFAParams(user_session_data=self.transaction.data.processing_additional_data.user_session_data)
++            params = InitTFAParams(
++                user_session_data=self.transaction.data.processing_additional_data.user_session_data,
++                confirm_method=await self._get_confirm_method(),
++            )
+             result = await processing.init_tfa(params=params)
+ 
+             self._maybe_log_processing_result(result)
+@@ -60,6 +69,7 @@ class InitTFAAction(
+                         confirmation_id=result.confirmation_id,
+                         phone=result.phone,
+                         deny_resend_until=result.deny_resend_until,
++                        otp_channel=result.otp_channel,
+                     ),
+                     transaction_id=self.transaction.transaction_id,
+                     transaction_operation_id=self.transaction_operation_id,
+@@ -67,6 +77,20 @@ class InitTFAAction(
+             else:
+                 self._on_unknown_result(result)
+ 
++    async def _get_confirm_method(self) -> str | None:
++        if self.transaction_operation_id is None:
++            return None
++        try:
++            event = await self.storage.transaction_event.find_by_transaction_operation_id_and_event_type(
++                transaction_operation_id=self.transaction_operation_id,
++                event_type=TransactionEventType.INIT_REQUIRED,
++            )
++        except TransactionEvent.DoesNotExist:
++            return None
++        if not isinstance(event.data, TransactionEventInitRequiredData):
++            return None
++        return event.data.confirm_method
++
+ 
+ class InitTFAOnFailCleanupAsyncableAction(BaseAsyncDBAction):
+     max_retries = 0
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/psp/ops/prepayment/get_split_tfa_default_otp_channel.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/psp/ops/prepayment/get_split_tfa_default_otp_channel.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -0,0 +1,20 @@
++from typing import Optional
++
++from pay.lib.entities.enums import Country
++
++from billing.yandex_pay_plus.yandex_pay_plus.conf import settings
++from billing.yandex_pay_plus.yandex_pay_plus.core.actions.base import BaseAction
++
++
++class GetSplitTfaDefaultOtpChannelAction(BaseAction):
++    def __init__(self, country: Optional[Country] = None):
++        super().__init__()
++        self.country = country
++
++    async def handle(self) -> Optional[str]:
++        country_code = self.country.value if self.country else None
++        if country_code:
++            override = settings.SPLIT_TFA_DEFAULT_OTP_CHANNEL_BY_COUNTRY.get(country_code)
++            if override is not None:
++                return override
++        return None
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/get_view.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction/get_view.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -303,6 +303,7 @@ class GetTransactionViewAction(BaseDBAction[TransactionActionView]):
+                     submit_budget=transaction.data.tfa.submit_budget,
+                     time_to_retry=time_to_retry,
+                     formatted_phone=formatted_phone,
++                    otp_channel=transaction.data.tfa.otp_channel,
+                 ),
+                 card_challenge_params=None,
+                 passport_tfa_params=None,
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_event/apply.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_event/apply.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -114,11 +114,14 @@ class ApplyEventAction(ApplyIdentificationSurveyChallengeMixin, BaseDBAction[tup
+                     await self._update_transaction_status(status=TransactionStatus.TFA_CHALLENGE)
+ 
+             case TransactionEventChallengeRequiredData():
+-                ensure_not_null(self.transaction.data.tfa).challenge_request = SplitTFAChallengeRequest(
++                tfa = ensure_not_null(self.transaction.data.tfa)
++                tfa.challenge_request = SplitTFAChallengeRequest(
+                     confirmation_id=self.event.data.confirmation_id,
+                     phone=self.event.data.phone,
+                     deny_resend_until=self.event.data.deny_resend_until,
+                 )
++                if self.event.data.otp_channel is not None:
++                    tfa.otp_channel = self.event.data.otp_channel
+                 await self._update_transaction_status(status=TransactionStatus.TFA_CHALLENGE)
+                 await self._update_transaction_operation_status(status=TransactionOperationStatus.FINISHED)
+ 
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_event/apply_separated.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_event/apply_separated.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -211,11 +211,14 @@ class ApplyEventSeparatedAction(ApplyIdentificationSurveyChallengeMixin, BaseDBA
+     async def _process_challenge_required_data(self) -> None:
+         assert isinstance(self.event.data, TransactionEventChallengeRequiredData)
+ 
+-        ensure_not_null(self.transaction.data.tfa).challenge_request = SplitTFAChallengeRequest(
++        tfa = ensure_not_null(self.transaction.data.tfa)
++        tfa.challenge_request = SplitTFAChallengeRequest(
+             confirmation_id=self.event.data.confirmation_id,
+             phone=self.event.data.phone,
+             deny_resend_until=self.event.data.deny_resend_until,
+         )
++        if self.event.data.otp_channel is not None:
++            tfa.otp_channel = self.event.data.otp_channel
+ 
+         await self._update_transaction_status(status=TransactionStatus.TFA_CHALLENGE)
+         await self._update_transaction_operation_status(status=TransactionOperationStatus.FINISHED)
+--- billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_operation/handle_command.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/actions/transaction_operation/handle_command.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -74,7 +74,8 @@ class HandleCommandAction(BaseAction[str]):
+                     user_session_data=UserSessionData(
+                         login_id=self.user.login_id,
+                         user_ticket=self.user.tvm_ticket,
+-                    )
++                    ),
++                    confirm_method=self.command.confirm_method,
+                 )
+ 
+             case CommandSplitSubmitChallenge():
+--- billing/yandex_pay_plus/yandex_pay_plus/core/entities/payment_state_machine/command.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/entities/payment_state_machine/command.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -27,7 +27,7 @@ class BaseCommand:
+ 
+ @dataclass
+ class CommandSplitRetryInitChallenge(BaseCommand, command_type=CommandType.SPLIT_RETRY_INIT_CHALLENGE):
+-    pass
++    confirm_method: Optional[str] = None
+ 
+ 
+ @dataclass
+--- billing/yandex_pay_plus/yandex_pay_plus/core/entities/processing/params.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/entities/processing/params.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -1,6 +1,6 @@
+ from dataclasses import dataclass
+ from decimal import Decimal
+-from typing import Generic, TypeVar
++from typing import Generic, Optional, TypeVar
+ from uuid import UUID
+ 
+ from pay.lib.entities.receipt import Receipt
+@@ -66,6 +66,7 @@ class RecurParams(Generic[TPaymentData]):
+ @dataclass(kw_only=True, frozen=True)
+ class InitTFAParams:
+     user_session_data: UserSessionData
++    confirm_method: Optional[str] = None
+ 
+ 
+ @dataclass(kw_only=True, frozen=True)
+--- billing/yandex_pay_plus/yandex_pay_plus/core/entities/processing/result.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/entities/processing/result.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -167,6 +167,7 @@ class ResultSplitSubmitTFARequired(PSPTransactionDataMixin):
+     confirmation_id: str
+     phone: str
+     deny_resend_until: Optional[datetime] = None
++    otp_channel: Optional[str] = None
+ 
+ 
+ @dataclass(kw_only=True)
+--- billing/yandex_pay_plus/yandex_pay_plus/core/processings/split_frameless.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/processings/split_frameless.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -24,6 +24,9 @@ from pay.lib.interactions.split.exceptions import YandexSplitPlanConfirmationErr
+ from mail.python.sendr_qtools.src.sendr_utils import ensure_not_null, get_ensure_one, mb
+ 
+ from billing.yandex_pay_plus.yandex_pay_plus.conf import settings
++from billing.yandex_pay_plus.yandex_pay_plus.core.actions.psp.ops.prepayment.get_split_tfa_default_otp_channel import (
++    GetSplitTfaDefaultOtpChannelAction,
++)
+ from billing.yandex_pay_plus.yandex_pay_plus.core.entities.processing.params import (
+     ConfirmPlansParams,
+     HoldParams,
+@@ -151,11 +154,15 @@ class BaseSplitBnplFramelessProcessing(
+         return ResultTFAChallengeRequired(psp_transaction_metadata=psp_transaction_metadata)
+ 
+     async def init_tfa(self, params: InitTFAParams) -> InitTFAResult:
++        otp_channel = params.confirm_method or await GetSplitTfaDefaultOtpChannelAction(
++            self.merchant.country
++        ).run()
+         tfa_challenge = await self.clients.get_split_client(self.merchant.country).init_user_confirmation(
+             request=YandexSplitInitConfirmationRequest(
+                 user_ticket=ensure_not_null(params.user_session_data.user_ticket),
+                 order_id=ensure_not_null(self.transaction.data.split).order_meta.order_id,
+                 common_params=self._build_common_params(params.user_session_data),
++                channel=otp_channel,
+             )
+         )
+ 
+@@ -174,6 +181,7 @@ class BaseSplitBnplFramelessProcessing(
+                 result = ResultSplitSubmitTFARequired(
+                     confirmation_id=tfa_challenge.confirmation_id,
+                     phone=tfa_challenge.phone,
++                    otp_channel=otp_channel,
+                 )
+                 if tfa_challenge.deny_resend_until is not None:
+                     result.deny_resend_until = datetime.fromtimestamp(tfa_challenge.deny_resend_until)
+--- billing/yandex_pay_plus/yandex_pay_plus/settings/010-common.conf	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/settings/010-common.conf	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -288,6 +288,11 @@ PASSPORT_TFA_CHALLENGE_DEFAULT_OTP_CHANNEL_BY_COUNTRY = {
+   'UZB': 'by_sms',
+ }
+ 
++# Возможные значения OTP_CHANNEL: by_sms, by_telegram
++SPLIT_TFA_DEFAULT_OTP_CHANNEL_BY_COUNTRY = {
++  'UZB': 'by_sms',
++}
++
+ SUBSCRIPTIONS_CARD_AUTHORIZATION_AMOUNT = Decimal('11')
+ IGNORE_CARD_CHECK_INTERACTION_ERROR = HotSetting(fallback_value=True)
+ 
+--- billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -219,6 +219,7 @@ class SplitTFAData:
+     machine_state: SplitTFAChallengeState = SplitTFAChallengeState.INITIAL
+     challenge_request: Optional[SplitTFAChallengeRequest] = None
+     challenge_response: Optional[SplitTFAChallengeResponse] = None
++    otp_channel: Optional[str] = None
+ 
+ 
+ @dataclass
+--- billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction_event.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction_event.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -28,6 +28,7 @@ from billing.yandex_pay_plus.yandex_pay_plus.utils.tracer import get_sendr_trace
+ @dataclass
+ class TransactionEventInitRequiredData:
+     user_session_data: UserSessionData = field(repr=False)
++    confirm_method: Optional[str] = None
+ 
+ 
+ @dataclass
+@@ -35,6 +36,7 @@ class TransactionEventChallengeRequiredData:
+     confirmation_id: str
+     phone: str
+     deny_resend_until: Optional[datetime] = None
++    otp_channel: Optional[str] = None
+ 
+ 
+ @dataclass
+--- billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction_view.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ billing/yandex_pay_plus/yandex_pay_plus/storage/entities/transaction_view.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -41,6 +41,7 @@ class SplitTFAParams:
+     submit_budget: int
+     time_to_retry: int
+     formatted_phone: Optional[str] = None
++    otp_channel: Optional[str] = None
+ 
+ 
+ @dataclass
+--- pay/lib/interactions/split/client.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ pay/lib/interactions/split/client.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -911,7 +911,7 @@ class AbstractYandexSplitClient(BaseAbstractYandexSplitClient):
+         common_headers = request.common_params.to_headers()
+         headers = {'X-Ya-User-Ticket': request.user_ticket} | common_headers
+ 
+-        body = {'order_id': request.order_id}
++        body = without_none({'order_id': request.order_id, 'channel': request.channel})
+ 
+         with self.logger:
+             self.logger.context_push(headers=common_headers)
+--- pay/lib/interactions/split/entities.py	(1f0a827f722f8852579335228388788e1fc84c58)
++++ pay/lib/interactions/split/entities.py	(81f4fcbfd098e9e6f27bd881cdd5641e088a0d30)
+@@ -691,6 +691,7 @@ class YandexSplitGetConfirmationRequest(BaseYandexSplitConfirmationRequest):
+ @dataclass
+ class YandexSplitInitConfirmationRequest(BaseYandexSplitConfirmationRequest):
+     order_id: str  # split_order_id
++    channel: Optional[str] = None
+ 
+ 
+ @dataclass

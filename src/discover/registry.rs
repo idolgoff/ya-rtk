@@ -44,6 +44,11 @@ pub fn category_avg_tokens(category: &str, subcmd: &str) -> usize {
         "GitHub" => 200,
         "GitLab" => 200,
         "PackageManager" => 150,
+        "Arcadia" => match subcmd {
+            "make" | "test" => 800,
+            "log" | "diff" | "show" => 200,
+            _ => 80,
+        },
         _ => 150,
     }
 }
@@ -4612,6 +4617,100 @@ mod tests {
         assert_eq!(
             normalize_php_tool_command_with_dirs("./tools/bin/pest", &dirs),
             "pest"
+        );
+    }
+
+    // --- Yandex / Arcadia (Stage 8) ---
+
+    #[test]
+    fn test_rewrite_ya_make() {
+        assert_eq!(
+            rewrite_command_no_prefixes("ya make -t path/to/tests", &[]),
+            Some("rtk ya make -t path/to/tests".into())
+        );
+        assert_eq!(
+            rewrite_command_no_prefixes("ya make python -r", &[]),
+            Some("rtk ya make python -r".into())
+        );
+    }
+
+    #[test]
+    fn test_rewrite_ya_test() {
+        assert_eq!(
+            rewrite_command_no_prefixes("ya test -r -F '*order*' path", &[]),
+            Some("rtk ya test -r -F '*order*' path".into())
+        );
+    }
+
+    #[test]
+    fn test_ya_tool_not_rewritten() {
+        // S8-T3: blanket `ya tool *` must stay raw until per-tool filters exist.
+        assert_eq!(rewrite_command_no_prefixes("ya tool dump_json", &[]), None);
+        assert_eq!(rewrite_command_no_prefixes("ya tool ide", &[]), None);
+        assert!(matches!(
+            classify_command("ya tool dump_json"),
+            Classification::Unsupported { .. }
+        ));
+    }
+
+    #[test]
+    fn test_ya_other_not_rewritten() {
+        assert_eq!(rewrite_command_no_prefixes("ya package", &[]), None);
+        assert_eq!(rewrite_command_no_prefixes("ya", &[]), None);
+    }
+
+    #[test]
+    fn test_rewrite_arc_selected_subcommands() {
+        for (raw, want) in [
+            ("arc status", "rtk arc status"),
+            ("arc log -n 20", "rtk arc log -n 20"),
+            ("arc diff", "rtk arc diff"),
+            ("arc show HEAD", "rtk arc show HEAD"),
+        ] {
+            assert_eq!(
+                rewrite_command_no_prefixes(raw, &[]),
+                Some(want.into()),
+                "{raw}"
+            );
+        }
+    }
+
+    #[test]
+    fn test_arc_other_not_rewritten() {
+        for raw in ["arc info", "arc pr list", "arc add file", "arc commit -m x"] {
+            assert_eq!(rewrite_command_no_prefixes(raw, &[]), None, "{raw}");
+            assert!(
+                matches!(classify_command(raw), Classification::Unsupported { .. }),
+                "{raw}"
+            );
+        }
+    }
+
+    #[test]
+    fn test_classify_ya_and_arc_arcadia_category() {
+        assert!(matches!(
+            classify_command("ya make -t path"),
+            Classification::Supported {
+                rtk_equivalent: "rtk ya",
+                category: "Arcadia",
+                ..
+            }
+        ));
+        assert!(matches!(
+            classify_command("arc status"),
+            Classification::Supported {
+                rtk_equivalent: "rtk arc",
+                category: "Arcadia",
+                ..
+            }
+        ));
+    }
+
+    #[test]
+    fn test_rewrite_ya_in_compound_chain() {
+        assert_eq!(
+            rewrite_command_no_prefixes("ya make -t path && arc status", &[]),
+            Some("rtk ya make -t path && rtk arc status".into())
         );
     }
 }

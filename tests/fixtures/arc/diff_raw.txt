@@ -1,0 +1,156 @@
+--- billing/yandex_pay_plus/yandex_pay_plus/core/processings/split_frameless.py	(71f403848e369f4892fed07c1431406335648847)
++++ billing/yandex_pay_plus/yandex_pay_plus/core/processings/split_frameless.py	(7c37aa64a238d993f85a67c12962cad5594e87b8)
+@@ -154,7 +154,13 @@ class BaseSplitBnplFramelessProcessing(
+         return ResultTFAChallengeRequired(psp_transaction_metadata=psp_transaction_metadata)
+ 
+     async def init_tfa(self, params: InitTFAParams) -> InitTFAResult:
+-        otp_channel = params.confirm_method or await GetSplitTfaDefaultOtpChannelAction(self.merchant.country).run()
++        tfa = self.transaction.data.tfa
++        prev_otp_channel = tfa.otp_channel if tfa is not None else None
++        otp_channel = (
++            params.confirm_method
++            or prev_otp_channel
++            or await GetSplitTfaDefaultOtpChannelAction(self.merchant.country).run()
++        )
+         tfa_challenge = await self.clients.get_split_client(self.merchant.country).init_user_confirmation(
+             request=YandexSplitInitConfirmationRequest(
+                 user_ticket=ensure_not_null(params.user_session_data.user_ticket),
+--- billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/psp/ops/test_tfa.py	(71f403848e369f4892fed07c1431406335648847)
++++ billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/actions/psp/ops/test_tfa.py	(7c37aa64a238d993f85a67c12962cad5594e87b8)
+@@ -15,11 +15,13 @@ from hamcrest import assert_that, match_equality, not_none
+ from billing.yandex_pay_plus.yandex_pay_plus.core.actions.psp.ops.init_tfa import InitTFAAction, InitTFAAsyncableAction
+ from billing.yandex_pay_plus.yandex_pay_plus.core.actions.transaction.status import UpdateTransactionStatusAction
+ from billing.yandex_pay_plus.yandex_pay_plus.core.actions.transaction_event.create import CreateTransactionEventAction
++from billing.yandex_pay_plus.yandex_pay_plus.core.entities.processing.params import InitTFAParams
+ from billing.yandex_pay_plus.yandex_pay_plus.core.entities.processing.result import (
+     ResultFailed,
+     ResultSplitSubmitTFARequired,
+     ResultTFASuccess,
+ )
++from billing.yandex_pay_plus.yandex_pay_plus.core.entities.user_session import UserSessionData as CoreUserSessionData
+ from billing.yandex_pay_plus.yandex_pay_plus.core.exceptions import (
+     InvalidTransactionStatusError,
+     UnknownProcessingResultError,
+@@ -32,9 +34,12 @@ from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.transaction import
+     UserSessionData,
+ )
+ from billing.yandex_pay_plus.yandex_pay_plus.storage.entities.transaction_event import (
++    TransactionEvent,
+     TransactionEventChallengeRequiredData,
+     TransactionEventChallengeSuccessData,
+     TransactionEventInitFailedData,
++    TransactionEventInitRequiredData,
++    TransactionEventPayload,
+ )
+ 
+ _dummy_fixture_use = [explain_call_asserts, spy_action, mock_action]
+@@ -70,6 +75,49 @@ class TestInitTFAAction:
+         mock.assert_awaited_once()
+ 
+     @pytest.mark.asyncio
++    async def test_passes_confirm_method_from_init_required_event(
++        self, make_processing_method_mock, params, storage, stored_transaction_operation
++    ):
++        await storage.transaction_event.create(
++            TransactionEvent(
++                transaction_id=params['transaction'].transaction_id,
++                transaction_operation_id=stored_transaction_operation.transaction_operation_id,
++                seq=1,
++                payload=TransactionEventPayload.from_event_data(
++                    TransactionEventInitRequiredData(
++                        user_session_data=CoreUserSessionData(user_ticket='user-ticket', login_id='login-id'),
++                        confirm_method='by_telegram',
++                    ),
++                ),
++            )
++        )
++        mock = make_processing_method_mock(ResultTFASuccess())
++
++        await InitTFAAction(**params).run()
++
++        mock.assert_awaited_once_with(
++            params=InitTFAParams(
++                user_session_data=params['transaction'].data.processing_additional_data.user_session_data,
++                confirm_method='by_telegram',
++            )
++        )
++
++    @pytest.mark.asyncio
++    async def test_passes_none_confirm_method_when_init_required_event_missing(
++        self, make_processing_method_mock, params
++    ):
++        mock = make_processing_method_mock(ResultTFASuccess())
++
++        await InitTFAAction(**params).run()
++
++        mock.assert_awaited_once_with(
++            params=InitTFAParams(
++                user_session_data=params['transaction'].data.processing_additional_data.user_session_data,
++                confirm_method=None,
++            )
++        )
++
++    @pytest.mark.asyncio
+     async def test_bad_transaction_status(self, params, storage):
+         params['transaction'].status = TransactionStatus.AUTHORIZED
+         params['transaction'] = await storage.transaction.save(params['transaction'])
+--- billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/processings/split/test_bnpl_frameless.py	(71f403848e369f4892fed07c1431406335648847)
++++ billing/yandex_pay_plus/yandex_pay_plus/tests/unit/core/processings/split/test_bnpl_frameless.py	(7c37aa64a238d993f85a67c12962cad5594e87b8)
+@@ -311,6 +311,57 @@ class TestInitTFA:
+         )
+ 
+     @pytest.mark.asyncio
++    async def test_calls_init_user_confirmation_with_prev_otp_channel(
++        self, mocker, mock_split_init_confirmation, entity_auth_user, processing, params, expected_common_params
++    ):
++        mocker.patch(
++            'billing.yandex_pay_plus.yandex_pay_plus.core.actions.psp.ops.prepayment.'
++            'get_split_tfa_default_otp_channel.settings.SPLIT_TFA_DEFAULT_OTP_CHANNEL_BY_COUNTRY',
++            {'UZB': 'by_sms'},
++        )
++        processing.merchant = replace(processing.merchant, country=Country.UZB)
++        processing.transaction.data.tfa = SplitTFAData(
++            retry_budget=5,
++            submit_budget=3,
++            otp_channel='by_telegram',
++        )
++        mock = mock_split_init_confirmation()
++
++        await processing.init_tfa(params=params)
++
++        mock.assert_awaited_once_with(
++            request=YandexSplitInitConfirmationRequest(
++                user_ticket='user-ticket',
++                order_id='split-order-id',
++                common_params=expected_common_params,
++                confirm_method='by_telegram',
++            )
++        )
++
++    @pytest.mark.asyncio
++    async def test_confirm_method_overrides_prev_otp_channel(
++        self, mock_split_init_confirmation, entity_auth_user, processing, params, expected_common_params
++    ):
++        processing.transaction.data.tfa = SplitTFAData(
++            retry_budget=5,
++            submit_budget=3,
++            otp_channel='by_telegram',
++        )
++        params = replace(params, confirm_method='by_sms')
++        mock = mock_split_init_confirmation()
++
++        await processing.init_tfa(params=params)
++
++        mock.assert_awaited_once_with(
++            request=YandexSplitInitConfirmationRequest(
++                user_ticket='user-ticket',
++                order_id='split-order-id',
++                common_params=expected_common_params,
++                confirm_method='by_sms',
++            )
++        )
++
++    @pytest.mark.asyncio
+     async def test_result_challenge_required_includes_otp_channel(
+         self, mocker, mock_split_init_confirmation, entity_auth_user, processing, params
+     ):

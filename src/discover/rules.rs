@@ -997,6 +997,30 @@ pub const RULES: &[RtkRule] = &[
         subcmd_savings: &[],
         subcmd_status: &[],
     },
+    // Yandex / Arcadia — Stage 8: rewrite only filtered surfaces (not `ya tool *`).
+    RtkRule {
+        pattern: r"^ya\s+(make|test)(?:\s|$)",
+        rtk_cmd: "rtk ya",
+        rewrite_prefixes: &["ya"],
+        category: "Arcadia",
+        savings_pct: 75.0,
+        subcmd_savings: &[("make", 75.0), ("test", 80.0)],
+        subcmd_status: &[],
+    },
+    RtkRule {
+        pattern: r"^arc\s+(status|log|diff|show)(?:\s|$)",
+        rtk_cmd: "rtk arc",
+        rewrite_prefixes: &["arc"],
+        category: "Arcadia",
+        savings_pct: 65.0,
+        subcmd_savings: &[
+            ("status", 60.0),
+            ("log", 75.0),
+            ("diff", 70.0),
+            ("show", 70.0),
+        ],
+        subcmd_status: &[],
+    },
 ];
 
 pub const IGNORED_PREFIXES: &[&str] = &[

@@ -24,7 +24,7 @@ use cmds::system::{
     deps, env_cmd, find_cmd, format_cmd, json_cmd, local_llm, log_cmd, ls, pipe_cmd, read, search,
     summary, tree, wc_cmd,
 };
-use cmds::yandex::ya_cmd;
+use cmds::yandex::{arc_cmd, ya_cmd};
 
 use anyhow::{Context, Result};
 use clap::error::ErrorKind;
@@ -819,10 +819,18 @@ enum Commands {
         args: Vec<String>,
     },
 
-    /// Yandex Arcadia `ya` meta-tool (make / test / tool) — passthrough until filters land
+    /// Yandex Arcadia `ya` meta-tool (make / test / tool)
     #[command(name = "ya")]
     Ya {
         /// Arguments passed to ya (e.g., make -t path, test -r -F '*order*')
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
+    },
+
+    /// Yandex Arc VCS (`arc status|log|diff|show` filtered; other subcommands passthrough)
+    #[command(name = "arc")]
+    Arc {
+        /// Arguments passed to arc (e.g., status, log -n 20, diff, show HASH)
         #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
         args: Vec<String>,
     },
@@ -2384,6 +2392,8 @@ fn run_cli() -> Result<i32> {
 
         Commands::Ya { args } => ya_cmd::run(&args, cli.verbose)?,
 
+        Commands::Arc { args } => arc_cmd::run(&args, cli.verbose)?,
+
         Commands::HookAudit { since } => {
             hooks::hook_audit_cmd::run(since, cli.verbose)?;
             0
@@ -3116,6 +3126,7 @@ mod tests {
             "gradlew",
             "mvn",
             "ya",
+            "arc",
             "php",
             "phpunit",
             "phpstan",
