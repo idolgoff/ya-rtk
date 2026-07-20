@@ -233,7 +233,7 @@ pub fn is_fat_drop_line(line: &str) -> bool {
     {
         return true;
     }
-    if t == "Ok" || t.starts_with("Ok [") {
+    if t.starts_with("Ok [") {
         return true;
     }
     if t.starts_with("------- [PB]") || t.starts_with("-------[PB]") {
@@ -285,6 +285,7 @@ mod tests {
         assert!(is_fat_drop_line("E   Expected: <huge>"));
         assert!(is_fat_drop_line("E        but: was <x>"));
         assert!(is_fat_drop_line("Ok [12/100] building"));
+        assert!(!is_fat_drop_line("Ok")); // final success marker, not progress
         assert!(is_fat_drop_line("------- [PB] proto.spam"));
         assert!(!is_fat_drop_line("Logsdir: /tmp/out"));
         assert!(!is_fat_drop_line("[fail] mod::t [default-linux-x86_64-debug] (0.1s)"));

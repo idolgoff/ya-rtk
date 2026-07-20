@@ -697,6 +697,24 @@ mod tests {
         assert_min_savings(raw, &out, 40.0);
     }
 
+    /// Pass summary must keep `N - GOOD` under Total (tab-indented in real ya dumps).
+    #[test]
+    fn pass_totals_keep_good_status() {
+        let raw = include_str!("../../../tests/fixtures/ya/make_t_py_pass_or_mixed_25aad01e565f.txt");
+        let out = filter_ya_envelope(raw);
+        assert!(out.contains("Total 3 suites:"), "suites total\n{out}");
+        assert!(out.contains("3 - GOOD"), "suite GOOD status\n{out}");
+        assert!(out.contains("Total 34 tests:"), "tests total\n{out}");
+        assert!(out.contains("34 - GOOD"), "test GOOD status\n{out}");
+        assert!(out.contains("Ok"), "final Ok\n{out}");
+
+        let streamed = filter_via_stream(raw);
+        assert!(
+            streamed.contains("3 - GOOD") && streamed.contains("34 - GOOD"),
+            "stream path must keep GOOD\n{streamed}"
+        );
+    }
+
     /// Locked shape asserts (no insta — same pattern as Stage 2).
     #[test]
     fn g5_locked_shape() {

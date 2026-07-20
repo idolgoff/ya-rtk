@@ -60,7 +60,7 @@ pub enum AgentTarget {
 #[derive(Parser)]
 #[command(
     name = "rtk",
-    version,
+    version = concat!("yandex ", env!("CARGO_PKG_VERSION")),
     about = "Rust Token Killer - Minimize LLM token consumption",
     long_about = "A high-performance CLI proxy designed to filter and summarize system outputs before they reach your LLM context."
 )]
@@ -2994,7 +2994,18 @@ mod tests {
     #[test]
     fn test_try_parse_version_is_display_version() {
         match Cli::try_parse_from(["rtk", "--version"]) {
-            Err(e) => assert_eq!(e.kind(), ErrorKind::DisplayVersion),
+            Err(e) => {
+                assert_eq!(e.kind(), ErrorKind::DisplayVersion);
+                let msg = e.to_string();
+                assert!(
+                    msg.contains("yandex"),
+                    "version should carry yandex prefix: {msg}"
+                );
+                assert!(
+                    msg.contains(env!("CARGO_PKG_VERSION")),
+                    "version should include package version: {msg}"
+                );
+            }
             Ok(_) => panic!("Expected DisplayVersion error"),
         }
     }

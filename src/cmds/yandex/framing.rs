@@ -1,5 +1,13 @@
 //! Shared Arcadia envelope framing helpers (suite/chunk/totals identity lines).
 
+use lazy_static::lazy_static;
+use regex::Regex;
+
+lazy_static! {
+    /// Indented suite/test outcome: `84 - GOOD`, `2 - FAIL`, …
+    static ref OUTCOME_RE: Regex = Regex::new(r"^\d+\s+-\s+(GOOD|FAIL|SKIP|TIMEOUT)").unwrap();
+}
+
 /// Whether a line is Arcadia envelope framing worth keeping.
 pub fn keep_framing_line(line: &str, _has_fails: bool) -> bool {
     let t = line.trim_start();
@@ -23,9 +31,12 @@ pub fn keep_framing_line(line: &str, _has_fails: bool) -> bool {
     if t.chars().next().is_some_and(|c| c.is_ascii_digit()) && t.contains(" - FAIL") {
         return true;
     }
-    if line.starts_with("        ")
-        && (t.contains("FAIL") || t.contains("GOOD") || t.contains("SKIP"))
-    {
+    // Outcome under Total — ya uses tabs; some dumps use spaces. Match content, not indent width.
+    if OUTCOME_RE.is_match(t) {
+        return true;
+    }
+    // Final one-word success marker (pass path)
+    if t == "Ok" {
         return true;
     }
     false
@@ -71,6 +82,17 @@ mod tests {
     #[test]
     fn drops_plain_separator() {
         assert!(!keep_framing_line("------", false));
+    }
+
+    #[test]
+    fn keeps_tab_indented_good_outcomes() {
+        // Real ya dumps use a leading tab under Total lines.
+        assert!(keep_framing_line("\t84 - GOOD", false));
+        assert!(keep_framing_line("\t255 - GOOD", false));
+        assert!(keep_framing_line("        3 - FAIL", true));
+        assert!(keep_framing_line("\t1 - SKIP", false));
+        assert!(keep_framing_line("Ok", false));
+        assert!(!keep_framing_line("GOOD vibes only", false));
     }
 
     #[test]
