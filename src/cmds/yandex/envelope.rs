@@ -4,18 +4,21 @@
 //! py3test → pytest reuse; go_test → go-under-ya compact; otherwise generic fail.
 //!
 //! Production long suites use [`YaTestStreamFilter`] via `run_streamed` (Stage 9):
-//! emit framing + compact `[fail]` blocks live (fat Expected/progress dropped),
-//! so multi-MB assertion dumps are never buffered. Full-raw recovery is the
-//! runner tee (`with_tee("ya")`); overflow lists use [`fail_overflow_tee_hint`].
+//! emit framing + compact `[fail]` blocks live (fat Expected/progress dropped;
+//! fat error heads slimmed, not dropped), so multi-MB assertion dumps are never
+//! buffered. Language adapters (`py3test` / `go_test`) run on the buffered
+//! oracle / no-fail `on_exit` path via [`filter_ya_envelope`], not on live fails.
+//! Full-raw recovery is the runner tee (`with_tee("ya")`); overflow lists use
+//! [`fail_overflow_tee_hint`].
 
 use crate::cmds::yandex::adapters::generic_fail::{
     compact_fail_block, fail_overflow_tee_hint, is_fail_block_boundary, is_fat_drop_line,
-    split_fail_sections, MAX_FAIL_BLOCKS,
+    slim_line_for_buffer, split_fail_sections, MAX_FAIL_BLOCKS,
 };
 use crate::cmds::yandex::adapters::go_test::filter_go_test;
 use crate::cmds::yandex::adapters::py3test::filter_py3test;
 use crate::cmds::yandex::detect::{detect_inner_runner, InnerRunner};
-use crate::cmds::yandex::framing::keep_framing_line;
+use crate::cmds::yandex::framing::{keep_framing_line, keep_postamble_line};
 use crate::core::guard::never_worse;
 use crate::core::stream::StreamFilter;
 use crate::core::utils::strip_ansi;
@@ -107,7 +110,7 @@ fn filter_with_fails(raw: &str) -> (String, bool) {
     }
 
     for line in postamble {
-        if keep_framing_line(line, true) {
+        if keep_postamble_line(line, true) {
             out.push(line.trim_end().to_string());
         }
     }
@@ -123,9 +126,12 @@ fn filter_with_fails(raw: &str) -> (String, bool) {
 /// Streaming filter for long `ya` test suites (Stage 9).
 ///
 /// - Drops fat Expected/progress lines immediately (never buffered).
+/// - Slims overlong S0-T5 keep lines (`MAX_LINE_CHARS`) before buffering.
 /// - Buffers preamble until the first `[fail]`, then emits framing + compact
 ///   fail blocks live as each block closes.
-/// - No-fail suites: filter at [`on_exit`] with [`never_worse`] against full raw.
+/// - Keeps standalone `Log:` / `Logsdir:` in postamble (after fail-block boundaries).
+/// - No-fail suites: filter at [`on_exit`] with [`never_worse`] against full raw
+///   (may dispatch language adapters via [`filter_ya_envelope`]).
 /// - Full-raw recovery: runner tee only (no in-filter `force_tee_hint`).
 pub struct YaTestStreamFilter {
     /// Lines before the first `[fail]` (fat already dropped).
@@ -254,6 +260,9 @@ impl StreamFilter for YaTestStreamFilter {
             return None;
         }
 
+        // Slim before buffering so fat error heads stay within MAX_LINE_CHARS.
+        let slimmed = slim_line_for_buffer(line);
+        let line = slimmed.as_str();
         let trimmed = line.trim_start();
 
         if !self.seen_fail {
@@ -291,9 +300,14 @@ impl StreamFilter for YaTestStreamFilter {
                 if let Some(closed) = self.close_fail_block() {
                     out.push_str(&closed);
                 }
-                if keep_framing_line(line, true) {
-                    out.push_str(line.trim_end());
-                    out.push('\n');
+                if keep_postamble_line(line, true) {
+                    let t = line.trim_start();
+                    if t.starts_with("Logsdir:") && !self.seen_logsdir.insert(t.to_string()) {
+                        self.truncated = true;
+                    } else {
+                        out.push_str(line.trim_end());
+                        out.push('\n');
+                    }
                 } else {
                     self.truncated = true;
                 }
@@ -307,8 +321,13 @@ impl StreamFilter for YaTestStreamFilter {
             return None;
         }
 
-        // Postamble
-        if keep_framing_line(line, true) {
+        // Postamble (incl. standalone Log:/Logsdir: after a fail-block boundary)
+        if keep_postamble_line(line, true) {
+            let t = line.trim_start();
+            if t.starts_with("Logsdir:") && !self.seen_logsdir.insert(t.to_string()) {
+                self.truncated = true;
+                return None;
+            }
             let chunk = format!("{}\n", line.trim_end());
             self.note_emit(&chunk);
             return Some(chunk);
@@ -785,6 +804,74 @@ mod tests {
         assert!(out.contains("test_x") || out.contains("[fail]"));
         assert!(!out.contains("Expected:"));
         assert!(!out.contains("[full output:"), "no in-filter full-raw tee");
+    }
+
+    /// Standalone Log:/Logsdir: after a fail-block boundary must survive postamble.
+    #[test]
+    fn stream_postamble_keeps_standalone_log_meta() {
+        let mut filter = test_stream_filter();
+        let lines = [
+            "[fail] mod::test_a [default-linux-x86_64-debug] (0.1s)",
+            "path.py:1: in test_a",
+            "E   AssertionError",
+            "------ FAIL: 1 - FAIL suite",
+            // Meta after boundary (not inside the fail block)
+            "Log: /tmp/after-boundary.log",
+            "Logsdir: /tmp/after-boundary-out",
+            "Total 1 tests failed",
+        ];
+        let mut out = String::new();
+        for line in lines {
+            if let Some(chunk) = filter.feed_line(line) {
+                out.push_str(&chunk);
+            }
+        }
+        out.push_str(&filter.flush());
+        assert!(
+            out.contains("Log: /tmp/after-boundary.log"),
+            "postamble Log: must survive\n{out}"
+        );
+        assert!(
+            out.contains("Logsdir: /tmp/after-boundary-out"),
+            "postamble Logsdir: must survive\n{out}"
+        );
+        assert!(out.contains("Total 1 tests failed") || out.contains("Total "));
+    }
+
+    /// Fat error heads are truncated to MAX_LINE_CHARS, not dropped wholesale.
+    #[test]
+    fn stream_filter_slims_fat_error_head_instead_of_drop() {
+        use crate::cmds::yandex::adapters::generic_fail::MAX_LINE_CHARS;
+        let mut filter = test_stream_filter();
+        let fat_e = format!("E   AssertionError: {}", "x".repeat(2_500));
+        let lines = [
+            "[fail] mod::test_fat [default-darwin-arm64-debug] (0.1s)",
+            "path.py:10: in test_fat",
+            fat_e.as_str(),
+            "Logsdir: /tmp/out",
+            "------ FAIL: 1 - FAIL suite",
+        ];
+        let mut out = String::new();
+        for line in lines {
+            if let Some(chunk) = filter.feed_line(line) {
+                out.push_str(&chunk);
+            }
+        }
+        out.push_str(&filter.flush());
+        assert!(
+            out.contains("E   AssertionError"),
+            "error head must survive (slimmed)\n{out}"
+        );
+        assert!(
+            !out.contains(&"x".repeat(500)),
+            "fat body must be truncated\n{out}"
+        );
+        let e_line = out
+            .lines()
+            .find(|l| l.trim_start().starts_with("E   AssertionError"))
+            .expect("E line");
+        assert!(e_line.chars().count() <= MAX_LINE_CHARS);
+        assert!(out.contains("Logsdir:"));
     }
 
     /// S9-T2: production stream path retains Logsdir: / Log: on fail goldens.

@@ -8,7 +8,7 @@
 use crate::cmds::yandex::adapters::generic_fail::{
     compact_fail_block, fail_overflow_tee_hint, split_fail_sections, MAX_FAIL_BLOCKS,
 };
-use crate::cmds::yandex::framing::keep_framing_line;
+use crate::cmds::yandex::framing::{keep_framing_line, keep_postamble_line};
 
 const MAX_LINE_CHARS: usize = 240;
 
@@ -30,7 +30,7 @@ fn filter_go_fails(raw: &str) -> (String, bool) {
     let mut seen_logsdir = std::collections::HashSet::new();
 
     for line in &preamble {
-        if keep_framing_line(line, true) {
+        if keep_postamble_line(line, true) {
             out.push(line.trim_end().to_string());
         }
     }
@@ -73,7 +73,7 @@ fn filter_go_fails(raw: &str) -> (String, bool) {
     }
 
     for line in &postamble {
-        if keep_framing_line(line, true) {
+        if keep_postamble_line(line, true) {
             out.push(line.trim_end().to_string());
         }
     }

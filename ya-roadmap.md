@@ -237,12 +237,12 @@ Detection from **output text**, not directory name alone.
 - [x] **S5-T2** GREEN: `adapters/go_test.rs` — strip envelope, reuse `go` test filter where shapes match; else specialized go-under-ya keep
 - [x] **S5-T3** Wire detector → go adapter
 - [x] **S5-T4** SNAPSHOT: go fail + go other → locked shape asserts (no insta in repo)
-- [x] **S5-T5** (Optional) Collect JS/TS `ya make -t` fixture if missing; else skip
-- [x] **S5-T6** (Optional) `adapters/jest_vitest.rs` + detector fingerprints
+- [ ] **S5-T5** (Optional — **skipped**) Collect JS/TS `ya make -t` fixture if missing; else skip → follow-up **F3**
+- [ ] **S5-T6** (Optional — **skipped**) `adapters/jest_vitest.rs` + detector fingerprints → detect stubs exist; no adapter / fixtures (**F3**)
 - [x] **S5-T7** Quality gate
 
 **Exit:** Go path live; JS optional behind same architecture. ✅  
-_Note: S5-T5/T6 skipped — no JS fixtures in corpus; `go test -json` shapes do not appear under ya, so adapter is specialized go-under-ya keep (not `filter_go_test_json`)._
+_Note: S5-T5/T6 intentionally skipped — no JS fixtures in corpus. `detect.rs` has jest/vitest fingerprints that fall through to generic; `go test -json` shapes do not appear under ya, so adapter is specialized go-under-ya keep (not `filter_go_test_json`)._
 
 ---
 
@@ -429,3 +429,4 @@ Never synthesize fake `ya` output when a fixture exists.
 | 2026-07-19 | S9 review | Fix overflow tee (full list + offset); live fail emit; drop in-filter full tee; stream audits; build catch_unwind |
 | 2026-07-19 | S10-T1…T5 | Ecosystem README finished; top-level Commands + CLAUDE ecosystems; follow-ups F1–F4; v1 complete |
 | 2026-07-19 | S10 review | Docs accuracy: oracle no-fail on_exit; go/py oracle labels; layout as-shipped; arc diff/show split |
+| 2026-07-19 | post-v1 harden | Demote G9 (F1); keep postamble Log/Logsdir; slim fat error heads; clarify live=generic vs adapters; uncheck S5-T5/T6 |

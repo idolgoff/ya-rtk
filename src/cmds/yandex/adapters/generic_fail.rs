@@ -26,7 +26,7 @@ pub fn fail_overflow_tee_hint(headlines: &[&str], shown: usize) -> Option<String
 }
 
 /// Truncate kept lines so a single stack line cannot blow the budget.
-const MAX_LINE_CHARS: usize = 240;
+pub const MAX_LINE_CHARS: usize = 240;
 
 lazy_static! {
     static ref LOCATION_RE: Regex = Regex::new(r"\.\w+:\d+").unwrap();
@@ -141,6 +141,15 @@ fn is_error_head(trimmed: &str) -> bool {
     false
 }
 
+/// S0-T5 must-keep signal — never fat-drop these (truncate instead).
+fn is_s0_keep_signal(trimmed: &str) -> bool {
+    trimmed.starts_with("Log:")
+        || trimmed.starts_with("Logsdir:")
+        || trimmed.starts_with("[fail]")
+        || is_location_line(trimmed)
+        || is_error_head(trimmed)
+}
+
 fn truncate_line(line: &str) -> String {
     let t = line.trim_end();
     if t.chars().count() <= MAX_LINE_CHARS {
@@ -149,6 +158,12 @@ fn truncate_line(line: &str) -> String {
     let mut s: String = t.chars().take(MAX_LINE_CHARS.saturating_sub(1)).collect();
     s.push('…');
     s
+}
+
+/// Slim a line before buffering so multi-MB error heads do not sit in memory.
+/// Matches [`compact_fail_block`] truncation (`MAX_LINE_CHARS`).
+pub fn slim_line_for_buffer(line: &str) -> String {
+    truncate_line(line)
 }
 
 /// Split raw text into preamble, fail blocks, and postamble.
@@ -206,6 +221,10 @@ pub fn is_fail_block_boundary(line: &str) -> bool {
 
 /// Fat assertion / progress lines that dominate multi-MB dumps — safe to drop
 /// before buffering (tee + Logsdir recover the rest).
+///
+/// Pathological length alone does **not** drop S0-T5 keep signals (error head /
+/// location / `[fail]` / `Log:` / `Logsdir:`): callers slim those via
+/// [`slim_line_for_buffer`] instead of discarding the whole line.
 pub fn is_fat_drop_line(line: &str) -> bool {
     let t = line.trim_start();
     if t.starts_with("E   Expected:")
@@ -226,12 +245,8 @@ pub fn is_fat_drop_line(line: &str) -> bool {
     if t.contains("Unexpected getting uninitialized hot settings") {
         return true;
     }
-    // Pathological single-line dumps (keep Log/Logsdir/[fail] regardless)
-    if t.len() > 2_000
-        && !t.starts_with("Log:")
-        && !t.starts_with("Logsdir:")
-        && !t.starts_with("[fail]")
-    {
+    // Pathological single-line spam — keep S0-T5 signals (truncate, don't drop)
+    if t.len() > 2_000 && !is_s0_keep_signal(t) {
         return true;
     }
     false
@@ -274,6 +289,15 @@ mod tests {
         assert!(!is_fat_drop_line("Logsdir: /tmp/out"));
         assert!(!is_fat_drop_line("[fail] mod::t [default-linux-x86_64-debug] (0.1s)"));
         assert!(!is_fat_drop_line("Log: /tmp/t.log"));
+        // Fat error heads are kept (slimmed), not dropped wholesale (S0-T5)
+        let fat_e = format!("E   AssertionError: {}", "x".repeat(2_500));
+        assert!(!is_fat_drop_line(&fat_e));
+        let slimmed = slim_line_for_buffer(&fat_e);
+        assert!(slimmed.chars().count() <= MAX_LINE_CHARS);
+        assert!(slimmed.starts_with("E   AssertionError"));
+        // Non-signal megabyte spam still drops
+        let spam = format!("stack frame junk {}", "y".repeat(2_500));
+        assert!(is_fat_drop_line(&spam));
     }
 
     /// Overflow tee must cover the full headline list; offset = shown + 1.

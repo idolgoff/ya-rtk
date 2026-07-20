@@ -7,7 +7,7 @@ use crate::cmds::python::pytest_cmd::filter_pytest_output;
 use crate::cmds::yandex::adapters::generic_fail::{
     split_fail_sections, fail_overflow_tee_hint, MAX_FAIL_BLOCKS,
 };
-use crate::cmds::yandex::framing::keep_framing_line;
+use crate::cmds::yandex::framing::keep_postamble_line;
 
 /// Filter py3test-shaped `ya` output. Returns `None` when there are no `[fail]`
 /// blocks so the caller can use the generic no-fail envelope path.
@@ -21,7 +21,7 @@ pub fn filter_py3test(raw: &str) -> Option<(String, bool)> {
     let mut out: Vec<String> = Vec::new();
 
     for line in &preamble {
-        if keep_framing_line(line, true) {
+        if keep_postamble_line(line, true) {
             out.push(line.trim_end().to_string());
         }
     }
@@ -61,7 +61,7 @@ pub fn filter_py3test(raw: &str) -> Option<(String, bool)> {
     }
 
     for line in &postamble {
-        if keep_framing_line(line, true) {
+        if keep_postamble_line(line, true) {
             out.push(line.trim_end().to_string());
         }
     }

@@ -44,8 +44,13 @@ Tee recovery (`RunOptions::….tee("ya")`) is required whenever bodies are trunc
 | G6 | go other | `make_tt_go_other_raw.txt` | test (`-tt`) | go_test | Suite/chunk identity; any fail or summary signal present | Banner/separator spam | ≥60% |
 | G7 | build/proto | `make_python_py_build_large_proto_raw.txt` | build | unk / python build | Real errors/warnings; final command outcome if present | `[PB]` proto spam; `Ok [n/m]` progress; PEERDIR chatter | ≥60% |
 | G8 | unk fail | `make_t_unk_fail_raw.txt` | test | unk (compile/tool fail) | Failure signal (exit / `FAILED` / error lines); enough path to locate target | Tool argv noise; repeated compile banners | ≥60% |
-| G9 | tool | `tool_unk_other_raw.txt` | tool | unk | Whatever actionable error/status the dump contains (best-effort) | Unrelated agent/transcript chrome if still present | ≥60% |
 | G10 | ttX verbose fail | `make_ttX_py_fail_logsdir_chunk_raw.txt` | test (`-ttX`) | py3test | Same as G1 — verbose flags must not defeat fail-block extraction | Extra `-ttX` chatter; full bodies | ≥60% |
+
+### Corpus / deferred (not CI-critical)
+
+| ID | Role | Fixture | Notes |
+|----|------|---------|-------|
+| G9 | tool | `tool_unk_other_raw.txt` | **Deferred (F1).** `ya tool` is passthrough + not hook-rewritten in v1; no filter and no savings assert. Keep fixture for a future allowlisted-tool mini-stage. |
 
 ## Stage mapping
 
@@ -55,9 +60,10 @@ Tee recovery (`RunOptions::….tee("ya")`) is required whenever bodies are trunc
 | 3 py3test adapter | G1–G4, G10 |
 | 5 go adapter | G5, G6 |
 | 6 build-only | G7 |
-| 4 / tool edge | G9; G10 for `-ttX` |
+| 4 / `-ttX` | G10 |
 | 9 streaming / Logsdir audit | G1–G3, G5, G10 (+ synthetic linux / fuzz) |
 | 10 docs | — (acceptance unchanged; see roadmap follow-ups) |
+| post-v1 F1 | G9 (`ya tool` allowlist — not CI-critical until a filter exists) |
 
 ## How to assert in tests
 

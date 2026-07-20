@@ -31,6 +31,18 @@ pub fn keep_framing_line(line: &str, _has_fails: bool) -> bool {
     false
 }
 
+/// Postamble / after fail-block-boundary keep: framing **or** `Log:` / `Logsdir:`.
+///
+/// Standalone meta lines often appear after a chunk boundary; they must survive
+/// even when they are no longer inside a `[fail]` block.
+pub fn keep_postamble_line(line: &str, has_fails: bool) -> bool {
+    if keep_framing_line(line, has_fails) {
+        return true;
+    }
+    let t = line.trim_start();
+    t.starts_with("Log:") || t.starts_with("Logsdir:")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -59,5 +71,14 @@ mod tests {
     #[test]
     fn drops_plain_separator() {
         assert!(!keep_framing_line("------", false));
+    }
+
+    #[test]
+    fn postamble_keeps_log_and_logsdir() {
+        assert!(keep_postamble_line("Log: /tmp/t.log", true));
+        assert!(keep_postamble_line("Logsdir: /tmp/out", true));
+        assert!(keep_postamble_line("------ FAIL: 1 - FAIL suite", true));
+        assert!(!keep_postamble_line("E   Expected: <spam>", true));
+        assert!(!keep_framing_line("Log: /tmp/t.log", true));
     }
 }

@@ -33,12 +33,15 @@ rtk ya make -t … / rtk ya test …
         full raw recovery
 ```
 
-**Stream vs envelope:**
+**Stream vs envelope (important):**
 
 | Path | When | Behavior |
 |------|------|----------|
-| Live fail stream | Production suites with `[fail]` | S0-T5 compact as blocks close (generic keep; same must-keep fields) |
-| [`filter_ya_envelope`](envelope.rs) | Unit-test oracle **and** production **no-fail** `on_exit` | Dispatches `py3test` / `go_test` / `generic_fail` adapters |
+| **Live fail stream** (production) | Suites that emit `[fail]` | **Generic S0-T5 compact only** (`compact_fail_block`) as blocks close — **does not** call py3test/go adapters |
+| **No-fail `on_exit`** (production) | Suites with no `[fail]` | [`filter_ya_envelope`](envelope.rs) → may dispatch py3test / go adapters |
+| **Buffered oracle** (unit tests) | `filter_ya_envelope` / adapter unit tests | Full adapter pipeline (py3test → pytest reuse; go_test → ya-framed compact) |
+
+In short: **live failure streaming = generic compact**; **language adapters run on the no-fail / oracle path**. Adapter ROI still covers goldens via `filter_ya_envelope` asserts; production fail UX prioritizes low-latency streaming + tee recovery.
 
 ## Modes
 
@@ -75,10 +78,10 @@ Drop: Expected/but bodies · long stacks · PEERDIR / `[PB]` / `Ok [n/m]` progre
 
 | Fingerprint | Adapter | Notes |
 |-------------|---------|--------|
-| `py3test` / `test-results/py3test` | `py3test` | **Oracle / buffered** (`filter_ya_envelope`): synthetic FAILURES → `filter_pytest_output`. Live fail stream uses S0-T5 compact instead. |
-| `<go_test>` / `/gotest/` | `go_test` | **Oracle / buffered** (`filter_ya_envelope`): ya-framed compact — **not** `go test -json`. Live fail stream uses S0-T5 compact instead. |
-| vitest / jest | — | Skipped (no fixtures); follow-up F3 |
-| unknown (test) | `generic_fail` | Oracle / buffered; live fail stream uses the same S0-T5 compact rules |
+| `py3test` / `test-results/py3test` | `py3test` | **Oracle / no-fail `on_exit` only** (`filter_ya_envelope`): synthetic FAILURES → `filter_pytest_output`. Live fail stream = generic S0-T5 compact. |
+| `<go_test>` / `/gotest/` | `go_test` | **Oracle / no-fail `on_exit` only**: ya-framed compact — **not** `go test -json`. Live fail stream = generic S0-T5 compact. |
+| vitest / jest | detect only | Fingerprint exists in [`detect.rs`](detect.rs); **no adapter / no fixtures** (follow-up F3). Detected → `generic_fail` / same live compact. |
+| unknown (test) | `generic_fail` | Same S0-T5 rules as live fail stream |
 | build `ya make` | `ya_build` | Allowlist errors/warnings; collapse progress (`run_streamed`) |
 
 ## `arc`
