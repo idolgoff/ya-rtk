@@ -34,8 +34,20 @@ pub fn resolve_filter(name: &str) -> Option<fn(&str) -> String> {
         "ecs" => Some(crate::cmds::php::ecs_cmd::filter_ecs_output),
         "phpstan" => Some(phpstan_wrapper),
         "pint" => Some(pint_wrapper),
+        // Yandex / Arcadia — offline demo + pipe recovery
+        "ya" | "ya-test" => Some(crate::cmds::yandex::envelope::filter_ya_envelope),
+        "ya-build" => Some(crate::cmds::yandex::ya_build::filter_ya_build),
+        "arc-status" => Some(crate::cmds::yandex::arc_cmd::filter_arc_status),
+        "arc-log" => Some(arc_log_wrapper),
+        "arc-diff" => Some(crate::cmds::yandex::arc_cmd::filter_arc_diff),
+        "arc-show" => Some(crate::cmds::yandex::arc_cmd::filter_arc_show),
         _ => None,
     }
+}
+
+fn arc_log_wrapper(input: &str) -> String {
+    // Default soft-cap (matches `rtk arc log` when -n unset).
+    crate::cmds::yandex::arc_cmd::filter_arc_log(input, 10, false, false)
 }
 
 fn go_test_wrapper(input: &str) -> String {
@@ -265,7 +277,8 @@ pub fn run(filter_name: Option<&str>, passthrough: bool) -> Result<()> {
                 "Unknown filter '{}'. Available: cargo-test, pytest, go-test, go-build, \
                  tsc, vitest, grep, rg, find, fd, git-log, git-diff, git-status, \
                  log, mypy, ruff-check, ruff-format, prettier, phpunit, pest, \
-                 paratest, php-test, ecs, phpstan, pint",
+                 paratest, php-test, ecs, phpstan, pint, ya, ya-test, ya-build, \
+                 arc-status, arc-log, arc-diff, arc-show",
                 name
             )
         })?,
@@ -369,6 +382,21 @@ mod tests {
     #[test]
     fn test_resolve_filter_git_status() {
         assert!(resolve_filter("git-status").is_some());
+    }
+
+    #[test]
+    fn test_resolve_filter_ya_and_arc() {
+        assert!(resolve_filter("ya").is_some());
+        assert!(resolve_filter("ya-test").is_some());
+        assert!(resolve_filter("ya-build").is_some());
+        assert!(resolve_filter("arc-status").is_some());
+        assert!(resolve_filter("arc-log").is_some());
+        assert!(resolve_filter("arc-diff").is_some());
+        assert!(resolve_filter("arc-show").is_some());
+        let f = resolve_filter("ya").expect("ya");
+        let raw = "[fail] mod::t [default-linux-x86_64-debug] (0.1s)\nLogsdir: /tmp/out\n";
+        let out = f(raw);
+        assert!(out.contains("[fail]") || out.contains("Logsdir:"), "out={out}");
     }
 
     #[test]

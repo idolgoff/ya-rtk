@@ -43,6 +43,69 @@ rtk ya make -t … / rtk ya test …
 
 In short: **live failure streaming = generic compact**; **language adapters run on the no-fail / oracle path**. Adapter ROI still covers goldens via `filter_ya_envelope` asserts; production fail UX prioritizes low-latency streaming + tee recovery.
 
+## Demo & presentation (token savings)
+
+Contributor design docs above are complete for v1. For **slides / live demos**, use fixtures
+(always works) or a real Arcadia tree (`ya` / `arc` on PATH).
+
+### Offline fixture demo (recommended for presentations)
+
+```bash
+cargo build
+chmod +x scripts/demo-ya-savings.sh
+./scripts/demo-ya-savings.sh
+```
+
+Or one-liners (`chars/4` ≈ tokens, same metric as analytics):
+
+```bash
+# Before/after sizes
+RAW=tests/fixtures/ya/make_t_py_fail_logsdir_raw.txt
+wc -c "$RAW"
+cargo run -q -- pipe -f ya <"$RAW" | wc -c
+
+# Show what the agent would see
+cargo run -q -- pipe -f ya <"$RAW" | head -50
+
+# Build spam
+cargo run -q -- pipe -f ya-build <tests/fixtures/ya/make_python_py_build_large_proto_raw.txt | head -40
+
+# arc
+cargo run -q -- pipe -f arc-status <tests/fixtures/arc/status_raw.txt
+cargo run -q -- pipe -f arc-log <tests/fixtures/arc/log_raw.txt
+```
+
+Pipe filters: `ya` / `ya-test` · `ya-build` · `arc-status` · `arc-log` · `arc-diff` · `arc-show`.
+
+### Live against real `ya` / `arc`
+
+```bash
+cargo install --path .   # or: cargo build --release && export PATH="$PWD/target/release:$PATH"
+
+# Side-by-side (pick a small failing target you already know)
+ya make -t path/to/tests 2>&1 | tee /tmp/ya-raw.txt | wc -c
+rtk ya make -t path/to/tests 2>&1 | tee /tmp/ya-rtk.txt | wc -c
+# Inspect keep invariants
+grep -E '\[fail\]|Logsdir:' /tmp/ya-rtk.txt | head
+
+# Build-only
+rtk ya make python -r path/to/pkg
+
+# arc
+rtk arc status
+rtk arc log -n 20
+rtk arc diff
+
+# After a few commands — presentation slide for tracked savings
+rtk gain
+rtk gain -H
+rtk gain -g
+```
+
+**Hooks (agents auto-rewrite):** `rtk init` / install hooks, then bare `ya make -t …` becomes `rtk ya make -t …`. Confirm with `rtk gain -H`.
+
+**Bypass:** `rtk proxy ya make -t …` — full raw output, still tracked (0% savings).
+
 ## Modes
 
 | Invoked as | Pipeline |
