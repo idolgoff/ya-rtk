@@ -22,7 +22,22 @@ pub fn present_jsonl(raw: &str, expected_exit: Option<i32>) -> Option<String> {
     };
     debug_assert!(expected_exit.is_none_or(|status| status == summary.exit_code()));
     if let Some(view) = summary.render(DISPLAY_LIMIT, None) {
-        return Some(never_worse(raw, &view).to_owned());
+        let view = never_worse(raw, &view).to_owned();
+        // Live commands retain the normal failure/always tee policy. This
+        // capture is optional: unlike excerpt recovery, it may be partial,
+        // because every diagnostic is already present in the selected view.
+        if let Some(exit_code) = expected_exit {
+            if let Some(pending) = tee::prepare_tee_saved(raw, "ya", exit_code) {
+                let with_hint = format!("{}{}\n", view, pending.saved().hint());
+                if with_hint.len() <= DISPLAY_LIMIT
+                    && never_worse(raw, &with_hint) == with_hint
+                    && pending.persist().is_some()
+                {
+                    return Some(with_hint);
+                }
+            }
+        }
+        return Some(view);
     }
     if let Some(pending) = tee::prepare_forced_tee(raw, "ya") {
         if pending.saved().is_complete() {

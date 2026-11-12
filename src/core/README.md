@@ -124,6 +124,25 @@ can refer to physical lines that actually exist in the saved log. Streamed
 runners can opt in through `RunOptions::source_hint`; their formatter receives
 the same raw text used to write the file, after stdout/stderr capture is complete.
 
+When a recovery hint is optional, use `prepare_tee_saved` (normal tee policy) or
+`prepare_forced_tee` (forced recovery policy) to create a private `PendingOutput`.
+Its `saved()` metadata describes the retained prefix and prospective final path;
+the path is not yet published. Pure formatters may use this metadata to select a
+view that fits the display budget, but must not read the path. Call `persist()`
+before emitting the chosen hint. Dropping an unselected capture removes the
+temporary file without rotating existing logs; only successful persistence
+rotates logs. The immediate `tee_saved` and `force_tee_saved` APIs retain their
+existing behavior for consumers that always use the capture.
+
+Structured command adapters own protocol validation and presentation decisions;
+core tee owns file creation, retention limits and rotation. A streamed adapter
+that supplies its own recovery can gate the runner's additional tee with
+`RunOptions::tee_when`. This predicate applies only to streamed commands. The
+ya adapter uses it to keep one owner of JSONL recovery while the runner handles
+legacy text recovery. `StreamFilter::on_capture_truncated` tells an adapter that
+the retained raw prefix is incomplete; it must not claim complete recovery from
+that prefix.
+
 Consumers that parse structured output (JSON, NDJSON, state machines) should call `tee::tee_and_hint()` to save raw output for LLM recovery on failure. Tee must be called before `std::process::exit()`.
 
 For truncation recovery on **success** (e.g., list truncated at 20 items), use `tee::force_tee_hint()` which bypasses the tee mode check and writes regardless of exit code. This ensures LLMs always have a `[full output: ...]` recovery path instead of burning tokens working around missing data.

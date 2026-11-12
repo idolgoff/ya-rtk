@@ -335,6 +335,65 @@ fn explicit_machine_and_legacy_output_modes_pass_through_unfiltered() {
 
 #[cfg(unix)]
 #[test]
+fn clustered_listing_and_output_flags_preserve_native_text() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    let listing = "example/pkg::test_one\nexample/pkg::test_two\n";
+    for flag in ["-tL", "-ttL", "-tT", "-tG", "-AL"] {
+        let result = live(
+            dir.path(),
+            &["ya", "make", flag, "fixture"],
+            listing,
+            0,
+            true,
+        );
+        assert!(result.status.success(), "{flag}");
+        assert_eq!(result.stdout, b"native stdout epilogue\n", "{flag}");
+        assert_eq!(
+            result.stderr,
+            format!("native stderr preamble\n{listing}").as_bytes(),
+            "{flag}"
+        );
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn live_compact_jsonl_keeps_normal_failure_recovery() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    // Repeated progress leaves room for the optional recovery hint even when
+    // the platform's temporary path is long. No diagnostic needs clipping.
+    let progress =
+        "{\"type\":\"progress\",\"stage\":\"build\",\"active\":1,\"done\":0,\"total\":1}\n"
+            .repeat(8);
+    let input = MIXED.replace(
+        "{\"type\":\"finished\"",
+        &format!("{progress}{{\"type\":\"finished\""),
+    );
+    let result = live(dir.path(), &["ya", "test", "fixture"], &input, 10, true);
+    assert_eq!(result.status.code(), Some(10));
+    assert_jsonl_summary(&result, "test", 10);
+    let shown = combined(&result);
+    assert!(shown.contains("[saved output:"), "{shown}");
+    assert!(!shown.contains("excerpt;"), "{shown}");
+    let files: Vec<_> = fs::read_dir(dir.path().join("tee"))
+        .expect("tee directory")
+        .map(|entry| entry.expect("tee entry").path())
+        .collect();
+    assert_eq!(files.len(), 1, "single published capture, no pending file");
+    assert_eq!(
+        files[0].extension().and_then(|ext| ext.to_str()),
+        Some("log")
+    );
+    assert!(shown.contains(files[0].to_str().expect("path")), "{shown}");
+    let saved = fs::read_to_string(&files[0]).expect("saved capture");
+    assert_eq!(
+        saved,
+        format!("native stdout epilogue\nnative stderr preamble\n{input}")
+    );
+}
+
+#[cfg(unix)]
+#[test]
 fn live_clips_large_diagnostics_only_with_a_complete_saved_log() {
     let dir = tempfile::tempdir().expect("tempdir");
     let large = format!(

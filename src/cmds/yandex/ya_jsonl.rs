@@ -391,9 +391,10 @@ impl Summary {
         self.exit_code
     }
 
-    /// Render within the byte budget. Supply a path only if it addresses a
-    /// complete persisted copy of the parsed input. Without it, leave oversized
-    /// diagnostics to the caller's raw fallback.
+    /// Render within the byte budget. A path may name a complete pending capture
+    /// while the caller selects a view, but that capture must be persisted before
+    /// the view is emitted. This formatter never reads or writes the path.
+    /// Without recovery, leave oversized diagnostics to the caller's raw fallback.
     pub fn render(&self, max_bytes: usize, raw_path: Option<&Path>) -> Option<String> {
         let path = raw_path
             .and_then(Path::to_str)

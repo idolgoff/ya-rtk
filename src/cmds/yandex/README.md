@@ -148,6 +148,13 @@ refer to the normalized saved representation (stdout followed by stderr), not
 to the original interleaving between descriptors or to byte offsets in the
 producer's stream.
 
+Live JSONL commands also apply the normal tee policy to compact results. An
+eligible failure (or success in `tee.mode = "always"`) can include a saved-output
+hint when it fits both the display and never-worse budgets. A size-limited normal
+capture is labelled partial; it is never used to justify clipping diagnostics.
+Pipe JSONL uses saved recovery when excerpts are needed, without inferring an
+original live-process tee policy.
+
 ### Detail controls
 
 Ordinary successful agent output contains the final result and counters; repeated

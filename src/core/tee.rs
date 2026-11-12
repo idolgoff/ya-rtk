@@ -90,6 +90,8 @@ pub struct PendingOutput {
 }
 
 impl PendingOutput {
+    /// Preview the retained prefix and proposed final path. The path is not
+    /// published until `persist` succeeds; use this only to format candidates.
     pub fn saved(&self) -> &SavedOutput {
         &self.saved
     }

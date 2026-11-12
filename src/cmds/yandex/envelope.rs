@@ -11,6 +11,8 @@
 //! Full-raw recovery is the runner tee (`with_tee("ya")`); overflow lists use
 //! [`fail_overflow_tee_hint`].
 
+pub use super::ya_args::is_test_mode;
+
 use crate::cmds::yandex::adapters::generic_fail::{
     compact_fail_block, fail_overflow_tee_hint, is_fail_block_boundary, is_fat_drop_line,
     slim_line_for_buffer, split_fail_sections, MAX_FAIL_BLOCKS,
@@ -22,26 +24,7 @@ use crate::cmds::yandex::framing::{keep_framing_line, keep_postamble_line};
 use crate::core::guard::never_worse;
 use crate::core::stream::StreamFilter;
 use crate::core::utils::strip_ansi;
-use lazy_static::lazy_static;
-use regex::Regex;
 use std::collections::HashSet;
-
-lazy_static! {
-    static ref TEST_FLAG_RE: Regex = Regex::new(r"^-t+X?$").unwrap();
-}
-
-/// True when argv should use the test-mode envelope filter.
-pub fn is_test_mode(args: &[String]) -> bool {
-    match args.first().map(String::as_str) {
-        Some("test") => true,
-        Some("make") => args.iter().any(|a| is_ya_test_flag(a)),
-        _ => false,
-    }
-}
-
-fn is_ya_test_flag(arg: &str) -> bool {
-    arg == "--test" || TEST_FLAG_RE.is_match(arg)
-}
 
 /// Filter combined ya test-mode stdout/stderr text.
 ///

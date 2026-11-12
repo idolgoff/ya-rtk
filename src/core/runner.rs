@@ -60,6 +60,8 @@ impl<'a> RunOptions<'a> {
     }
 
     /// Add recovery locations after a streamed command has finished capture.
+    /// The formatter is pure: its path is prospective and must not be read.
+    /// A selected hint is emitted only after its pending capture is persisted.
     pub fn source_hint(
         mut self,
         formatter: fn(&str, &crate::core::tee::SavedOutput) -> String,
@@ -73,6 +75,8 @@ impl<'a> RunOptions<'a> {
         self
     }
 
+    /// Gate the runner's tee for streamed commands whose filter may own recovery.
+    /// Captured and passthrough modes do not use this predicate.
     pub fn tee_when(mut self, predicate: fn(&str) -> bool) -> Self {
         self.tee_when = Some(predicate);
         self
