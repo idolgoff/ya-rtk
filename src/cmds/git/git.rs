@@ -1742,11 +1742,11 @@ fn run_push(args: &[String], verbose: u8, global_args: &[String]) -> Result<i32>
     )
     .context("Failed to run git push")?;
 
-    timer.track(
+    timer.track_bytes(
         &cmd_label,
         &format!("rtk {}", cmd_label),
-        &result.raw,
-        &result.filtered,
+        result.raw_bytes,
+        result.filtered_bytes,
     );
 
     Ok(result.exit_code)

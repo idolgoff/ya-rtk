@@ -1354,9 +1354,14 @@ impl TimedExecution {
     /// timer.track("ls -la", "rtk ls", input, output);
     /// ```
     pub fn track(&self, original_cmd: &str, rtk_cmd: &str, input: &str, output: &str) {
+        self.track_bytes(original_cmd, rtk_cmd, input.len(), output.len());
+    }
+
+    /// Track a streamed command without retaining its entire transcript in memory.
+    pub fn track_bytes(&self, original_cmd: &str, rtk_cmd: &str, input: usize, output: usize) {
         let elapsed_ms = self.start.elapsed().as_millis() as u64;
-        let input_tokens = estimate_tokens(input);
-        let output_tokens = estimate_tokens(output);
+        let input_tokens = input.div_ceil(4);
+        let output_tokens = output.div_ceil(4);
 
         if let Ok(tracker) = Tracker::new() {
             let _ = tracker.record(

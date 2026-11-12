@@ -1,0 +1,1 @@
+ya make result {"exit_code":0,"category":null,"duration":19.835,"counters":{"suites":{"good":119},"tests":{"good":295}}}
