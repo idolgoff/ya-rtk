@@ -34,6 +34,7 @@ pub fn print_with_hint(
 pub struct RunOptions<'a> {
     pub tee_label: Option<&'a str>,
     pub source_hint: Option<fn(&str, &crate::core::tee::SavedOutput) -> String>,
+    pub tee_when: Option<fn(&str) -> bool>,
     pub filter_stdout_only: bool,
     pub skip_filter_on_failure: bool,
     pub no_trailing_newline: bool,
@@ -69,6 +70,11 @@ impl<'a> RunOptions<'a> {
 
     pub fn tee(mut self, label: &'a str) -> Self {
         self.tee_label = Some(label);
+        self
+    }
+
+    pub fn tee_when(mut self, predicate: fn(&str) -> bool) -> Self {
+        self.tee_when = Some(predicate);
         self
     }
 
@@ -198,19 +204,23 @@ pub fn run(
                 stream::run_streaming(&mut cmd, StdinMode::Null, FilterMode::Streaming(filter))
                     .with_context(|| format!("Failed to run {}", tool_name))?;
 
-            if let Some(label) = opts.tee_label {
+            if let Some(label) = opts
+                .tee_label
+                .filter(|_| opts.tee_when.is_none_or(|predicate| predicate(&result.raw)))
+            {
                 let hint = if let Some(formatter) = opts.source_hint {
-                    crate::core::tee::tee_saved(&result.raw, label, result.exit_code).and_then(
-                        |saved| {
-                            [formatter(&result.raw, &saved), saved.hint()]
+                    crate::core::tee::prepare_tee_saved(&result.raw, label, result.exit_code)
+                        .and_then(|pending| {
+                            let saved = pending.saved();
+                            [formatter(&result.raw, saved), saved.hint()]
                                 .into_iter()
                                 .find(|hint| {
                                     let combined = format!("{}{}\n", result.filtered, hint);
                                     tracking::estimate_tokens(&combined)
                                         <= tracking::estimate_tokens(&result.raw)
                                 })
-                        },
-                    )
+                                .and_then(|hint| pending.persist().map(|_| hint))
+                        })
                 } else {
                     crate::core::tee::tee_and_hint(&result.raw, label, result.exit_code)
                 };

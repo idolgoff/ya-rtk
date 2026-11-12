@@ -1,0 +1,10 @@
+native warning before start
+
+{"type":"started","ts":0.0,"epoch":1,"handler":"test"}
+{"type":"progress","ts":0.1,"stage":"build","active":1,"done":1,"total":2,"resources":[{"operation_id":1,"pattern":"TOOLCHAIN","phase":"downloading","downloaded_bytes":10}]}
+{"type":"message","ts":0.2,"severity":"info","path":"example/pkg","text":"test stderr context","details":{"kind":"test_stderr"}}
+native output between events
+{"type":"tests","ts":0.3,"path":"example/pkg","suite":"pytest","size":"small","tags":["example"],"platform":"example-platform","tests":[{"name":"test_skipped","skipped":true}]}
+{"type":"fail","ts":0.4,"stage":"test","path":"example/pkg","text":"AssertionError: expected 7, got 5","details":{"level":"test","status":"fail","name":"test_value","duration":0.1,"suite":"pytest"},"rerun_filter":"test_value"}
+{"type":"slowest_tests","ts":0.5,"tests":[{"path":"example/pkg","name":"test_value","status":"fail","duration":0.1}]}
+{"type":"finished","ts":0.6,"exit_code":10,"category":"test_failed","duration":0.6,"counters":{"suites":{"fail":1,"good":2},"tests":{"fail":1,"good":3,"skipped":1}},"failed":{"test":["example/pkg"]},"tips":[{"id":"example_tip","text":"Use the test filter to select one case.","flag":"--test-filter"}],"advice":"Review the failing assertion before retrying."}

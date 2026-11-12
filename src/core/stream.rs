@@ -54,6 +54,8 @@ pub trait StreamFilter {
     fn on_exit(&mut self, _exit_code: i32, _raw: &str) -> Option<String> {
         None
     }
+    /// The retained raw prefix is not a complete command transcript.
+    fn on_capture_truncated(&mut self) {}
 }
 
 pub trait BlockHandler {
@@ -530,6 +532,9 @@ pub fn run_streaming(
     let raw = format!("{}{}", raw_stdout, raw_stderr);
 
     if let Some(mut f) = saved_filter {
+        if capped_out || capped_err {
+            f.on_capture_truncated();
+        }
         if let Some(post) = f.on_exit(exit_code, &raw) {
             filtered.push_str(&post);
             let mut dest: Box<dyn Write> = if filter_fd_is_stderr {

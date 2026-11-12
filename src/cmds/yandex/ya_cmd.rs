@@ -9,6 +9,7 @@
 
 use crate::cmds::yandex::envelope::{is_test_mode, test_stream_filter};
 use crate::cmds::yandex::ya_build::{build_stream_filter, is_build_mode};
+use crate::cmds::yandex::ya_output::{self, YaStreamFilter};
 use crate::core::runner;
 use crate::core::utils::resolved_command;
 use anyhow::Result;
@@ -46,7 +47,21 @@ pub fn classify(args: &[String]) -> YaKind {
 
 /// Shared routing: test → envelope; build make → build filter; else passthrough.
 pub fn pipeline(args: &[String]) -> YaPipeline {
-    if is_test_mode(args) {
+    if args.iter().any(|arg| {
+        matches!(
+            arg.as_str(),
+            "--version" | "--dry-run" | "-L" | "--list-tests" | "-T" | "-G"
+                | "--pdb" | "--gdb" | "--dlv" | "--test-debug" | "--test-stdout"
+                | "--test-stderr" | "--teamcity"
+        ) || arg.strip_prefix('-').is_some_and(|flags| {
+            !flags.is_empty() && flags.chars().all(|flag| flag == 'h')
+        }) || [
+            "--help", "--json", "--dump", "--print", "--stdout", "--output-format",
+            "--output-style", "--format", "--canon-diff", "--html-display",
+        ].iter().any(|prefix| arg.starts_with(prefix))
+    }) {
+        YaPipeline::Passthrough
+    } else if is_test_mode(args) {
         YaPipeline::TestFiltered { tee: "ya" }
     } else if is_build_mode(args) {
         YaPipeline::BuildFiltered { tee: "ya" }
@@ -85,15 +100,17 @@ pub fn run(args: &[String], verbose: u8) -> Result<i32> {
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            Box::new(test_stream_filter()),
-            runner::RunOptions::with_tee(tee).source_hint(crate::cmds::yandex::source_lines::hint),
+            Box::new(YaStreamFilter::new(test_stream_filter())),
+            runner::RunOptions::with_tee(tee)
+                .source_hint(crate::cmds::yandex::source_lines::hint)
+                .tee_when(ya_output::is_legacy),
         ),
         YaPipeline::BuildFiltered { tee } => runner::run_streamed(
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            Box::new(build_stream_filter()),
-            runner::RunOptions::with_tee(tee),
+            Box::new(YaStreamFilter::new(build_stream_filter())),
+            runner::RunOptions::with_tee(tee).tee_when(ya_output::is_legacy),
         ),
         YaPipeline::Passthrough => {
             let os_args: Vec<OsString> = args.iter().map(OsString::from).collect();
@@ -194,5 +211,21 @@ mod tests {
             .collect();
         assert_eq!(forwarded, args);
         assert_eq!(pipeline(&args), YaPipeline::TestFiltered { tee: "ya" });
+    }
+
+    #[test]
+    fn explicit_output_and_interactive_modes_remain_native() {
+        for option in [
+            "--output-style=jsonl", "--output-style", "-T", "-G", "--list-tests",
+            "--dump-graph", "--json", "-hhh", "--help", "--test-stderr", "--pdb",
+        ] {
+            for subcommand in ["make", "test"] {
+                assert_eq!(
+                    pipeline(&[subcommand, "-t", option].map(String::from)),
+                    YaPipeline::Passthrough,
+                    "{subcommand} {option}"
+                );
+            }
+        }
     }
 }
