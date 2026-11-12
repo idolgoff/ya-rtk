@@ -6,6 +6,7 @@ use std::process::{Command, Output, Stdio};
 fn command(dir: &Path) -> Command {
     let mut cmd = Command::new(env!("CARGO_BIN_EXE_rtk"));
     cmd.current_dir(dir)
+        .env("CLAUDE_CONFIG_DIR", dir.join("claude-config"))
         .env("RTK_TEE", "1")
         .env("RTK_TEE_DIR", dir.join("logs with 'quotes'"))
         .env("RTK_DB_PATH", dir.join("history.db"))

@@ -137,11 +137,19 @@ existing behavior for consumers that always use the capture.
 Structured command adapters own protocol validation and presentation decisions;
 core tee owns file creation, retention limits and rotation. A streamed adapter
 that supplies its own recovery can gate the runner's additional tee with
-`RunOptions::tee_when`. This predicate applies only to streamed commands. The
-ya adapter uses it to keep one owner of JSONL recovery while the runner handles
-legacy text recovery. `StreamFilter::on_capture_truncated` tells an adapter that
+`StreamFilter::handles_tee`. The runner reads this decision after the filter's
+exit handler, so ownership reflects every observed event, including events
+outside the retained raw prefix. The ya adapter owns JSONL recovery while the
+runner handles legacy text recovery. `StreamFilter::on_capture_truncated` tells an adapter that
 the retained raw prefix is incomplete; it must not claim complete recovery from
-that prefix.
+that prefix. Call `PendingOutput::mark_incomplete` before selecting a hint for
+such a prefix, even if the prefix fits the configured tee file limit.
+
+Streaming transport applies backpressure through a bounded line queue. It
+counts all normalized input and emitted bytes independently of capture caps;
+production code does not retain a second copy of emitted output. Streamed
+callers use `TimedExecution::track_bytes`, and optional hint budgets use these
+counts rather than the size of a truncated string.
 
 Consumers that parse structured output (JSON, NDJSON, state machines) should call `tee::tee_and_hint()` to save raw output for LLM recovery on failure. Tee must be called before `std::process::exit()`.
 

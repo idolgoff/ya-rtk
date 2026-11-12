@@ -34,7 +34,6 @@ pub fn print_with_hint(
 pub struct RunOptions<'a> {
     pub tee_label: Option<&'a str>,
     pub source_hint: Option<fn(&str, &crate::core::tee::SavedOutput) -> String>,
-    pub tee_when: Option<fn(&str) -> bool>,
     pub filter_stdout_only: bool,
     pub skip_filter_on_failure: bool,
     pub no_trailing_newline: bool,
@@ -72,13 +71,6 @@ impl<'a> RunOptions<'a> {
 
     pub fn tee(mut self, label: &'a str) -> Self {
         self.tee_label = Some(label);
-        self
-    }
-
-    /// Gate the runner's tee for streamed commands whose filter may own recovery.
-    /// Captured and passthrough modes do not use this predicate.
-    pub fn tee_when(mut self, predicate: fn(&str) -> bool) -> Self {
-        self.tee_when = Some(predicate);
         self
     }
 
@@ -208,10 +200,7 @@ pub fn run(
                 stream::run_streaming(&mut cmd, StdinMode::Null, FilterMode::Streaming(filter))
                     .with_context(|| format!("Failed to run {}", tool_name))?;
 
-            if let Some(label) = opts
-                .tee_label
-                .filter(|_| opts.tee_when.is_none_or(|predicate| predicate(&result.raw)))
-            {
+            if let Some(label) = opts.tee_label.filter(|_| !result.tee_handled) {
                 let hint = if let Some(formatter) = opts.source_hint {
                     crate::core::tee::prepare_tee_saved(&result.raw, label, result.exit_code)
                         .and_then(|pending| {
@@ -219,9 +208,11 @@ pub fn run(
                             [formatter(&result.raw, saved), saved.hint()]
                                 .into_iter()
                                 .find(|hint| {
-                                    let combined = format!("{}{}\n", result.filtered, hint);
-                                    tracking::estimate_tokens(&combined)
-                                        <= tracking::estimate_tokens(&result.raw)
+                                    result
+                                        .filtered_bytes
+                                        .saturating_add(hint.len() + 1)
+                                        .div_ceil(4)
+                                        <= result.raw_bytes.div_ceil(4)
                                 })
                                 .and_then(|hint| pending.persist().map(|_| hint))
                         })
@@ -230,18 +221,15 @@ pub fn run(
                 };
                 if let Some(hint) = hint {
                     println!("{}", hint);
-                    if opts.source_hint.is_some() {
-                        result.filtered.push_str(&hint);
-                        result.filtered.push('\n');
-                    }
+                    result.filtered_bytes = result.filtered_bytes.saturating_add(hint.len() + 1);
                 }
             }
 
-            timer.track(
+            timer.track_bytes(
                 &cmd_label,
                 &format!("rtk {}", cmd_label),
-                &result.raw,
-                &result.filtered,
+                result.raw_bytes,
+                result.filtered_bytes,
             );
             Ok(result.exit_code)
         }

@@ -10,7 +10,7 @@
 use crate::cmds::yandex::envelope::test_stream_filter;
 use crate::cmds::yandex::ya_args::routing_options;
 use crate::cmds::yandex::ya_build::{build_stream_filter, is_build_mode};
-use crate::cmds::yandex::ya_output::{self, YaStreamFilter};
+use crate::cmds::yandex::ya_output::YaStreamFilter;
 use crate::core::runner;
 use crate::core::utils::resolved_command;
 use anyhow::Result;
@@ -92,15 +92,14 @@ pub fn run(args: &[String], verbose: u8) -> Result<i32> {
             &args.join(" "),
             Box::new(YaStreamFilter::new(test_stream_filter())),
             runner::RunOptions::with_tee(tee)
-                .source_hint(crate::cmds::yandex::source_lines::hint)
-                .tee_when(ya_output::is_legacy),
+                .source_hint(crate::cmds::yandex::source_lines::hint),
         ),
         YaPipeline::BuildFiltered { tee } => runner::run_streamed(
             build_ya_command(args),
             "ya",
             &args.join(" "),
             Box::new(YaStreamFilter::new(build_stream_filter())),
-            runner::RunOptions::with_tee(tee).tee_when(ya_output::is_legacy),
+            runner::RunOptions::with_tee(tee),
         ),
         YaPipeline::Passthrough => {
             let os_args: Vec<OsString> = args.iter().map(OsString::from).collect();

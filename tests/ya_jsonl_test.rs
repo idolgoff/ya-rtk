@@ -13,6 +13,7 @@ fn base_command(dir: &Path) -> Command {
     let mut command = Command::new(env!("CARGO_BIN_EXE_rtk"));
     command
         .current_dir(dir)
+        .env("CLAUDE_CONFIG_DIR", dir.join("claude-config"))
         .env("RTK_DB_PATH", dir.join("history.db"))
         .env("RTK_TELEMETRY_DISABLED", "1")
         .env("RTK_NO_TOML", "1")
@@ -471,4 +472,197 @@ fn live_does_not_clip_diagnostics_when_saved_capture_fails() {
         "diagnostic must stay available"
     );
     assert!(String::from_utf8_lossy(&result.stderr).contains("retaining raw output"));
+}
+
+fn progress_beyond_capture() -> String {
+    let progress = format!(
+        "{{\"type\":\"progress\",\"node\":{{\"path\":\"{}\",\"elapsed\":1}}}}\n",
+        "p".repeat(4096)
+    );
+    progress.repeat(10_485_760 / progress.len() + 1)
+}
+
+fn late_diagnostics(progress: &str, exit_code: i32) -> String {
+    format!(
+        "{{\"type\":\"started\",\"handler\":\"test\"}}\n\
+         {{\"type\":\"message\",\"severity\":\"info\",\"text\":\"early diagnostic\"}}\n\
+         {progress}\
+         {{\"type\":\"fail\",\"text\":\"late failure marker\"}}\n\
+         {{\"type\":\"finished\",\"exit_code\":{exit_code},\"counters\":{{\"late_count\":17}}}}\n"
+    )
+}
+
+#[test]
+fn live_diagnostics_and_final_survive_progress_beyond_raw_capture() {
+    let raw = late_diagnostics(&progress_beyond_capture(), 10);
+    for mode in ["on", "off", "unwritable"] {
+        let dir = tempfile::tempdir().expect("tempdir");
+        if mode == "unwritable" {
+            fs::write(dir.path().join("tee"), "not a directory").unwrap();
+        }
+        let result = live(dir.path(), &["ya", "test"], &raw, 10, mode != "off");
+        assert_eq!(result.status.code(), Some(10), "mode={mode}");
+        let shown = combined(&result);
+        assert!(has_jsonl_summary(&shown), "mode={mode}");
+        assert!(
+            shown.len() < 24 * 1024,
+            "progress should stay sparse: {mode}"
+        );
+        for marker in [
+            "early diagnostic",
+            "late failure marker",
+            "late_count",
+            "native stdout epilogue",
+        ] {
+            assert_eq!(shown.matches(marker).count(), 1, "{mode}: {marker}");
+        }
+        assert!(shown.contains("event line"));
+        assert!(!shown.contains("[raw line"));
+        assert!(!shown.contains("[excerpt"));
+        assert_eq!(shown.contains("[partial output:"), mode == "on");
+        if mode == "on" {
+            let logs: Vec<_> = fs::read_dir(dir.path().join("tee")).unwrap().collect();
+            assert_eq!(logs.len(), 1);
+            let saved = fs::read_to_string(logs[0].as_ref().unwrap().path()).unwrap();
+            assert!(
+                !saved.contains("late failure marker"),
+                "the hint must not promise complete recovery"
+            );
+        }
+    }
+}
+
+#[test]
+fn live_success_stays_sparse_after_raw_capture_limit() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    let raw = late_diagnostics(&progress_beyond_capture(), 0);
+    let result = live(dir.path(), &["ya", "test"], &raw, 0, true);
+    assert_eq!(result.status.code(), Some(0));
+    let shown = combined(&result);
+    assert!(has_jsonl_summary(&shown));
+    assert!(shown.len() < 24 * 1024);
+    assert!(shown.contains("\"exit_code\":0"));
+    assert!(
+        !shown.contains("[partial output:"),
+        "normal failures-only tee policy"
+    );
+}
+
+#[test]
+fn live_rejected_projection_keeps_late_records_without_claiming_a_summary() {
+    let raw = late_diagnostics(&progress_beyond_capture(), 10);
+    let unknown = raw.replace("\"type\":\"fail\"", "\"type\":\"future\"");
+    let malformed = raw.replace(
+        "{\"type\":\"fail\"", "{\"type\":\"progress\",\"node\":{\"error\":\"late malformed marker\"}}\n{\"type\":\"fail\""
+    );
+    for (input, status) in [(&unknown, 10), (&malformed, 10), (&raw, 7)] {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let result = live(dir.path(), &["ya", "test"], input, status, false);
+        assert_eq!(result.status.code(), Some(status));
+        let shown = combined(&result);
+        assert!(!has_jsonl_summary(&shown));
+        assert!(shown.contains("late failure marker"));
+        assert!(shown.contains("\"type\":\"finished\""));
+        assert!(shown.contains("early diagnostic"));
+        assert!(shown.contains("not summarized"));
+        if input == &malformed {
+            assert!(shown.contains("late malformed marker"));
+        }
+    }
+}
+
+#[test]
+fn live_oversized_diagnostic_streams_once_and_counts_the_entire_output() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    let large = "x".repeat(10_485_760 + 1);
+    let raw = format!(
+        "{{\"type\":\"started\",\"handler\":\"test\"}}\n\
+         {{\"type\":\"message\",\"text\":\"first diagnostic {large}\"}}\n\
+         {{\"type\":\"fail\",\"text\":\"last diagnostic\"}}\n\
+         {{\"type\":\"finished\",\"exit_code\":10,\"counters\":{{}}}}\n"
+    );
+    let result = live(dir.path(), &["ya", "test"], &raw, 10, false);
+    assert_eq!(result.status.code(), Some(10));
+    let shown = combined(&result);
+    for marker in [
+        "first diagnostic",
+        "last diagnostic",
+        "\"type\":\"finished\"",
+        "\"type\":\"started\"",
+    ] {
+        assert_eq!(shown.matches(marker).count(), 1, "{marker}");
+    }
+    assert!(!has_jsonl_summary(&shown));
+    assert!(!shown.contains("[excerpt"));
+    let db = rusqlite::Connection::open(dir.path().join("history.db")).unwrap();
+    let (input_tokens, output_tokens): (usize, usize) = db
+        .query_row(
+            "SELECT input_tokens, output_tokens FROM commands ORDER BY id DESC LIMIT 1",
+            [],
+            |row| Ok((row.get(0)?, row.get(1)?)),
+        )
+        .unwrap();
+    let normalized_bytes =
+        raw.len() + "native stderr preamble\n".len() + "native stdout epilogue\n".len();
+    assert_eq!(input_tokens, normalized_bytes.div_ceil(4));
+    assert_eq!(
+        output_tokens, input_tokens,
+        "emitted output must not be measured from its capped prefix"
+    );
+}
+
+#[test]
+fn late_jsonl_after_large_legacy_prefix_has_one_recovery_owner() {
+    let prefix = format!("{}\n", "legacy progress ".repeat(256));
+    let raw = format!(
+        "{}{}",
+        prefix.repeat(10_485_760 / prefix.len() + 1),
+        EXCEPTION
+    );
+    for subcommand in ["make", "test"] {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let result = live(dir.path(), &["ya", subcommand], &raw, 3, true);
+        assert_eq!(result.status.code(), Some(3));
+        let shown = combined(&result);
+        assert!(shown.contains("Could not read custom context"));
+        assert!(shown.contains("\"type\":\"finished\""));
+        assert_eq!(
+            shown.matches("[partial output:").count(),
+            1,
+            "one adapter hint"
+        );
+        assert!(!shown.contains("[full output:"));
+        assert_eq!(
+            fs::read_dir(dir.path().join("tee")).unwrap().count(),
+            1,
+            "one capture, no runner duplicate"
+        );
+    }
+}
+
+#[test]
+fn streamed_projection_does_not_publish_a_hint_that_expands_output() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    fs::create_dir(dir.path().join("tee")).unwrap();
+    let retained = dir.path().join("tee/important.log");
+    fs::write(&retained, "previously advertised diagnostics").unwrap();
+    // Record metadata reaches the buffer limit even though the raw transcript
+    // still fits. Every byte is displayed, leaving no room for an optional hint.
+    let raw = format!(
+        "{{\"type\":\"started\",\"handler\":\"test\"}}\n{}\
+         {{\"type\":\"finished\",\"exit_code\":10,\"counters\":{{}}}}\n",
+        "x\n".repeat(330_000)
+    );
+    let result = live(dir.path(), &["ya", "test"], &raw, 10, true);
+    assert_eq!(result.status.code(), Some(10));
+    let shown = combined(&result);
+    assert!(shown.contains("diagnostic buffer exceeded"));
+    assert!(!shown.contains("[saved output:"));
+    assert!(!shown.contains("[partial output:"));
+    assert!(retained.exists());
+    assert_eq!(
+        fs::read_dir(dir.path().join("tee")).unwrap().count(),
+        1,
+        "unadvertised pending capture must be removed without rotation"
+    );
 }

@@ -143,10 +143,21 @@ JSONL is returned as the original input when it fits the pipe capture limit.
 The default structured view is limited to 24 KiB. RTK adds excerpts and
 physical raw-line references only when it can save a complete copy of the
 captured stream; without complete recovery it keeps raw diagnostics rather
-than clipping them away. Capture limits still apply. Live source locations
+than clipping them away. For live JSONL, a separate bounded event buffer retains
+diagnostics and final records throughout the command, independently of the
+10 MiB raw capture limit. It discards only validated progress during a recognized
+lifecycle. After raw capture fills, RTK still presents every diagnostic and the
+verified final result; any saved prefix is explicitly labelled partial and cannot
+justify excerpts. If the diagnostic buffer itself fills, RTK streams the retained
+records and subsequent non-progress output verbatim, without a second summary.
+This fallback can exceed the display budget to preserve diagnostics even when
+tee is disabled or unavailable.
+
+Ordinary live source locations
 refer to the normalized saved representation (stdout followed by stderr), not
 to the original interleaving between descriptors or to byte offsets in the
-producer's stream.
+producer's stream. After raw capture fills, `event line` locations instead refer
+to observation order and are not coordinates in the partial tee file.
 
 Live JSONL commands also apply the normal tee policy to compact results. An
 eligible failure (or success in `tee.mode = "always"`) can include a saved-output

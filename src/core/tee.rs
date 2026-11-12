@@ -96,6 +96,12 @@ impl PendingOutput {
         &self.saved
     }
 
+    /// The supplied text was already a prefix of a longer command transcript.
+    /// Even when it fits the file limit, it cannot promise complete recovery.
+    pub fn mark_incomplete(&mut self) {
+        self.saved.truncated = true;
+    }
+
     pub fn persist(self) -> Option<SavedOutput> {
         self.file.persist_noclobber(&self.saved.path).ok()?;
         if let Some(directory) = self.saved.path.parent() {
@@ -426,6 +432,18 @@ impl Default for TeeConfig {
 mod tests {
     use super::*;
     use std::fs;
+
+    #[test]
+    fn upstream_capture_limit_marks_a_fitting_file_partial() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut pending = prepare_tee_file("first line\n", "ya", dir.path(), 1024, 20).unwrap();
+        assert!(pending.saved().is_complete());
+        pending.mark_incomplete();
+        assert!(!pending.saved().is_complete());
+        assert!(pending.saved().hint().starts_with("[partial output:"));
+        let saved = pending.persist().unwrap();
+        assert_eq!(std::fs::read_to_string(saved.path).unwrap(), "first line\n");
+    }
 
     #[test]
     fn saved_coordinates_exclude_partial_utf8_line_and_truncation_marker() {

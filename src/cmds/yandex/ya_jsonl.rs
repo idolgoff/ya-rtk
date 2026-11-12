@@ -4,10 +4,26 @@
 use serde_json::{Map, Value};
 use std::{fmt, path::Path};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum LineLabel {
+    Raw,
+    Event,
+}
+
+impl LineLabel {
+    fn name(self) -> &'static str {
+        match self {
+            Self::Raw => "raw",
+            Self::Event => "event",
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Eq)]
 pub struct Rejection {
     line: Option<usize>,
     reason: &'static str,
+    label: LineLabel,
 }
 
 impl Rejection {
@@ -15,6 +31,7 @@ impl Rejection {
         Self {
             line: Some(line),
             reason,
+            label: LineLabel::Raw,
         }
     }
 }
@@ -22,7 +39,7 @@ impl Rejection {
 impl fmt::Display for Rejection {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self.line {
-            Some(line) => write!(f, "{} at raw line {line}", self.reason),
+            Some(line) => write!(f, "{} at {} line {line}", self.reason, self.label.name()),
             None => f.write_str(self.reason),
         }
     }
@@ -32,23 +49,26 @@ impl fmt::Display for Rejection {
 struct Source {
     first: usize,
     last: usize,
+    label: LineLabel,
 }
 
 impl Source {
-    fn line(number: usize) -> Self {
+    fn line(number: usize, label: LineLabel) -> Self {
         Self {
             first: number,
             last: number,
+            label,
         }
     }
 }
 
 impl fmt::Display for Source {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let label = self.label.name();
         if self.first == self.last {
-            write!(f, "raw line {}", self.first)
+            write!(f, "{label} line {}", self.first)
         } else {
-            write!(f, "raw lines {}–{}", self.first, self.last)
+            write!(f, "{label} lines {}–{}", self.first, self.last)
         }
     }
 }
@@ -126,44 +146,121 @@ fn object_like(line: &str) -> bool {
     line.trim_start().starts_with('{')
 }
 
+fn decode_event(
+    line: &str,
+    number: usize,
+) -> Result<(Kind, String, Map<String, Value>), Rejection> {
+    let mut fields: Map<String, Value> =
+        serde_json::from_str(line).map_err(|_| Rejection::at(number, "malformed ya JSON event"))?;
+    let Some(Value::String(name)) = fields.shift_remove("type") else {
+        return Err(Rejection::at(number, "unknown ya event type"));
+    };
+    let kind =
+        Kind::recognize(&name).ok_or_else(|| Rejection::at(number, "unknown ya event type"))?;
+    if fields
+        .shift_remove("ts")
+        .is_some_and(|value| !value.is_number())
+    {
+        return Err(Rejection::at(number, "invalid ya event timestamp"));
+    }
+    if fields
+        .keys()
+        .any(|key| !kind.fields().contains(&key.as_str()))
+    {
+        return Err(Rejection::at(number, "unknown field in ya event"));
+    }
+    Ok((kind, name, fields))
+}
+
+#[derive(Default)]
+enum ProgressPhase {
+    #[default]
+    BeforeStart,
+    Running,
+    Closed,
+}
+
+/// Track where known progress can be omitted from a live projection.
+#[derive(Default)]
+pub struct ProgressState {
+    phase: ProgressPhase,
+}
+
+impl ProgressState {
+    /// Return true only for validated progress during a recognized lifecycle.
+    /// Callers retain all other lines, including unknown structured records.
+    pub fn omit(&mut self, line: &str) -> bool {
+        if matches!(self.phase, ProgressPhase::Closed) || !object_like(line) {
+            return false;
+        }
+        let Ok((kind, _, fields)) = decode_event(line, 0) else {
+            self.phase = ProgressPhase::Closed;
+            return false;
+        };
+        match (&self.phase, kind) {
+            (ProgressPhase::BeforeStart, Kind::Started) if started_handler(&fields, 0).is_ok() => {
+                self.phase = ProgressPhase::Running;
+            }
+            (ProgressPhase::Running, Kind::Progress) if validate_progress(&fields, 0).is_ok() => {
+                return true;
+            }
+            (
+                ProgressPhase::Running,
+                Kind::Message | Kind::Fail | Kind::Tests | Kind::SlowestTests,
+            ) => {}
+            _ => self.phase = ProgressPhase::Closed,
+        }
+        false
+    }
+}
+
 /// An object-like line selects JSONL validation even if that line is damaged.
 /// Pass the original child exit status for live commands when it is available.
 pub fn parse(raw: &str, expected_exit: Option<i32>) -> Result<Option<Summary>, Rejection> {
     if !raw.lines().any(object_like) {
         return Ok(None);
     }
+    parse_numbered(
+        raw.lines()
+            .enumerate()
+            .map(|(index, line)| (index + 1, line)),
+        expected_exit,
+        LineLabel::Raw,
+    )
+}
+
+/// Parse retained live lines at their original 1-based observation positions.
+/// These coordinates refer to event arrival order, which can differ from the
+/// stdout-then-stderr order of a saved raw capture.
+pub fn parse_lines<'a>(
+    lines: impl IntoIterator<Item = (usize, &'a str)>,
+    expected_exit: Option<i32>,
+) -> Result<Option<Summary>, Rejection> {
+    parse_numbered(lines, expected_exit, LineLabel::Event).map_err(|mut error| {
+        error.label = LineLabel::Event;
+        error
+    })
+}
+
+fn parse_numbered<'a>(
+    lines: impl IntoIterator<Item = (usize, &'a str)>,
+    expected_exit: Option<i32>,
+    label: LineLabel,
+) -> Result<Option<Summary>, Rejection> {
     let mut handler = None;
     let mut finished = None;
     let mut failures = Vec::new();
     let mut diagnostics = Vec::new();
     let mut native = None;
 
-    for (index, line) in raw.lines().enumerate() {
-        let number = index + 1;
+    for (number, line) in lines {
+        let source = Source::line(number, label);
         if !object_like(line) {
-            add_native(&mut native, number, line);
+            add_native(&mut native, &mut diagnostics, source, line);
             continue;
         }
         flush_native(&mut native, &mut diagnostics);
-        let mut fields: Map<String, Value> = serde_json::from_str(line)
-            .map_err(|_| Rejection::at(number, "malformed ya JSON event"))?;
-        let kind_name = fields
-            .shift_remove("type")
-            .ok_or_else(|| Rejection::at(number, "unknown ya event type"))?;
-        let name = kind_name
-            .as_str()
-            .ok_or_else(|| Rejection::at(number, "unknown ya event type"))?;
-        let kind =
-            Kind::recognize(name).ok_or_else(|| Rejection::at(number, "unknown ya event type"))?;
-        if fields.shift_remove("ts").is_some_and(|value| !value.is_number()) {
-            return Err(Rejection::at(number, "invalid ya event timestamp"));
-        }
-        if fields
-            .keys()
-            .any(|key| !kind.fields().contains(&key.as_str()))
-        {
-            return Err(Rejection::at(number, "unknown field in ya event"));
-        }
+        let (kind, name, fields) = decode_event(line, number)?;
         if finished.is_some() {
             return Err(Rejection::at(number, "structured event after ya finished"));
         }
@@ -175,32 +272,35 @@ pub fn parse(raw: &str, expected_exit: Option<i32>) -> Result<Option<Summary>, R
                 if handler.is_some() {
                     return Err(Rejection::at(number, "duplicate ya started event"));
                 }
-                handler = Some(started_handler(fields, number)?);
+                handler = Some(started_handler(&fields, number)?);
             }
             Kind::Finished => {
-                finished = Some(final_event(fields, number, expected_exit)?);
+                finished = Some(final_event(fields, source, expected_exit)?);
             }
             Kind::Message | Kind::Fail | Kind::Tests | Kind::SlowestTests => {
-                let block = diagnostic(fields, kind, name, number)?;
+                let block = diagnostic(fields, kind, &name, source)?;
                 if name == "fail" {
                     failures.push(block);
                 } else {
                     diagnostics.push(block);
                 }
             }
-            // Progress, including resource downloads, remains in the raw stream.
             Kind::Progress => {
                 validate_progress(&fields, number)?;
             }
         }
     }
-    flush_native(&mut native, &mut diagnostics);
-    let (Some(handler), Some(finished)) = (handler, finished) else {
+    let Some(handler) = handler else {
+        return Ok(None);
+    };
+    let Some(finished) = finished else {
         return Err(Rejection {
             line: None,
             reason: "incomplete ya event stream",
+            label,
         });
     };
+    flush_native(&mut native, &mut diagnostics);
     let has_failures = !failures.is_empty();
     failures.extend(diagnostics);
     Ok(Some(Summary::new(
@@ -211,7 +311,7 @@ pub fn parse(raw: &str, expected_exit: Option<i32>) -> Result<Option<Summary>, R
     )))
 }
 
-fn started_handler(fields: Map<String, Value>, number: usize) -> Result<String, Rejection> {
+fn started_handler(fields: &Map<String, Value>, number: usize) -> Result<String, Rejection> {
     if fields.get("epoch").is_some_and(|value| !value.is_number()) {
         return Err(Rejection::at(number, "invalid ya start epoch"));
     }
@@ -260,9 +360,10 @@ fn validate_progress(fields: &Map<String, Value>, number: usize) -> Result<(), R
 
 fn final_event(
     fields: Map<String, Value>,
-    number: usize,
+    source: Source,
     expected_exit: Option<i32>,
 ) -> Result<FinalEvent, Rejection> {
+    let number = source.first;
     let exit_code = fields
         .get("exit_code")
         .and_then(Value::as_i64)
@@ -279,7 +380,7 @@ fn final_event(
         return Err(Rejection::at(number, "missing ya final counters"));
     }
     Ok(FinalEvent {
-        source: Source::line(number),
+        source,
         fields,
         exit_code,
     })
@@ -289,9 +390,9 @@ fn diagnostic(
     mut fields: Map<String, Value>,
     kind: Kind,
     name: &str,
-    number: usize,
+    source: Source,
 ) -> Result<Block, Rejection> {
-    let source = Source::line(number);
+    let number = source.first;
     let text = match kind {
         Kind::Message | Kind::Fail => {
             let Some(Value::String(text)) = fields.shift_remove("text") else {
@@ -309,15 +410,26 @@ fn diagnostic(
     Ok(Block { source, text })
 }
 
-fn add_native(native: &mut Option<Block>, number: usize, line: &str) {
+fn add_native(
+    native: &mut Option<Block>,
+    diagnostics: &mut Vec<Block>,
+    source: Source,
+    line: &str,
+) {
+    if native
+        .as_ref()
+        .is_some_and(|block| block.source.last.checked_add(1) != Some(source.first))
+    {
+        flush_native(native, diagnostics);
+    }
     if native.is_none() && line.trim().is_empty() {
         return;
     }
     let block = native.get_or_insert_with(|| Block {
-        source: Source::line(number),
+        source,
         text: String::new(),
     });
-    block.source.last = number;
+    block.source.last = source.last;
     block.text.push_str(line);
     block.text.push('\n');
 }
@@ -491,7 +603,11 @@ fn append_bounded(view: &mut String, budget: usize, blocks: &[&Block]) -> Option
         note = format!(
             "[{} entries omitted; see {}]\n",
             omitted.len(),
-            Source { first, last },
+            Source {
+                first,
+                last,
+                label: omitted.first()?.source.label,
+            },
         );
     }
     let share = budget.checked_sub(note.len())? / shown.max(1);
@@ -548,10 +664,92 @@ mod tests {
             let raw = format!("{START}\n{record}\n{FINISH}\n");
             assert!(parse(&raw, None).is_err(), "accepted {record}");
         }
-        let raw = format!(
-            "{{\"type\":\"started\",\"epoch\":{{\"error\":\"bad\"}}}}\n{FINISH}\n"
-        );
+        let raw = format!("{{\"type\":\"started\",\"epoch\":{{\"error\":\"bad\"}}}}\n{FINISH}\n");
         assert!(parse(&raw, None).is_err());
+    }
+
+    #[test]
+    fn numbered_parser_agrees_on_success_and_rejects_incomplete_jsonl() {
+        let raw = include_str!("../../../tests/fixtures/ya_jsonl/success.jsonl");
+        let numbered = raw.lines().enumerate().map(|(i, line)| (i + 1, line));
+        let result = parse_lines(numbered, Some(0))
+            .expect("valid JSONL")
+            .expect("recognized JSONL");
+        assert_eq!(
+            result.render(LIMIT, None),
+            read(raw, Some(0)).render(LIMIT, None)
+        );
+
+        assert!(parse_lines([], None).expect("empty input").is_none());
+        assert!(parse_lines([(1, "ordinary text")], None)
+            .expect("legacy input")
+            .is_none());
+        let Err(error) = parse_lines([(7, START)], None) else {
+            panic!("accepted an incomplete stream");
+        };
+        assert_eq!(error.to_string(), "incomplete ya event stream");
+    }
+
+    #[test]
+    fn streaming_projection_only_omits_valid_progress_between_start_and_finish() {
+        let progress = r#"{"type":"progress","ts":1,"stage":"build","done":1,"total":2}"#;
+        let mut before = ProgressState::default();
+        assert!(!before.omit(progress));
+
+        let mut state = ProgressState::default();
+        assert!(!state.omit("native preamble"));
+        assert!(!state.omit(START));
+        assert!(state.omit(progress));
+        assert!(!state.omit(r#"{"type":"message","text":"informational diagnostic"}"#));
+        assert!(state.omit(progress));
+        assert!(!state.omit(FINISH));
+        assert!(!state.omit(progress));
+
+        for invalid in [
+            r#"{"type":"progress","ts":"1"}"#,
+            r#"{"type":"progress","future":1}"#,
+            r#"{"type":"progress","node":{"future":1}}"#,
+            r#"{"type":"progress","resources":[{"future":1}]}"#,
+            r#"{"type":"progress","#,
+        ] {
+            let mut state = ProgressState::default();
+            assert!(!state.omit(START));
+            assert!(!state.omit(invalid), "{invalid}");
+            assert!(
+                !state.omit(progress),
+                "projection is closed after {invalid}"
+            );
+        }
+
+        let mut invalid_start = ProgressState::default();
+        assert!(!invalid_start.omit(r#"{"type":"started","epoch":"1"}"#));
+        assert!(!invalid_start.omit(progress));
+    }
+
+    #[test]
+    fn projection_keeps_event_coordinates_without_rewriting_payloads() {
+        let message = r#"{"type":"message","text":"diagnostic references raw line 27"}"#;
+        let lines = [
+            (2, START),
+            (10, "first native block"),
+            (12, "second native block"),
+            (200, message),
+            (300, FINISH),
+        ];
+        let view = parse_lines(lines, Some(0))
+            .expect("valid JSONL")
+            .expect("recognized JSONL")
+            .render(LIMIT, None)
+            .expect("complete view");
+        assert!(view.contains("native output [event line 10]\nfirst native block"));
+        assert!(view.contains("native output [event line 12]\nsecond native block"));
+        assert!(view.contains("message [event line 200]"));
+        assert!(view.contains("diagnostic references raw line 27"));
+
+        let Err(error) = parse_lines([(2, START), (300, FINISH)], Some(2)) else {
+            panic!("accepted a mismatched child exit");
+        };
+        assert!(error.to_string().ends_with("at event line 300"));
     }
 
     #[test]
