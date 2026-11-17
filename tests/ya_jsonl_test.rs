@@ -10,9 +10,33 @@ const MIXED: &str = include_str!("fixtures/ya_jsonl/mixed-test.jsonl");
 const EXCEPTION: &str = include_str!("fixtures/ya_jsonl/exception-epilogue.jsonl");
 
 fn base_command(dir: &Path) -> Command {
+    base_command_with_tee_mode(dir, "failures")
+}
+
+fn base_command_with_tee_mode(dir: &Path, tee_mode: &str) -> Command {
+    // dirs uses HOME on macOS and XDG_CONFIG_HOME on other Unix platforms.
+    // Configure only the child process, so parallel tests and user settings
+    // cannot change the tee policy exercised by this fixture.
+    let test_home = dir.join("home");
+    let config_root = if cfg!(target_os = "macos") {
+        test_home.join("Library/Application Support")
+    } else {
+        test_home.join(".config")
+    };
+    let config_dir = config_root.join("rtk");
+    fs::create_dir_all(&config_dir).expect("create isolated config directory");
+    fs::write(
+        config_dir.join("config.toml"),
+        format!(
+            "[tee]\nenabled = true\nmode = \"{tee_mode}\"\nmax_files = 20\nmax_file_size = 1048576\n"
+        ),
+    )
+    .expect("write isolated tee config");
     let mut command = Command::new(env!("CARGO_BIN_EXE_rtk"));
     command
         .current_dir(dir)
+        .env("HOME", test_home)
+        .env("XDG_CONFIG_HOME", config_root)
         .env("CLAUDE_CONFIG_DIR", dir.join("claude-config"))
         .env("RTK_DB_PATH", dir.join("history.db"))
         .env("RTK_TELEMETRY_DISABLED", "1")
@@ -56,12 +80,23 @@ fn install_fake_ya(dir: &Path, fixture: &str) {
 }
 
 fn live(dir: &Path, args: &[&str], fixture: &str, child_status: i32, tee: bool) -> Output {
+    live_with_tee_mode(dir, args, fixture, child_status, tee, "failures")
+}
+
+fn live_with_tee_mode(
+    dir: &Path,
+    args: &[&str],
+    fixture: &str,
+    child_status: i32,
+    tee: bool,
+    tee_mode: &str,
+) -> Output {
     install_fake_ya(dir, fixture);
     let inherited_path = std::env::var_os("PATH").unwrap_or_default();
     let path = std::iter::once(dir.to_path_buf())
         .chain(std::env::split_paths(&inherited_path))
         .collect::<Vec<PathBuf>>();
-    base_command(dir)
+    base_command_with_tee_mode(dir, tee_mode)
         .args(args)
         .env("PATH", std::env::join_paths(path).expect("PATH"))
         .env("RTK_JSONL_TEST_FIXTURE", dir.join("producer.jsonl"))
@@ -534,18 +569,29 @@ fn live_diagnostics_and_final_survive_progress_beyond_raw_capture() {
 
 #[test]
 fn live_success_stays_sparse_after_raw_capture_limit() {
-    let dir = tempfile::tempdir().expect("tempdir");
     let raw = late_diagnostics(&progress_beyond_capture(), 0);
-    let result = live(dir.path(), &["ya", "test"], &raw, 0, true);
-    assert_eq!(result.status.code(), Some(0));
-    let shown = combined(&result);
-    assert!(has_jsonl_summary(&shown));
-    assert!(shown.len() < 24 * 1024);
-    assert!(shown.contains("\"exit_code\":0"));
-    assert!(
-        !shown.contains("[partial output:"),
-        "normal failures-only tee policy"
-    );
+    for tee_mode in ["failures", "always"] {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let result = live_with_tee_mode(dir.path(), &["ya", "test"], &raw, 0, true, tee_mode);
+        assert_eq!(result.status.code(), Some(0), "mode={tee_mode}");
+        let shown = combined(&result);
+        assert!(has_jsonl_summary(&shown), "mode={tee_mode}");
+        assert!(shown.len() < 24 * 1024, "mode={tee_mode}");
+        assert!(shown.contains("\"exit_code\":0"), "mode={tee_mode}");
+        assert_eq!(
+            shown.contains("[partial output:"),
+            tee_mode == "always",
+            "successful commands retain recovery only in always mode"
+        );
+        let logs: Vec<_> = dir
+            .path()
+            .join("tee")
+            .read_dir()
+            .into_iter()
+            .flatten()
+            .collect();
+        assert_eq!(logs.len(), usize::from(tee_mode == "always"));
+    }
 }
 
 #[test]
