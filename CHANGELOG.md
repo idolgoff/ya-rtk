@@ -5,6 +5,30 @@ All notable changes to rtk (Rust Token Killer) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.43.0](https://github.com/idolgoff/ya-rtk/compare/v0.42.4...v0.43.0) (2026-11-17)
+
+Yandex fork release based on upstream 0.42.4 with selective correctness
+backports, not a full synchronization with upstream 1.x. See the
+[upstream synchronization notes](docs/maintenance/upstream-sync-2026-11.md).
+
+### Features
+
+* **ya:** summarize agent JSONL in live make/test commands and the `ya`, `ya-test`, and `ya-build` pipe filters, preserving producer diagnostics, final counters, and child exit codes.
+* **ya:** document native detail controls and preserve explicit output, listing, and debug modes without filtering.
+
+### Bug Fixes
+
+* **ya:** retain diagnostics and final events after the raw capture limit, and stream oversized diagnostic buffers without losing later failures.
+* **ya:** include physical source locations and read commands for failures in saved text logs.
+* **stream:** retain output after invalid UTF-8, bound the transport queue, and track streamed byte counts independently of capture limits.
+* **tee:** quote recovery paths, label partial captures, and publish and rotate optional captures only when their recovery hint is selected.
+* **git:** preserve repeated-sign hunk content, combined diff ranges, adjacent context, and quoted paths; pass word diffs and requested patches through unchanged.
+* **arc:** retain repeated-sign hunk content while preserving Arc's indentation and truncation rules in the shared diff parser.
+
+### Tests
+
+* **ya:** isolate JSONL test configuration and verify successful recovery behavior with both `failures` and `always` tee modes.
+
 ## [0.42.4](https://github.com/rtk-ai/rtk/compare/v0.42.3...v0.42.4) (2026-06-12)
 
 
