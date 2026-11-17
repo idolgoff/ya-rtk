@@ -7,8 +7,10 @@
 //! User argv (`-F`, `-r`, `-ttX`, …) is forwarded unchanged — never rewritten.
 //! `ya tool` / other → passthrough.
 
-use crate::cmds::yandex::envelope::{is_test_mode, test_stream_filter};
+use crate::cmds::yandex::envelope::test_stream_filter;
+use crate::cmds::yandex::ya_args::routing_options;
 use crate::cmds::yandex::ya_build::{build_stream_filter, is_build_mode};
+use crate::cmds::yandex::ya_output::YaStreamFilter;
 use crate::core::runner;
 use crate::core::utils::resolved_command;
 use anyhow::Result;
@@ -46,7 +48,10 @@ pub fn classify(args: &[String]) -> YaKind {
 
 /// Shared routing: test → envelope; build make → build filter; else passthrough.
 pub fn pipeline(args: &[String]) -> YaPipeline {
-    if is_test_mode(args) {
+    let options = routing_options(args);
+    if options.native_output {
+        YaPipeline::Passthrough
+    } else if options.tests {
         YaPipeline::TestFiltered { tee: "ya" }
     } else if is_build_mode(args) {
         YaPipeline::BuildFiltered { tee: "ya" }
@@ -85,14 +90,15 @@ pub fn run(args: &[String], verbose: u8) -> Result<i32> {
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            Box::new(test_stream_filter()),
-            runner::RunOptions::with_tee(tee).source_hint(crate::cmds::yandex::source_lines::hint),
+            Box::new(YaStreamFilter::new(test_stream_filter())),
+            runner::RunOptions::with_tee(tee)
+                .source_hint(crate::cmds::yandex::source_lines::hint),
         ),
         YaPipeline::BuildFiltered { tee } => runner::run_streamed(
             build_ya_command(args),
             "ya",
             &args.join(" "),
-            Box::new(build_stream_filter()),
+            Box::new(YaStreamFilter::new(build_stream_filter())),
             runner::RunOptions::with_tee(tee),
         ),
         YaPipeline::Passthrough => {
@@ -194,5 +200,84 @@ mod tests {
             .collect();
         assert_eq!(forwarded, args);
         assert_eq!(pipeline(&args), YaPipeline::TestFiltered { tee: "ya" });
+    }
+
+    #[test]
+    fn clustered_native_output_options_remain_passthrough() {
+        for flag in ["-tL", "-ttL", "-tT", "-tG", "-AL"] {
+            for subcommand in ["make", "test"] {
+                assert_eq!(
+                    pipeline(&[subcommand, flag, "pay/lib"].map(String::from)),
+                    YaPipeline::Passthrough,
+                    "{subcommand} {flag}"
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn test_clusters_without_native_output_remain_filtered() {
+        for flag in [
+            "-tP",
+            "-ttX",
+            "-tj8",
+            "-tF*LTG*",
+            "-A",
+            "--run-tests",
+            "--run-all-tests",
+            "-AP",
+        ] {
+            assert_eq!(
+                pipeline(&["make", flag, "pay/lib"].map(String::from)),
+                YaPipeline::TestFiltered { tee: "ya" },
+                "{flag}"
+            );
+        }
+    }
+
+    #[test]
+    fn short_option_values_do_not_select_an_output_mode() {
+        for args in [
+            ["make", "-F*LTG*", "-j8", "pay/lib"].map(String::from),
+            ["make", "-F*A*", "-j8", "pay/lib"].map(String::from),
+            ["make", "-F", "-tL", "pay/lib"].map(String::from),
+            ["make", "--test-filter", "-tL", "pay/lib"].map(String::from),
+            ["make", "--test-filter=-tL", "-j8", "pay/lib"].map(String::from),
+            ["make", "-j", "8", "pay/lib"].map(String::from),
+            ["make", "--", "-tL", "pay/lib"].map(String::from),
+        ] {
+            assert_eq!(pipeline(&args), YaPipeline::BuildFiltered { tee: "ya" });
+        }
+        assert_eq!(
+            pipeline(&["make", "-tF", "-G", "pay/lib"].map(String::from)),
+            YaPipeline::TestFiltered { tee: "ya" }
+        );
+    }
+
+    #[test]
+    fn ambiguous_short_clusters_pass_through() {
+        for flag in ["-t?L", "-rtL", "-rtP", "-t?"] {
+            assert_eq!(
+                pipeline(&["make", flag, "pay/lib"].map(String::from)),
+                YaPipeline::Passthrough,
+                "{flag}"
+            );
+        }
+    }
+
+    #[test]
+    fn explicit_output_and_interactive_modes_remain_native() {
+        for option in [
+            "--output-style=jsonl", "--output-style", "-T", "-G", "--list-tests",
+            "--dump-graph", "--json", "-hhh", "--help", "--test-stderr", "--pdb",
+        ] {
+            for subcommand in ["make", "test"] {
+                assert_eq!(
+                    pipeline(&[subcommand, "-t", option].map(String::from)),
+                    YaPipeline::Passthrough,
+                    "{subcommand} {option}"
+                );
+            }
+        }
     }
 }

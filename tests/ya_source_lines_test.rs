@@ -6,6 +6,7 @@ use std::process::{Command, Output, Stdio};
 fn command(dir: &Path) -> Command {
     let mut cmd = Command::new(env!("CARGO_BIN_EXE_rtk"));
     cmd.current_dir(dir)
+        .env("CLAUDE_CONFIG_DIR", dir.join("claude-config"))
         .env("RTK_TEE", "1")
         .env("RTK_TEE_DIR", dir.join("logs with 'quotes'"))
         .env("RTK_DB_PATH", dir.join("history.db"))
@@ -104,6 +105,115 @@ fn small_pipe_output_stays_within_the_original_budget() {
     let result = pipe(dir.path(), raw, true);
     assert!(result.status.success());
     assert_eq!(String::from_utf8(result.stdout).expect("utf8"), raw);
+}
+
+#[test]
+fn optional_recovery_keeps_the_smaller_filtered_candidate() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    let raw = format!(
+        "[fail] example\nfile.py:5: error\nE   Expected: {}\n",
+        "x".repeat(20)
+    );
+    let result = pipe(dir.path(), &raw, true);
+    assert!(result.status.success());
+    assert_eq!(
+        String::from_utf8(result.stdout).expect("utf8"),
+        "[fail] example\nfile.py:5: error\n"
+    );
+}
+
+#[test]
+fn unadvertised_pipe_captures_do_not_evict_existing_recovery() {
+    let dir = tempfile::tempdir().expect("tempdir");
+    let raw = format!("[fail] useful\nE   Expected: {}\n", "x".repeat(3000));
+    let initial = pipe(dir.path(), &raw, true);
+    let saved = saved_log(dir.path());
+    assert!(String::from_utf8(initial.stdout)
+        .expect("utf8")
+        .contains(saved.to_str().expect("path")));
+    for _ in 0..22 {
+        let result = pipe(dir.path(), "[fail] tiny\nerror: failed\n", true);
+        assert!(result.status.success());
+        assert_eq!(result.stdout, b"[fail] tiny\nerror: failed\n");
+    }
+    assert_eq!(
+        fs::read_to_string(&saved).expect("original log remains"),
+        raw
+    );
+    assert_eq!(saved_log(dir.path()), saved);
+    assert_eq!(
+        fs::read_dir(saved.parent().expect("directory"))
+            .expect("list captures")
+            .count(),
+        1,
+        "discarded candidates must not leave temporary or saved files"
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn unadvertised_live_captures_do_not_evict_existing_recovery() {
+    use std::os::unix::fs::PermissionsExt;
+
+    let dir = tempfile::tempdir().expect("tempdir");
+    let useful = format!("[fail] useful\nE   Expected: {}\n", "x".repeat(3000));
+    let initial = pipe(dir.path(), &useful, true);
+    assert!(initial.status.success());
+    let saved = saved_log(dir.path());
+    let initial_output = String::from_utf8(initial.stdout).expect("utf8");
+    assert!(
+        initial_output.contains(saved.to_str().expect("saved path")),
+        "initial capture must be advertised: {initial_output}"
+    );
+
+    let raw: String = (0..15)
+        .map(|i| format!("[fail] compact_test_name_{i}\nerror: failure\n"))
+        .collect();
+    assert_eq!(raw.len(), 635);
+    fs::write(dir.path().join("input"), &raw).expect("write fake ya input");
+    let ya = dir.path().join("ya");
+    fs::write(&ya, "#!/bin/sh\ncat input\nexit 7\n").expect("write fake ya");
+    fs::set_permissions(&ya, fs::Permissions::from_mode(0o755)).expect("chmod fake ya");
+    let inherited = std::env::var_os("PATH").unwrap_or_default();
+    let paths = std::iter::once(dir.path().to_path_buf()).chain(std::env::split_paths(&inherited));
+    let path = std::env::join_paths(paths).expect("PATH");
+
+    for _ in 0..22 {
+        let result = command(dir.path())
+            .args(["ya", "test", "fake-target"])
+            .env("PATH", &path)
+            .output()
+            .expect("run rtk ya");
+        assert_eq!(result.status.code(), Some(7));
+        assert_eq!(result.stdout, raw.as_bytes());
+        assert!(result.stdout.len() + result.stderr.len() <= raw.len());
+        let shown = format!(
+            "{}{}",
+            String::from_utf8(result.stdout).expect("stdout utf8"),
+            String::from_utf8(result.stderr).expect("stderr utf8")
+        );
+        assert!(
+            !shown.contains("saved output"),
+            "unexpected recovery link: {shown}"
+        );
+        assert!(
+            !shown.contains(saved.to_str().expect("saved path")),
+            "{shown}"
+        );
+    }
+
+    assert_eq!(
+        fs::read_to_string(&saved).expect("original log remains"),
+        useful
+    );
+    assert_eq!(saved_log(dir.path()), saved);
+    assert_eq!(
+        fs::read_dir(saved.parent().expect("directory"))
+            .expect("list captures")
+            .count(),
+        1,
+        "unadvertised candidates must leave no pending or saved files"
+    );
 }
 
 #[test]

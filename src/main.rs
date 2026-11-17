@@ -645,8 +645,12 @@ enum Commands {
     },
 
     /// Read stdin, apply filter, print filtered output (Unix pipe mode)
+    #[command(after_help = "For ya agent JSONL, select the filter explicitly:
+  ya make --output-style=jsonl TARGET 2>&1 | rtk pipe -f ya-build
+  ya test --output-style=jsonl TARGET 2>&1 | rtk pipe -f ya-test
+Use rtk pipe --passthrough to relay stdin unchanged.")]
     Pipe {
-        /// Filter name (cargo-test, pytest, phpunit, phpstan, pint, grep, find, git-log, etc.)
+        /// Filter name (ya, ya-build, ya-test, cargo-test, pytest, git-log, etc.)
         #[arg(short, long)]
         filter: Option<String>,
 
@@ -820,7 +824,24 @@ enum Commands {
     },
 
     /// Yandex Arcadia `ya` meta-tool (make / test / tool)
-    #[command(name = "ya")]
+    #[command(
+        name = "ya",
+        after_help = "RTK summarizes agent JSONL from ordinary make/test invocations. A quiet success
+shows the final status and counters. Large diagnostics can refer to saved raw
+output when RTK can retain the complete stream.
+
+Arguments go to native ya. To request more test details, use:
+  --show-slowest-tests N   Report up to N slow tests
+  --show-skipped-tests     Include skipped tests
+  --show-deselected-tests  Include deselected tests
+  --inline-diff            Request full test comments
+
+For passed tests, use -P with --output-style=ninja; current ya JSONL omits them.
+
+An explicit --output-style=jsonl keeps native output. To summarize that stream,
+pipe it to rtk pipe -f ya-build or rtk pipe -f ya-test.
+For raw execution use rtk proxy ya …"
+    )]
     Ya {
         /// Arguments passed to ya (e.g., make -t path, test -r -F '*order*')
         #[arg(trailing_var_arg = true, allow_hyphen_values = true)]

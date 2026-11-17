@@ -54,6 +54,12 @@ pub trait StreamFilter {
     fn on_exit(&mut self, _exit_code: i32, _raw: &str) -> Option<String> {
         None
     }
+    /// The retained raw prefix is not a complete command transcript.
+    fn on_capture_truncated(&mut self) {}
+    /// The adapter owns recovery for the observed stream; do not add runner tee.
+    fn handles_tee(&self) -> bool {
+        false
+    }
 }
 
 pub trait BlockHandler {
@@ -259,7 +265,12 @@ pub struct StreamResult {
     pub raw: String,
     pub raw_stdout: String,
     pub raw_stderr: String,
+    #[cfg(test)]
     pub filtered: String,
+    pub tee_handled: bool,
+    /// Normalized byte counts, independent of the bounded retained prefixes.
+    pub raw_bytes: usize,
+    pub filtered_bytes: usize,
 }
 
 impl StreamResult {
@@ -286,6 +297,12 @@ pub fn status_to_exit_code(status: std::process::ExitStatus) -> i32 {
 // ISSUE #897: ChildGuard RAII prevents zombie processes that caused kernel panic
 pub const RAW_CAP: usize = 10_485_760; // 10 MiB
 
+#[cfg(test)]
+fn retain_prefix(buffer: &mut String, text: &str, preceding_bytes: usize) {
+    let end = text.floor_char_boundary(RAW_CAP.saturating_sub(preceding_bytes).min(text.len()));
+    buffer.push_str(&text[..end]);
+}
+
 pub fn run_streaming(
     cmd: &mut Command,
     stdin_mode: StdinMode,
@@ -308,7 +325,11 @@ pub fn run_streaming(
             raw: String::new(),
             raw_stdout: String::new(),
             raw_stderr: String::new(),
+            #[cfg(test)]
             filtered: String::new(),
+            tee_handled: false,
+            raw_bytes: 0,
+            filtered_bytes: 0,
         });
     }
 
@@ -365,10 +386,13 @@ pub fn run_streaming(
     let mut raw_stdout = String::new();
     let mut raw_stderr = String::new();
     let mut filtered = String::new();
+    let mut raw_bytes: usize = 0;
+    let mut filtered_bytes: usize = 0;
     let mut capped_out = false;
     let mut capped_err = false;
     let mut saved_filter: Option<Box<dyn StreamFilter + '_>> = None;
     let mut filter_fd_is_stderr = false;
+    let mut tee_handled = false;
 
     if is_streaming {
         enum StreamLine {
@@ -376,7 +400,7 @@ pub fn run_streaming(
             Stderr(String),
         }
 
-        let (tx, rx) = mpsc::channel();
+        let (tx, rx) = mpsc::sync_channel(64);
         let tx_out = tx.clone();
         let stdout_thread = std::thread::spawn(move || {
             for line in read_lines_lossy(stdout) {
@@ -405,6 +429,7 @@ pub fn run_streaming(
                     StreamLine::Stderr(l) => (l, true),
                     StreamLine::Stdout(l) => (l, false),
                 };
+                raw_bytes = raw_bytes.saturating_add(line.len()).saturating_add(1);
                 if is_stderr {
                     if !capped_err {
                         if raw_stderr.len() + line.len() < RAW_CAP {
@@ -421,12 +446,14 @@ pub fn run_streaming(
                         raw_stdout.push('\n');
                     } else {
                         capped_out = true;
-                        eprintln!("[rtk] warning: stdout exceeds 10 MiB — filter input truncated");
+                        eprintln!("[rtk] warning: stdout exceeds 10 MiB — capture truncated");
                     }
                 }
                 filter_fd_is_stderr = is_stderr;
                 if let Some(output) = filter.feed_line(&line) {
-                    filtered.push_str(&output);
+                    #[cfg(test)]
+                    retain_prefix(&mut filtered, &output, filtered_bytes);
+                    filtered_bytes = filtered_bytes.saturating_add(output.len());
                     let dest: &mut dyn Write = if is_stderr { &mut err_out } else { &mut out };
                     match write!(dest, "{}", output) {
                         Err(e) if e.kind() == io::ErrorKind::BrokenPipe => break,
@@ -436,7 +463,9 @@ pub fn run_streaming(
                 }
             }
             let tail = filter.flush();
-            filtered.push_str(&tail);
+            #[cfg(test)]
+            retain_prefix(&mut filtered, &tail, filtered_bytes);
+            filtered_bytes = filtered_bytes.saturating_add(tail.len());
             let flush_dest: &mut dyn Write = if filter_fd_is_stderr {
                 &mut err_out
             } else {
@@ -528,10 +557,19 @@ pub fn run_streaming(
     let status = child.0.wait().context("Failed to wait for child")?;
     let exit_code = status_to_exit_code(status);
     let raw = format!("{}{}", raw_stdout, raw_stderr);
+    if !is_streaming {
+        raw_bytes = raw.len();
+        filtered_bytes = filtered.len();
+    }
 
     if let Some(mut f) = saved_filter {
+        if capped_out || capped_err {
+            f.on_capture_truncated();
+        }
         if let Some(post) = f.on_exit(exit_code, &raw) {
-            filtered.push_str(&post);
+            #[cfg(test)]
+            retain_prefix(&mut filtered, &post, filtered_bytes);
+            filtered_bytes = filtered_bytes.saturating_add(post.len());
             let mut dest: Box<dyn Write> = if filter_fd_is_stderr {
                 Box::new(io::stderr().lock())
             } else {
@@ -543,6 +581,7 @@ pub fn run_streaming(
                 Ok(_) => {}
             }
         }
+        tee_handled = f.handles_tee();
     }
 
     Ok(StreamResult {
@@ -550,7 +589,11 @@ pub fn run_streaming(
         raw,
         raw_stdout,
         raw_stderr,
+        #[cfg(test)]
         filtered,
+        tee_handled,
+        raw_bytes,
+        filtered_bytes,
     })
 }
 
@@ -762,6 +805,9 @@ pub(crate) mod tests {
             raw_stdout: String::new(),
             raw_stderr: String::new(),
             filtered: String::new(),
+            tee_handled: false,
+            raw_bytes: 0,
+            filtered_bytes: 0,
         };
         assert!(r.success());
     }
@@ -774,6 +820,9 @@ pub(crate) mod tests {
             raw_stdout: String::new(),
             raw_stderr: String::new(),
             filtered: String::new(),
+            tee_handled: false,
+            raw_bytes: 0,
+            filtered_bytes: 0,
         };
         assert!(!r.success());
     }
@@ -786,6 +835,9 @@ pub(crate) mod tests {
             raw_stdout: String::new(),
             raw_stderr: String::new(),
             filtered: String::new(),
+            tee_handled: false,
+            raw_bytes: 0,
+            filtered_bytes: 0,
         };
         assert!(!r.success());
     }

@@ -1,0 +1,4 @@
+{"type":"started","ts":0.0,"epoch":1,"handler":"make"}
+{"type":"finished","ts":0.1,"exit_code":3,"category":"unhandled_exception","duration":0.1,"counters":{},"text":"Could not read custom context","advice":"Check the exception below."}
+Traceback (most recent call last):
+ValueError: invalid context

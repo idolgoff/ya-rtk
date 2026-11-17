@@ -9,6 +9,7 @@ Filters for Arcadia meta-tools: **envelope + inner-runner** for `ya`, compact VC
 | Module | Role |
 |--------|------|
 | [`ya_cmd.rs`](ya_cmd.rs) | Classify argv → test / build / passthrough; `run_streamed` |
+| [`ya_jsonl.rs`](ya_jsonl.rs) / [`ya_output.rs`](ya_output.rs) | Validate agent events, render bounded summaries, preserve raw fallback |
 | [`ya_build.rs`](ya_build.rs) | Build-mode progress collapse (`YaBuildStreamFilter`) |
 | [`envelope.rs`](envelope.rs) | Test-mode dispatch + live `YaTestStreamFilter` |
 | [`framing.rs`](framing.rs) | Suite / chunk / totals keep rules |
@@ -116,6 +117,86 @@ rtk gain -g
 | `rtk ya tool …` | passthrough + track |
 | other `rtk ya …` | passthrough + track |
 
+### Agent JSONL output
+
+When a filtered `ya make` or `ya test` stream contains object-shaped producer
+records, RTK validates it as the `ya` agent JSONL protocol before presenting a
+summary. A complete recognized stream shows the producer's final category,
+counters and exit code, followed by failure/test diagnostics, useful native
+text, and any final guidance. Progress events are omitted from the compact
+view. A failure event remains diagnostic evidence; the final `finished` event
+is the source of the reported result.
+
+For a live `rtk ya` command, the `finished.exit_code` must match the actual
+child-process status. RTK returns that child status unchanged. A malformed,
+unknown, incomplete or mismatched stream is shown as captured raw output with a
+warning instead of being treated as legacy progress text. If text-mode output
+was already emitted before a late JSON object appears, RTK retains the captured
+output and does not append a second structured summary.
+
+The same parser is available after the fact through `rtk pipe -f ya`,
+`rtk pipe -f ya-test` and `rtk pipe -f ya-build`. Pipe mode validates the
+stream's own final event but has no original child process status to compare;
+the `rtk pipe` command's exit status remains its own. Invalid or incomplete
+JSONL is returned as the original input when it fits the pipe capture limit.
+
+The default structured view is limited to 24 KiB. RTK adds excerpts and
+physical raw-line references only when it can save a complete copy of the
+captured stream; without complete recovery it keeps raw diagnostics rather
+than clipping them away. For live JSONL, a separate bounded event buffer retains
+diagnostics and final records throughout the command, independently of the
+10 MiB raw capture limit. It discards only validated progress during a recognized
+lifecycle. After raw capture fills, RTK still presents every diagnostic and the
+verified final result; any saved prefix is explicitly labelled partial and cannot
+justify excerpts. If the diagnostic buffer itself fills, RTK streams the retained
+records and subsequent non-progress output verbatim, without a second summary.
+This fallback can exceed the display budget to preserve diagnostics even when
+tee is disabled or unavailable.
+
+Ordinary live source locations
+refer to the normalized saved representation (stdout followed by stderr), not
+to the original interleaving between descriptors or to byte offsets in the
+producer's stream. After raw capture fills, `event line` locations instead refer
+to observation order and are not coordinates in the partial tee file.
+
+Live JSONL commands also apply the normal tee policy to compact results. An
+eligible failure (or success in `tee.mode = "always"`) can include a saved-output
+hint when it fits both the display and never-worse budgets. A size-limited normal
+capture is labelled partial; it is never used to justify clipping diagnostics.
+Pipe JSONL uses saved recovery when excerpts are needed, without inferring an
+original live-process tee policy.
+
+### Detail controls
+
+Ordinary successful agent output contains the final result and counters; repeated
+progress is omitted. RTK keeps diagnostics selected by the producer, including
+`info` messages: these can contain compiler or test stderr. It does not turn an
+error into success because individual failure records were hidden or skipped.
+
+Native `ya` options control which extra details are produced:
+
+```bash
+rtk ya make -t path/to/tests --show-slowest-tests 10
+rtk ya make -t path/to/tests --show-skipped-tests --show-deselected-tests
+rtk ya make -t path/to/tests --inline-diff
+```
+
+`--inline-diff` retains full expected/actual failure text. The current `ya` JSONL
+reporter does not honor `-P` / `--show-passed-tests`; use a human output style for
+passed-test details. Explicit output styles and listing/debug modes pass through
+without RTK filtering. To explicitly choose JSONL and compact it, pipe it to the
+matching filter (the shell pipeline has its own exit-status rules):
+
+```bash
+ya make --output-style=jsonl -t path/to/tests 2>&1 | rtk pipe -f ya-test
+ya make --output-style=jsonl path/to/target 2>&1 | rtk pipe -f ya-build
+rtk proxy ya make -t path/to/tests  # full producer output
+rtk pipe --passthrough < saved-output.jsonl
+```
+
+See `rtk help ya` and `rtk pipe --help`. RTK's root `-v` traces routing; it does
+not request more test diagnostics.
+
 ### Flag passthrough
 
 User filters and verbosity are **never rewritten** — args reach bare `ya` byte-for-byte:
@@ -132,7 +213,7 @@ Per `[fail]` keep: headline (node id) · first location · first error head · `
 
 Drop: Expected/but bodies · long stacks · PEERDIR / `[PB]` / `Ok [n/m]` progress when compressing.
 
-### Truncation recovery
+### Legacy text truncation recovery
 
 - **Full raw:** runner `RunOptions::with_tee("ya")` only — filters do **not** call `force_tee_hint` on full output (avoids double tee).
 - **Capped fail lists** (`CAP_ERRORS`): `fail_overflow_tee_hint` — `force_tee_tail_hint` on the **full** headline list with offset `shown + 1`.

@@ -1,0 +1,7 @@
+{"type":"started","ts":0.0,"epoch":1,"handler":"make"}
+{"type":"progress","ts":0.4,"stage":"configure","active":1,"done":0,"total":0}
+{"type":"progress","ts":1.9,"stage":"configure","active":0,"done":2926,"total":2926}
+{"type":"progress","ts":2.1,"stage":"build","active":2,"done":0,"total":3}
+{"type":"progress","ts":12.1,"stage":"build","active":5,"done":1191,"total":1218,"node":{"kind":"TS","path":"example/tests","elapsed":0}}
+{"type":"progress","ts":18.7,"stage":"build","active":0,"done":1235,"total":1235}
+{"type":"finished","ts":19.8,"exit_code":0,"category":null,"duration":19.835,"counters":{"suites":{"good":119},"tests":{"good":295}}}

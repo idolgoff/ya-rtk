@@ -81,7 +81,41 @@ pub struct SavedOutput {
     truncated: bool,
 }
 
+/// A private capture that does not rotate existing logs until its recovery
+/// location has been selected for display. Dropping it removes the temporary file.
+pub struct PendingOutput {
+    file: tempfile::NamedTempFile,
+    saved: SavedOutput,
+    max_files: usize,
+}
+
+impl PendingOutput {
+    /// Preview the retained prefix and proposed final path. The path is not
+    /// published until `persist` succeeds; use this only to format candidates.
+    pub fn saved(&self) -> &SavedOutput {
+        &self.saved
+    }
+
+    /// The supplied text was already a prefix of a longer command transcript.
+    /// Even when it fits the file limit, it cannot promise complete recovery.
+    pub fn mark_incomplete(&mut self) {
+        self.saved.truncated = true;
+    }
+
+    pub fn persist(self) -> Option<SavedOutput> {
+        self.file.persist_noclobber(&self.saved.path).ok()?;
+        if let Some(directory) = self.saved.path.parent() {
+            cleanup_old_files(directory, self.max_files, &self.saved.path);
+        }
+        Some(self.saved)
+    }
+}
+
 impl SavedOutput {
+    pub fn is_complete(&self) -> bool {
+        !self.truncated
+    }
+
     pub fn hint(&self) -> String {
         if self.truncated {
             format!(
@@ -137,6 +171,7 @@ fn should_tee(
 
 /// Write raw output to a tee file in the given directory.
 /// Returns file path on success.
+#[cfg(test)]
 fn write_tee_file(
     raw: &str,
     command_slug: &str,
@@ -144,10 +179,21 @@ fn write_tee_file(
     max_file_size: usize,
     max_files: usize,
 ) -> Option<SavedOutput> {
+    prepare_tee_file(raw, command_slug, tee_dir, max_file_size, max_files)?.persist()
+}
+
+fn prepare_tee_file(
+    raw: &str,
+    command_slug: &str,
+    tee_dir: &std::path::Path,
+    max_file_size: usize,
+    max_files: usize,
+) -> Option<PendingOutput> {
     if max_files == 0 {
         return None;
     }
     std::fs::create_dir_all(tee_dir).ok()?;
+    let tee_dir = std::fs::canonicalize(tee_dir).ok()?;
 
     let slug = sanitize_slug(command_slug);
     let epoch = std::time::SystemTime::now()
@@ -158,8 +204,8 @@ fn write_tee_file(
     // overwrite the log named by an already emitted source location.
     let mut file = tempfile::Builder::new()
         .prefix(&format!("{}_{}_", epoch, slug))
-        .suffix(".log")
-        .tempfile_in(tee_dir)
+        .suffix(".pending")
+        .tempfile_in(&tee_dir)
         .ok()?;
 
     let mut retained_bytes = raw.len().min(max_file_size);
@@ -178,15 +224,15 @@ fn write_tee_file(
     };
 
     file.write_all(content.as_bytes()).ok()?;
-    let (_, filepath) = file.keep().ok()?;
-
-    // Rotate old files
-    cleanup_old_files(tee_dir, max_files, &filepath);
-
-    Some(SavedOutput {
-        path: filepath,
-        retained_bytes,
-        truncated: raw.len() > retained_bytes,
+    let path = file.path().with_extension("log");
+    Some(PendingOutput {
+        file,
+        saved: SavedOutput {
+            path,
+            retained_bytes,
+            truncated: raw.len() > retained_bytes,
+        },
+        max_files,
     })
 }
 
@@ -197,6 +243,11 @@ pub fn tee_raw(raw: &str, command_slug: &str, exit_code: i32) -> Option<PathBuf>
 }
 
 pub fn tee_saved(raw: &str, command_slug: &str, exit_code: i32) -> Option<SavedOutput> {
+    prepare_tee_saved(raw, command_slug, exit_code)?.persist()
+}
+
+/// Apply the normal tee policy without publishing or rotating the capture yet.
+pub fn prepare_tee_saved(raw: &str, command_slug: &str, exit_code: i32) -> Option<PendingOutput> {
     // Check RTK_TEE=0 env override (disable)
     if std::env::var("RTK_TEE").ok().as_deref() == Some("0") {
         return None;
@@ -207,7 +258,7 @@ pub fn tee_saved(raw: &str, command_slug: &str, exit_code: i32) -> Option<SavedO
 
     let tee_dir = should_tee(&config.tee, raw.len(), exit_code, Some(tee_dir))?;
 
-    write_tee_file(
+    prepare_tee_file(
         raw,
         command_slug,
         &tee_dir,
@@ -294,6 +345,10 @@ fn force_tee_path(content: &str, command_slug: &str) -> Option<PathBuf> {
 }
 
 pub fn force_tee_saved(content: &str, command_slug: &str) -> Option<SavedOutput> {
+    prepare_forced_tee(content, command_slug)?.persist()
+}
+
+pub fn prepare_forced_tee(content: &str, command_slug: &str) -> Option<PendingOutput> {
     if std::env::var("RTK_TEE").ok().as_deref() == Some("0") {
         return None;
     }
@@ -311,7 +366,7 @@ pub fn force_tee_saved(content: &str, command_slug: &str) -> Option<SavedOutput>
     let tee_dir = get_tee_dir(&config)?;
     let tee_dir = std::fs::create_dir_all(&tee_dir).ok().and(Some(tee_dir))?;
 
-    write_tee_file(
+    prepare_tee_file(
         content,
         command_slug,
         &tee_dir,
@@ -377,6 +432,18 @@ impl Default for TeeConfig {
 mod tests {
     use super::*;
     use std::fs;
+
+    #[test]
+    fn upstream_capture_limit_marks_a_fitting_file_partial() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut pending = prepare_tee_file("first line\n", "ya", dir.path(), 1024, 20).unwrap();
+        assert!(pending.saved().is_complete());
+        pending.mark_incomplete();
+        assert!(!pending.saved().is_complete());
+        assert!(pending.saved().hint().starts_with("[partial output:"));
+        let saved = pending.persist().unwrap();
+        assert_eq!(std::fs::read_to_string(saved.path).unwrap(), "first line\n");
+    }
 
     #[test]
     fn saved_coordinates_exclude_partial_utf8_line_and_truncation_marker() {

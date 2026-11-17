@@ -285,14 +285,25 @@ pub fn run(filter_name: Option<&str>, passthrough: bool) -> Result<()> {
         None => auto_detect_filter(&buf),
     };
 
+    if matches!(filter_name, Some("ya" | "ya-test" | "ya-build")) {
+        if let Some(output) = crate::cmds::yandex::ya_output::present_jsonl(&buf, None) {
+            print!("{}", output);
+            return Ok(());
+        }
+    }
     let mut output = apply_filter(filter_fn, &buf);
     if matches!(filter_name, Some("ya" | "ya-test"))
         && crate::cmds::yandex::source_lines::has_failures(&buf)
     {
-        if let Some(saved) = crate::core::tee::force_tee_saved(&buf, "ya") {
-            output.push('\n');
-            output.push_str(&crate::cmds::yandex::source_lines::hint(&buf, &saved));
-            output.push('\n');
+        if let Some(pending) = crate::core::tee::prepare_forced_tee(&buf, "ya") {
+            let with_hint = format!(
+                "{}\n{}\n",
+                output,
+                crate::cmds::yandex::source_lines::hint(&buf, pending.saved())
+            );
+            if never_worse(&buf, &with_hint) == with_hint && pending.persist().is_some() {
+                output = with_hint;
+            }
         }
     }
     let shown = never_worse(&buf, &output);
